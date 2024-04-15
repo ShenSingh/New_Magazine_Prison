@@ -1,0 +1,47 @@
+.mainAnchorPane{
+    -fx-background-color: #ffffff;
+}
+.backTrans{
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+.inAnchorPane{
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 20px;
+
+}
+.loginLable{
+    -fx-font-size: 50px;
+    -fx-text-fill: #ffffff;
+}
+.signInMainName{
+    -fx-font-size: 23px;
+    -fx-text-fill: #ffffff;
+}
+.uNameText,.uPassText{
+    -fx-font-size: 17px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.uNameField,.uPassField{
+    -fx-background-color: transpanent;
+    -fx-prompt-text-fill: #525E7D;
+}
+.uNameLine, .uPassLine, .signUpLine{
+    -fx-background-color: #50576D;
+}
+.signInBtn,.backBtn{
+    -fx-background-color: transpanent;
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+
+}
+.signInPageSignUpBtn{
+    -fx-background-color: transpanent;
+    -fx-text-fill: #50576D;
+
+}
+.createAccText{
+    -fx-text-fill: #50576D;
+
+}
+

@@ -1,0 +1,66 @@
+.mainAnchorPane{
+    -fx-background-color: #2F95CB;
+}
+.secAnchorPane{
+    -fx-background-color: black;
+    -fx-opacity: 1;
+}
+.manuBtn {
+    -fx-background-color: transparent;
+}
+.sriLankaLogo {
+    -fx-opacity: 1.0 ;
+}
+.image-view {
+    -fx-opacity: 0.5; /* Hide by default */
+}
+.manuBtn:hover .image-view{
+    -fx-transition: opacity 0.3s;
+    -fx-opacity: 1.0;
+}
+.whiteAnchorPane{
+    -fx-background-color: white;
+    -fx-opacity: 0.9;
+    
+}
+.miniAnchor{
+    -fx-background-color: white;
+}
+.searchLabel{
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.3, 0, 0);
+}
+.searchTextField{
+    -fx-text-fill: rgba(0, 0, 0, 0.83);
+    -fx-background-color: transparent;
+}
+.contAnchor{
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);
+    -fx-opacity: 1.0;
+    -fx-background-radius: 20px;
+}
+.contAnchor:hover{
+    -fx-background-color: rgb(130, 197, 232);
+}
+.contAnchor .contAnchorText{
+    -fx-fill: black;
+}
+.contAnchor:hover .contAnchorText {
+    -fx-fill: white;
+}
+.contAnchor:hover .iconAnchor{
+    -fx-background-color: white;
+}
+.categoryAnchor{
+    -fx-background-color: rgba(47, 149, 203, 0.11);
+    -fx-background-radius: 20px;
+    -fx-border-color: #2F95CB;
+    -fx-border-width: 0.6px;
+    -fx-border-radius: 20px;
+}
+.categoryAnchor:hover{
+    -fx-border-color: #2F95CB;
+    -fx-border-width: 1px;
+}

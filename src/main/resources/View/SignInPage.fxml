@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="480.0" prefWidth="853.0" styleClass="mainAnchorPane" stylesheets="@../css/signInPageStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.SignInPageController">
+   <children>
+      <ImageView fitHeight="481.0" fitWidth="854.0">
+         <image>
+            <Image url="@../images/backgroundImg/signInBackGround.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="50.0" layoutY="104.0" prefHeight="307.0" prefWidth="617.0" styleClass="inAnchorPane" stylesheets="@../css/signInPageStyle.css">
+         <children>
+            <Text fx:id="uNameText" fill="WHITE" layoutX="26.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="uNameText" text="User Id">
+               <font>
+                  <Font name="Ramaraja Regular" size="13.0" />
+               </font>
+            </Text>
+            <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="-2.0" prefHeight="66.0" prefWidth="610.0" styleClass="loginLable" stylesheets="@../css/signInPageStyle.css" text="Login" />
+            <Text fx:id="signInMainName" fill="WHITE" layoutX="7.0" layoutY="-67.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signInMainName" text="New Magazing Prison">
+               <font>
+                  <Font name="Ramaraja Regular" size="13.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="42.0" fitWidth="60.0" layoutX="-48.0" layoutY="-97.0">
+               <image>
+                  <Image url="@../images/icon/sriLanka.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="uNameField" layoutX="26.0" layoutY="130.0" promptText="Your User Id" styleClass="uNameField" />
+            <Text fx:id="uPassText" fill="WHITE" layoutX="331.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="uPassText" text="Password">
+               <font>
+                  <Font name="Ramaraja Regular" size="13.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="uPassField" layoutX="332.0" layoutY="130.0" promptText="Your Password" styleClass="uPassField" />
+            <AnchorPane layoutX="32.0" layoutY="154.0" prefHeight="2.0" prefWidth="250.0" styleClass="uNameLine" stylesheets="@../css/signInPageStyle.css" />
+            <AnchorPane layoutX="337.0" layoutY="154.0" prefHeight="2.0" prefWidth="250.0" styleClass="uPassLine" stylesheets="@../css/signInPageStyle.css" />
+            <Button fx:id="signInBtn" layoutX="4.0" layoutY="209.0" mnemonicParsing="false" onAction="#signInBtn" prefHeight="33.0" prefWidth="610.0" styleClass="signInBtn" stylesheets="@../css/signInPageStyle.css" text="Sign In">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Text fx:id="creatAccText" blendMode="COLOR_BURN" fill="#868686" layoutX="1.0" layoutY="269.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="createAccText" text="Don't have an account?" textAlignment="CENTER" wrappingWidth="610.0" />
+            <Button fx:id="signInPageSignUpBtn" layoutX="3.0" layoutY="268.0" mnemonicParsing="false" onAction="#signUpBtn" prefHeight="24.0" prefWidth="610.0" styleClass="signInPageSignUpBtn" text="Sign Up" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="10.0" layoutY="23.0">
+               <image>
+                  <Image url="@../images/icon/backIcon.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="backBtn" layoutX="3.0" layoutY="19.0" mnemonicParsing="false" onAction="#backBtn" prefHeight="33.0" prefWidth="41.0" styleClass="backBtn" stylesheets="@../css/signInPageStyle.css">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

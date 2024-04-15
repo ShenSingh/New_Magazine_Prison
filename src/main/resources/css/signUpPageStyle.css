@@ -1,0 +1,28 @@
+.signUpMainName{
+    -fx-font-size: 23px;
+    -fx-text-fill: #ffffff;
+}
+.createAccLable{
+    -fx-font-size: 50px;
+    -fx-text-fill: #ffffff;
+}
+
+.uFNameText,.uLNameText,.uEmailText,.uOtpText,.uPassText,.uComPassText{
+    -fx-font-size: 17px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.otpSendBtn{
+    -fx-background-color: #50576D;
+    -fx-text-fill: white;
+    -fx-font-size: 8px;
+}
+.uFNameField,.uLNameField,.uEmailField,.uOtpField,.uPassField,.uComPassField{
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #525E7D;
+}
+.signUpBtn,.backBtn{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+}

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="MainAnchorPane" prefHeight="635.0" prefWidth="1275.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.DashBoardController">
+   <children>
+      <AnchorPane layoutX="64.0" layoutY="27.0" prefHeight="608.0" prefWidth="1211.0" styleClass="secAnchorPane" stylesheets="@../css/dashBoardStyle.css">
+         <children>
+            <Text layoutX="283.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DashBoard" />
+         </children></AnchorPane>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
+         <image>
+            <Image url="@../images/icon/inmate.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutY="232.0" mnemonicParsing="false" onAction="#onVisitor" prefHeight="53.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../images/icon/visitor.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="-2.0" layoutY="307.0" mnemonicParsing="false" onAction="#onSection" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../images/icon/section.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutY="372.0" mnemonicParsing="false" onAction="#onMany" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../images/icon/coins.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1.0" layoutY="445.0" mnemonicParsing="false" onAction="#onSetting" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../images/icon/setting.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="2.0" layoutY="601.0" mnemonicParsing="false" onAction="#onLogOut" prefHeight="28.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0">
+               <image>
+                  <Image url="@../images/icon/logOut.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="-2.0" layoutY="165.0" mnemonicParsing="false" onAction="#onOfficer" prefHeight="53.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="33.0">
+               <image>
+                  <Image url="@../images/icon/policeOfficer.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="-2.0" layoutY="98.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="35.0">
+               <image>
+                  <Image url="@../images/icon/inmate (1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1.0" layoutY="39.0" mnemonicParsing="false" onAction="#onDashBord" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fx:id="sirLankaLogo" fitHeight="40.0" fitWidth="40.0" styleClass="sriLankaLogo">
+               <image>
+                  <Image url="@../images/icon/sriLankaLogoMini.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1234.0" layoutY="4.0" mnemonicParsing="false" onAction="#systemCloseBtn" prefHeight="22.0" prefWidth="40.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0">
+               <image>
+                  <Image url="@../images/icon/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="-3.0" layoutY="1.0">
+         <image>
+            <Image url="@../images/icon/close.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1210.0" layoutY="3.0" mnemonicParsing="false" onAction="#miniHideBtn" prefHeight="15.0" prefWidth="20.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0">
+               <image>
+                  <Image url="@../images/icon/minimaze.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="15.0">
+         <image>
+            <Image url="@../images/icon/minimaze.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
