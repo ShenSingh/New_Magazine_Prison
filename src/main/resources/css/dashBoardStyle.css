@@ -64,3 +64,38 @@
     -fx-border-color: #2F95CB;
     -fx-border-width: 1px;
 }
+/* Adjusted CSS for JavaFX TextField */
+
+/* Default styling for the TextField */
+.TextField {
+    -fx-background-color: transparent;
+    -fx-border-color: #2F95CB;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px 2px 2px 1px;
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);*/
+
+}
+
+/* Hover effect on the TextField */
+.TextField:hover{
+    /*-fx-border-color: rgb(0, 0, 138);*/
+    -fx-fill: #035c83;
+}
+.TextField:hover .fieldLabel{
+    /*-fx-border-color: rgb(0, 0, 138);*/
+    -fx-fill: #035c83;
+}
+.fieldLabel{
+    -fx-text-fill: #2F95CB;
+    -fx-background-color: white;
+
+}
+.changeLine{
+    -fx-background-color: #2F95CB;
+}
+.submitBtn{
+    -fx-background-color: transparent;
+}
+
+
+

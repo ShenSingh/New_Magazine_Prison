@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="635.0" prefWidth="1275.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.DashBoardController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="635.0" prefWidth="1275.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.InmatePageController">
    <children>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
          <image>
@@ -66,6 +66,11 @@
                         <Font name="System Bold" size="10.0" />
                      </font>
                   </Text>
+                  <Button layoutX="9.0" layoutY="6.0" mnemonicParsing="false" onAction="#onAddInmateBtn" prefHeight="77.0" prefWidth="185.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="27.0" layoutY="202.0" prefHeight="88.0" prefWidth="205.0" styleClass="categoryAnchor">

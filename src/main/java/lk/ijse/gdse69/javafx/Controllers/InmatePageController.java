@@ -1,6 +1,9 @@
 package lk.ijse.gdse69.javafx.Controllers;
+import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 
 public class InmatePageController extends MainDashBoard{
@@ -16,6 +19,11 @@ public class InmatePageController extends MainDashBoard{
         //addButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCodeCombination.CONTROL_DOWN), this::handleAddAction);
         //addButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCodeCombination.CONTROL_DOWN), this::handleDeleteAction);
         //addButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.U, KeyCodeCombination.CONTROL_DOWN), this::handleUpdateAction);
+    }
+
+    public void onAddInmateBtn(ActionEvent actionEvent) throws IOException {
+        System.out.println("Add Inmate Button Clicked");
+        createStage("/View/AddInmate.fxml");
     }
 
 //    private void handleAddAction() {
@@ -48,4 +56,5 @@ public class InmatePageController extends MainDashBoard{
 //    private void handleUpdateButtonClick() {
 //        handleUpdateAction();
 //    }
+
 }
