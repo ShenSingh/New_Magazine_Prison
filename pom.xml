@@ -83,8 +83,16 @@
             <version>3.4.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.5.3-1</version>
+        </dependency>
+
         <!-- Include other JavaFX modules you need -->
     </dependencies>
+
+
 
     <repositories>
         <repository>

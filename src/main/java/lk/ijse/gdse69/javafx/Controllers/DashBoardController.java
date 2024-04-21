@@ -26,7 +26,7 @@ public class DashBoardController  extends MainDashBoard{
         Tooltip.install(officerBtn, new Tooltip("Officer Management"));
         Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
         Tooltip.install(settingBtn, new Tooltip("Setting"));
-        Tooltip.install(manyBtn, new Tooltip("Money Management"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
         Tooltip.install(sectionBtn, new Tooltip("Section Management"));
         Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
 

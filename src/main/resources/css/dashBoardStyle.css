@@ -1,26 +1,33 @@
 .mainAnchorPane{
-    -fx-background-color: #2F95CB;
+    -fx-background-color: rgb(53, 151, 203);
 }
 .secAnchorPane{
     -fx-background-color: black;
     -fx-opacity: 1;
 }
-.manuBtn {
+.manuBtn, .miniBtn, .closeBtn, .sriLogoBtn{
     -fx-background-color: transparent;
 }
+.sriLogoBtn:hover{
+    -fx-background-color: transparent;
+}
+
 .sriLankaLogo {
     -fx-opacity: 1.0 ;
 }
 .image-view {
-    -fx-opacity: 0.5; /* Hide by default */
-}
-.manuBtn:hover .image-view{
-    -fx-transition: opacity 0.3s;
     -fx-opacity: 1.0;
 }
+.manuBtn:hover{
+    -fx-transition: opacity 0.3s;
+    -fx-opacity: 1.0;
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 0px 4px;
+    -fx-background-color: transparent;
+}
 .whiteAnchorPane{
-    -fx-background-color: white;
-    -fx-opacity: 0.9;
+    -fx-background-color: #edf3f6;
+
     
 }
 .miniAnchor{
@@ -55,20 +62,36 @@
 }
 .categoryAnchor{
     -fx-background-color: rgba(47, 149, 203, 0.11);
-    -fx-background-radius: 20px;
-    -fx-border-color: #2F95CB;
-    -fx-border-width: 0.6px;
-    -fx-border-radius: 20px;
+    -fx-background-radius: 15px;
+
+}
+.cateManuBtn{
+    -fx-background-color: transparent;
+}
+.cateManuBtn:hover{
+    -fx-background-color: transparent;
 }
 .categoryAnchor:hover{
     -fx-border-color: #2F95CB;
     -fx-border-width: 1px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);
+}
+.categoryText{
+    -fx-fill: #2F95CB;
+}
+
+.categoryBtn{
+    -fx-background-color: transpanent;
+    -fx-fill: black;
 }
 /* Adjusted CSS for JavaFX TextField */
 
 /* Default styling for the TextField */
 .TextField {
-    -fx-background-color: transparent;
+    -fx-background-color: #edf3f6;
+
     -fx-border-color: #2F95CB;
     -fx-border-radius: 5px;
     -fx-border-width: 1px 2px 2px 1px;
@@ -87,7 +110,8 @@
 }
 .fieldLabel{
     -fx-text-fill: #2F95CB;
-    -fx-background-color: white;
+    -fx-background-color: #edf3f6;
+
 
 }
 .changeLine{
@@ -97,5 +121,76 @@
     -fx-background-color: transparent;
 }
 
+.inmateProfileBtn{
+    -fx-background-color: #2F95CB;
+    -fx-background-radius: 5px;
+}
+.cateSecManuBtn{
+    -fx-background-color: transparent;
+    -fx-text-fill:#0000007c ;
+}
+.cateSecManuBtn:hover{
+    -fx-background-color: transparent;
+    tansition: opacity 2s;
+    -fx-text-fill: #2F95CB;
+}
+.contAnchorViewBtn{
+    -fx-background-color:transparent;
+
+}
+
+.inmateProfileBtn:hover{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #2F95CB;
+    -fx-border-color: #2F95CB;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+/*////////////////////////////// not set   ///////////////////////////////////////*/
+.table-view {
+    -fx-background-color: rgba(53, 151, 203, 0.53);
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+.table-view .column-header {
+    -fx-text-fill: white;
+}
+.table-row-cell:odd {
+    -fx-background-color: #e0e0e0;
+}
+.table-row-cell:selected {
+    -fx-background-color: #6495ED;
+    -fx-text-fill: white;
+}
+/*///////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////////////////////////////////////////////////////////*/
 
 
+/* Styling the ProgressIndicator */
+.progress-indicator {
+    -fx-progress-color: #0078d7; /* Color of the progress bar */
+    -fx-progress-: #0078d7; /* Color of the progress bar */
+    -fx-background-color: transparent; /* Transparent background */
+
+}
+
+/* Styling the text inside the ProgressIndicator */
+.progress-indicator .text {
+    -fx-fill: #0078d7; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+}
+/* Define styles for ProgressIndicator */
+.progress-indicator {
+    -fx-progress-color: #007bff; /* Color of the progress */
+}
+
+/* Define animation for indeterminate ProgressIndicator */
+.progress-indicator:indeterminate > .animation {
+    -fx-indeterminate-bar-color: #007bff; /* Color of the indeterminate bar */
+    -fx-background-color: #f8f9fa; /* Background color of the indeterminate area */
+    -fx-background-insets: 0; /* Ensure the background is not visible outside the bar */
+    -fx-background-radius: 0; /* Remove rounded corners */
+}

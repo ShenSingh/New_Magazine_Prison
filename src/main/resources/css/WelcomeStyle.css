@@ -1,0 +1,55 @@
+.mainAnchor{
+    -fx-background-color: #ffffff;
+}
+.moveAnchor{
+    -fx-background-color: #3597cb;
+}
+.mainLoginText{
+
+    -fx-fill: #3597cb;
+    text-decoration: none;
+}
+.uNameText,.uPassText{
+    -fx-font-size: 17px;
+    -fx-fill: #3597cb;
+    -fx-font-weight: bold;
+}
+.uNameField,.uPassField{
+    -fx-background-color: transpanent;
+}
+.uNameLine, .uPassLine{
+    -fx-background-color: #3597cb;
+}
+.signInBtn{
+    -fx-background-color: #3597cb;
+    -fx-background-radius: 17px;
+    -fx-fill: #ffffff;
+    -fx-font-size: 17px;
+}
+.secondLoginText{
+    -fx-fill: #ffffff;
+    text-decoration: none;
+}
+.signInSignUpBtn{
+    -fx-background-color: #3597cb;
+    -fx-border-color: white;
+    -fx-border-radius: 17px;
+    -fx-border-width: 2px;
+    -fx-background-radius: 17px;
+    -fx-fill: #ffffff;
+    -fx-font-size: 17px;
+}
+.uFNameText,.uLNameText,.uEmailText,.uOtpText,.uPassText,.uComPassText{
+    -fx-font-size: 17px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.otpSendBtn{
+    -fx-background-color: #3597cb;
+    -fx-text-fill: white;
+    -fx-font-size: 8px;
+}
+.uFNameField,.uLNameField,.uEmailField,.uOtpField,.uPassField,.uComPassField{
+    -fx-background-color: transparent;
+
+}

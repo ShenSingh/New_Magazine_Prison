@@ -40,7 +40,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
     @Override
     public void onMany() throws IOException {
 
-        //createStage("/View/SettingPage.fxml");
+        createStage("/View/FinancialPage.fxml");
     }
 
     @Override
@@ -50,25 +50,25 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDashBord() throws IOException {
-        Stage stage = SignInPageController.getDashBoardStage();
+        Stage stage = WelcomeController.getDashBoardStage();
         Parent root = FXMLLoader.load(getClass().getResource("/View/DashBoard.fxml"));
-        Scene scene = new Scene(root ,1275,635);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
     }
 
     @Override
     public void onLogOut() {
 
-        SignInPageController.getDashBoardStage().hide();
+        WelcomeController.getDashBoardStage().hide();
         Stage stage = Launcher.getStage();
-        StackPane root =  new SignInPageController().setStartVideo();
+        StackPane root =  new WelcomeController().setStartVideo();
 
         Scene videoScene = new Scene(root,803,480);
 
         stage.setScene(videoScene);
         try {
             // Load FXML file
-            Parent rootNode = FXMLLoader.load(getClass().getResource("/View/SignInPage.fxml"));
+            Parent rootNode = FXMLLoader.load(getClass().getResource("/View/Welcome.fxml"));
             Scene signInScene = new Scene(rootNode);
             int displayDurationMillis = 3000;// 1s
             PauseTransition delay = new PauseTransition(Duration.millis(displayDurationMillis));
@@ -85,16 +85,70 @@ public class MainDashBoard implements MainDashBoardInterFace{
     }
     @Override
     public void miniHideBtn() {
-        Stage stage = SignInPageController.getDashBoardStage();
+        Stage stage = WelcomeController.getDashBoardStage();
         stage.setIconified(true);
     }
+
+//    inmate method //
+    @Override
+    public void onAddInmateBtn() throws IOException {
+        createStage("/View/AddInmate.fxml");
+    }
+
+    @Override
+    public void onDeleteInmateBtn() throws IOException {
+        createStage("/View/DeleteInmate.fxml");
+
+    }
+
+    @Override
+    public void onUpdateInmateBtn() throws IOException {
+        createStage("/View/UpdateInmate.fxml");
+    }
+
+    @Override
+    public void onViewInmateBtn() throws IOException {
+        createStage("/View/ViewInmate.fxml");
+    }
+
+    @Override
+    public void inmateProfileBtn() throws IOException {
+        createStage("/View/InmateProfile.fxml");
+    }
+
+    @Override
+    public void addRecordBtn() throws IOException {
+        createStage("/View/AddRecord.fxml");
+    }
+
+    @Override
+    public void deleteRecordBtn() throws IOException {
+        createStage("/View/DeleteRecord.fxml");
+    }
+
+    @Override
+    public void updateRecordBtn() throws IOException {
+        createStage("/View/UpdateRecord.fxml");
+    }
+
+    @Override
+    public void viewRecordBtn() throws IOException {
+        createStage("/View/ViewRecord.fxml");
+    }
+
     @Override
     public void createStage(String path) throws IOException {
 
+        StackPane root1 =  new WelcomeController().setStartVideo();
+
+        Scene videoScene = new Scene(root1,1270,650);
+
+
+
         try {
-            Stage stage = SignInPageController.getDashBoardStage();
+            Stage stage = WelcomeController.getDashBoardStage();
             Parent root = FXMLLoader.load(getClass().getResource(path));
-            Scene scene = new Scene(root,1275,635);
+            Scene scene = new Scene(root);
             stage.setScene(scene);
         } catch (IOException e) {
             System.err.println("Error loading FXML file: " + path);

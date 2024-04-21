@@ -53,10 +53,10 @@ public class QRCodeGenerator {
     }
 
     public static void main(String[] args) {
-        String text = "Hello, QR Code!";
+        String text = "Hello, Poornamal!";
         int width = 300;
         int height = 300;
-        String filePath = "QRCode.png";
+        String filePath = "src/main/resources/QRCodeStore/v001.png";
 
         generateQRCode(text, width, height, filePath);
     }

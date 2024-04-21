@@ -14,4 +14,17 @@ public interface MainDashBoardInterFace{
     void createStage(String path) throws IOException;
     void systemCloseBtn();
     void miniHideBtn();
+
+//    inmate method //
+
+void onAddInmateBtn() throws IOException;
+void onDeleteInmateBtn() throws IOException;
+void onUpdateInmateBtn() throws IOException;
+void onViewInmateBtn() throws IOException;
+void inmateProfileBtn() throws IOException;
+
+void addRecordBtn() throws IOException;
+void deleteRecordBtn() throws IOException;
+void updateRecordBtn() throws IOException;
+void viewRecordBtn() throws IOException;
 }

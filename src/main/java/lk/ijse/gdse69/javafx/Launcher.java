@@ -37,7 +37,7 @@ public class Launcher extends Application {
         signstage.setScene(scene);
         try {
             // Load FXML file
-            Parent rootNode = FXMLLoader.load(getClass().getResource("/View/SignInPage.fxml"));
+            Parent rootNode = FXMLLoader.load(getClass().getResource("/View/Welcome.fxml"));
             Scene signInScene = new Scene(rootNode);
             int displayDurationMillis = 5000;// 1s
             PauseTransition delay = new PauseTransition(Duration.millis(displayDurationMillis));
