@@ -1,5 +1,5 @@
 package lk.ijse.gdse69.javafx.Controllers;
-import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 
 public interface MainDashBoardInterFace{
@@ -24,7 +24,26 @@ void onViewInmateBtn() throws IOException;
 void inmateProfileBtn() throws IOException;
 
 void addRecordBtn() throws IOException;
-void deleteRecordBtn() throws IOException;
-void updateRecordBtn() throws IOException;
-void viewRecordBtn() throws IOException;
+
+//    officer method //
+
+    void onAddOfficerBtn() throws IOException;
+    void onDeleteOfficerBtn() throws IOException;
+    void onUpdateOfficerBtn() throws IOException;
+    void onViewOfficerBtn() throws IOException;
+    void officerProfileBtn() throws IOException;
+
+//    sectionPage-Program method
+    void onAddProgramBtn() throws IOException;
+    void onDeleteProgramBtn() throws IOException;
+    void onUpdateProgramBtn() throws IOException;
+    void onViewProgramBtn() throws IOException;
+
+//    sectionPage-Section method
+
+    void onAddSectionBtn() throws IOException;
+    void onDeleteSectionBtn() throws IOException;
+    void onUpdateSectionBtn() throws IOException;
+    void onViewSectionBtn() throws IOException;
+    void sectionProfileBtn() throws IOException;
 }

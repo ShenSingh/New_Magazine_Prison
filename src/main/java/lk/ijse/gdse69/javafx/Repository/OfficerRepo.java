@@ -3,10 +3,7 @@ package lk.ijse.gdse69.javafx.Repository;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class OfficerRepo {
 
@@ -78,7 +75,7 @@ public class OfficerRepo {
             String id = resultSet.getString(1);
             String firstName = resultSet.getString(2);
             String lastName = resultSet.getString(3);
-            String dob = resultSet.getString(4);
+            Date dob = Date.valueOf(resultSet.getString(4));
             String nic = resultSet.getString(5);
             String gender = resultSet.getString(6);
             String address = resultSet.getString(7);

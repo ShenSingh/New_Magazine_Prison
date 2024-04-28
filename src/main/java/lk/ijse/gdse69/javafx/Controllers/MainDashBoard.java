@@ -97,13 +97,13 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDeleteInmateBtn() throws IOException {
-        createStage("/View/DeleteInmate.fxml");
+        createStage("/View/InmateProfile.fxml");
 
     }
 
     @Override
     public void onUpdateInmateBtn() throws IOException {
-        createStage("/View/UpdateInmate.fxml");
+        createStage("/View/InmateProfile.fxml");
     }
 
     @Override
@@ -121,20 +121,85 @@ public class MainDashBoard implements MainDashBoardInterFace{
         createStage("/View/AddRecord.fxml");
     }
 
+
+//    officer method //
     @Override
-    public void deleteRecordBtn() throws IOException {
-        createStage("/View/DeleteRecord.fxml");
+    public void onAddOfficerBtn() throws IOException {
+        createStage("/View/AddOfficer.fxml");
     }
 
     @Override
-    public void updateRecordBtn() throws IOException {
-        createStage("/View/UpdateRecord.fxml");
+    public void onDeleteOfficerBtn() throws IOException {
+        createStage("/View/InmateProfile.fxml");
+
     }
 
     @Override
-    public void viewRecordBtn() throws IOException {
-        createStage("/View/ViewRecord.fxml");
+    public void onUpdateOfficerBtn() throws IOException {
+        createStage("/View/InmateProfile.fxml");
     }
+
+    @Override
+    public void onViewOfficerBtn() throws IOException {
+        createStage("/View/ViewOfficer.fxml");
+    }
+
+    @Override
+    public void officerProfileBtn() throws IOException {
+        createStage("/View/InmateProfile.fxml");
+    }
+
+//    sectionPage-program method //
+
+    @Override
+    public void onAddProgramBtn() throws IOException {
+        createStage("");
+    }
+
+    @Override
+    public void onDeleteProgramBtn() throws IOException {
+        createStage("");
+
+    }
+
+    @Override
+    public void onUpdateProgramBtn() throws IOException {
+        createStage("");
+    }
+
+    @Override
+    public void onViewProgramBtn() throws IOException {
+        createStage("");
+    }
+
+
+//   sectionPage-section method //
+
+    @Override
+    public void onAddSectionBtn() throws IOException {
+        createStage("/View/AddSection.fxml");
+    }
+
+    @Override
+    public void onDeleteSectionBtn() throws IOException {
+
+    }
+
+    @Override
+    public void onUpdateSectionBtn() throws IOException {
+
+    }
+
+    @Override
+    public void onViewSectionBtn() throws IOException {
+
+    }
+
+    @Override
+    public void sectionProfileBtn() throws IOException {
+
+    }
+
 
     @Override
     public void createStage(String path) throws IOException {

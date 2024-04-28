@@ -26,7 +26,7 @@ public class Sound {
         playSound(doubleClickSound01);
     }
 
-    private void playSound(String soundPath) {
+    private  void playSound(String soundPath) {
         try {
             URL url = Sound.class.getResource(soundPath);
             if (url != null) {
@@ -41,5 +41,7 @@ public class Sound {
             System.err.println("Error playing sound: " + e.getMessage());
         }
     }
+
+
 
 }

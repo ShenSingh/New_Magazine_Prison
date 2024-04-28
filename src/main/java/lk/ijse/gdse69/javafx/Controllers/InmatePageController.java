@@ -1,24 +1,13 @@
 package lk.ijse.gdse69.javafx.Controllers;
-import com.jfoenix.controls.JFXButton;
-import javafx.animation.KeyFrame;
-import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
+
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
-import javafx.animation.KeyValue;
-
-import java.io.IOException;
 
 
 public class InmatePageController extends MainDashBoard{
     public ImageView sirLankaLogo;
     public AnchorPane mainAnchorPage;
-    public JFXButton addRecordBtn;
-    public JFXButton deleteRecordBtn;
-    public JFXButton updateRecordBtn;
-    public JFXButton viewRecordBtn;
 
     public void initialize(){
 
@@ -30,35 +19,12 @@ public class InmatePageController extends MainDashBoard{
         //addButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCodeCombination.CONTROL_DOWN), this::handleDeleteAction);
         //addButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.U, KeyCodeCombination.CONTROL_DOWN), this::handleUpdateAction);
 
-
-        // Apply hover effect to buttons
-        applyHoverEffect(addRecordBtn);
-        applyHoverEffect(deleteRecordBtn);
-        applyHoverEffect(updateRecordBtn);
-        applyHoverEffect(viewRecordBtn);
-
-
-    }
-
-    private void applyHoverEffect(JFXButton button) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.5), button);
-        button.setOnMouseEntered(event -> {
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
-            scaleTransition.play();
-        });
-        button.setOnMouseExited(event -> {
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-        });
     }
 
 
-    public void onAddInmateBtn(ActionEvent actionEvent) throws IOException {
-        System.out.println("Add Inmate Button Clicked");
-        createStage("/View/AddInmate.fxml");
-    }
+
+
+
 
     public void activeInmateBtn(ActionEvent actionEvent) {
         System.out.println("Active Inmate Button Clicked");

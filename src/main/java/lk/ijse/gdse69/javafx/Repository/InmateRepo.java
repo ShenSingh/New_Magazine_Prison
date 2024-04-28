@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class InmateRepo {
 
@@ -70,7 +71,7 @@ public class InmateRepo {
             String id = resultSet.getString(1);
             String firstName = resultSet.getString(2);
             String lastName = resultSet.getString(3);
-            String dob = resultSet.getString(4);
+            LocalDate dob = LocalDate.parse(resultSet.getString(4));
             String nic = resultSet.getString(5);
             String gender = resultSet.getString(6);
             String address = resultSet.getString(7);

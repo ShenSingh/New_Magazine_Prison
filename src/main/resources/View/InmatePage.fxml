@@ -137,50 +137,10 @@
                   </Button>
                </children>
             </AnchorPane>
-            <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="20.0" layoutY="415.0">
-               <image>
-                  <Image url="@../images/icon/blackAdd.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="18.0" layoutY="449.0">
-               <image>
-                  <Image url="@../images/icon/blackDelete.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="20.0" layoutY="485.0">
-               <image>
-                  <Image url="@../images/icon/blackUpdate.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="23.0" layoutY="523.0">
-               <image>
-                  <Image url="@../images/icon/blackView.png" />
-               </image>
-            </ImageView>
             <JFXButton layoutX="59.0" layoutY="565.0" onAction="#inmateProfileBtn" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="Inmate Profile" textFill="WHITE">
                <font>
                   <Font name="DejaVu Sans ExtraLight" size="13.0" />
                </font></JFXButton>
-            <JFXButton fx:id="addRecordBtn" layoutX="44.0" layoutY="411.0" onAction="#addRecordBtn" styleClass="cateSecManuBtn" text="Add Record">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXButton fx:id="deleteRecordBtn" layoutX="42.0" layoutY="446.0" onAction="#deleteRecordBtn" styleClass="cateSecManuBtn" text="Remove Record">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXButton fx:id="updateRecordBtn" layoutX="41.0" layoutY="481.0" onAction="#updateRecordBtn" styleClass="cateSecManuBtn" text="Update Record">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXButton fx:id="viewRecordBtn" layoutX="41.0" layoutY="518.0" onAction="#viewRecordBtn" styleClass="cateSecManuBtn" text="View Record">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">

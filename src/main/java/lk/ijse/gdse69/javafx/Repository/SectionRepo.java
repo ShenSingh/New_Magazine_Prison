@@ -65,7 +65,7 @@ public class SectionRepo {
             String capacity = resultSet.getString(3);
             String securityLevel = resultSet.getString(4);
 
-            Section section = new Section(sectionId, sectionName, location, capacity, securityLevel);
+            Section section = new Section(sectionId, sectionName, location, capacity, securityLevel, status);
 
             return section;
         }

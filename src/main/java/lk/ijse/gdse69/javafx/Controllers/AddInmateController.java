@@ -3,13 +3,46 @@ package lk.ijse.gdse69.javafx.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import lk.ijse.gdse69.javafx.Alert.ShowAlert;
+import lk.ijse.gdse69.javafx.Alert.Type;
+import lk.ijse.gdse69.javafx.Model.Inmate;
+import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AddInmateController extends MainDashBoard {
 
     @FXML
+    private TextField inmateId;
+    @FXML
+    private TextField inmateNIC;
+    @FXML
+    private TextField inmateFName;
+    @FXML
+    private TextField inmateLName;
+    @FXML
+    private TextField inmateGender;
+    @FXML
+    private DatePicker inmateDOB;
+    @FXML
+    private TextField inmateAddress;
+    @FXML
+    private TextField inmateStatus;
+
+    @FXML
+    private TextField inRecoSectionId;
+    @FXML
+    private TextField inRecoCrime;
+    @FXML
+    private DatePicker inRecoReleseDate;
+
+    @FXML
     private ComboBox<String> caseStatusComboBox;
+
+    ShowAlert showAlert;
 
     public void initialize() {
         System.out.println("Add Inmate Page initialized");
@@ -31,9 +64,75 @@ public class AddInmateController extends MainDashBoard {
         }
     }
 
+
     @FXML
-    public void onAddInmateBtn(ActionEvent actionEvent) throws IOException {
-        System.out.println("Add Inmate Button Clicked");
-        createStage("/View/AddInmate.fxml");
+    public void submitBtn(ActionEvent actionEvent) throws IOException, SQLException {
+
+        checkEmptyFields();
+
+        if (checkEmptyFields()) {
+            System.out.println("All fields are filled");
+            // You can proceed with the form submission
+            // For example, save the form data to the database
+
+
+
+            Inmate inmate = new Inmate(inmateId.getText(), inmateFName.getText(), inmateLName.getText(), inmateDOB.getValue(), inmateNIC.getText(), inmateGender.getText(), inmateAddress.getText(), inmateStatus.getText());
+
+        System.out.println(inmate.toString());
+
+            inmate.toString();
+
+
+            if (InmateRepo.save(inmate)) {
+                showAlert = new ShowAlert("Success", "Inmate Added", "Inmate added successfully", Type.INFORMATIONAL);
+                clearFields();
+            } else {
+                showAlert = new ShowAlert("Error", "Inmate Not Added", "Inmate not added successfully", Type.ERROR);
+            }
+
+
+        }
+        else {
+            System.out.println("Please fill all the fields");
+            showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.INFORMATIONAL);
+            clearFields();
+            // Show an alert to the user to fill all the fields
+        }
+    }
+
+    private Boolean checkEmptyFields() {
+        if (inmateId.getText().isEmpty() || inmateNIC.getText().isEmpty() || inmateFName.getText().isEmpty() || inmateLName.getText().isEmpty() || inmateGender.getText().isEmpty() || inmateDOB.getValue() == null || inmateAddress.getText().isEmpty() || inmateStatus.getText().isEmpty() || inRecoSectionId.getText().isEmpty() || inRecoCrime.getText().isEmpty() || inRecoReleseDate.getValue() == null || caseStatusComboBox.getSelectionModel().isEmpty()) {
+            System.out.println("Please fill all the fields");
+
+            return false;
+        }
+        else {
+            System.out.println("All fields are filled");
+            return true;
+        }
+    }
+
+    private void clearFields() {
+        inmateId.clear();
+        inmateNIC.clear();
+        inmateFName.clear();
+        inmateLName.clear();
+        inmateGender.clear();
+        inmateDOB.getEditor().clear();
+        inmateAddress.clear();
+        inmateStatus.clear();
+        inRecoSectionId.clear();
+        inRecoCrime.clear();
+        inRecoReleseDate.getEditor().clear();
+        caseStatusComboBox.getSelectionModel().clearSelection();
+    }
+
+    private void checkEmptyFields(TextField inmateId, TextField inmateNIC, TextField inmateFName, TextField inmateLName, TextField inmateGender, TextField inmateDOB, TextField inmateAddress, TextField inmateStatus, TextField inRecoSectionId, TextField inRecoCrime, DatePicker inRecoReleseDate) {
+    }
+
+
+    public void canselBtn(ActionEvent actionEvent) {
+        clearFields();
     }
 }

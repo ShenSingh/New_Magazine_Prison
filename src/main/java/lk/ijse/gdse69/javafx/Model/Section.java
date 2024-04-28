@@ -1,63 +1,20 @@
 package lk.ijse.gdse69.javafx.Model;
 
+import lombok.*;
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+
 public class Section {
     private String sectionId;
     private String sectionName;
     private String location;
-    private String capacity;
+    private Integer capacity;
     private String securityLevel;
+    private String status;
 
-
-    public Section() {
-    }
-
-    public Section(String sectionId, String sectionName, String location, String capacity, String securityLevel) {
-        this.sectionId = sectionId;
-        this.sectionName = sectionName;
-        this.location = location;
-        this.capacity = capacity;
-        this.securityLevel = securityLevel;
-    }
-
-    public String getSectionId() {
-        return sectionId;
-    }
-
-    public void setSectionId(String sectionId) {
-        this.sectionId = sectionId;
-    }
-
-    public String getSectionName() {
-        return sectionName;
-    }
-
-    public void setSectionName(String sectionName) {
-        this.sectionName = sectionName;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getSecurityLevel() {
-        return securityLevel;
-    }
-
-    public void setSecurityLevel(String securityLevel) {
-        this.securityLevel = securityLevel;
-    }
 
     @Override
     public String toString() {
@@ -67,6 +24,7 @@ public class Section {
                 ", location='" + location + '\'' +
                 ", capacity='" + capacity + '\'' +
                 ", securityLevel='" + securityLevel + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

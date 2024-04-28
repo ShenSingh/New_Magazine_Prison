@@ -1,4 +1,4 @@
 package lk.ijse.gdse69.javafx.Controllers;
 
-public class UpdateInmateRecordController {
+public class SectionProfileController {
 }

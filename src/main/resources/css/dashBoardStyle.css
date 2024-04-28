@@ -125,6 +125,11 @@
     -fx-background-color: #2F95CB;
     -fx-background-radius: 5px;
 }
+.deleteInmateBtn{
+    -fx-background-color: rgba(180, 17, 17, 0.86);
+    -fx-background-radius: 5px;
+
+}
 .cateSecManuBtn{
     -fx-background-color: transparent;
     -fx-text-fill:#0000007c ;
@@ -144,6 +149,14 @@
     -fx-background-radius: 5px;
     -fx-text-fill: #2F95CB;
     -fx-border-color: #2F95CB;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.deleteInmateBtn:hover{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-text-fill: rgba(180, 17, 17, 0.86);
+    -fx-border-color: rgba(180, 17, 17, 0.86);
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
 }
@@ -193,4 +206,36 @@
     -fx-background-color: #f8f9fa; /* Background color of the indeterminate area */
     -fx-background-insets: 0; /* Ensure the background is not visible outside the bar */
     -fx-background-radius: 0; /* Remove rounded corners */
+}
+
+
+/*/////////////////////      Inmate Profile       /////////////////////*/
+
+.editProfileBtn{
+    -fx-background-color: transpanent;
+    -fx-background-radius: 15px;
+    -fx-border-color: rgba(0, 0, 0, 0.71);
+    -fx-border-radius: 15px;
+    -fx-text-fill: rgba(0, 0, 0, 0.71);
+}
+.profileManuBtn{
+    -fx-background-color: transpanent;
+}
+.profileManuBtn:hover{
+    -fx-border-color: #007bff;
+    -fx-border-width: 0px 3px 0px 0px;
+    -fx-text-fill: #007bff;
+
+}
+.inmateDeleteBtn{
+    -fx-background-color: rgb(211, 48, 48);
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+.inmateDeleteBtn:hover{
+    -fx-background-color: transpanent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: rgb(211, 48, 48);
+    -fx-border-color: rgb(211, 48, 48);
 }
