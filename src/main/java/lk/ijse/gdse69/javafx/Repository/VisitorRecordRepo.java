@@ -3,10 +3,7 @@ package lk.ijse.gdse69.javafx.Repository;
 import lk.ijse.gdse69.javafx.Model.VisitorRecord;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class VisitorRecordRepo {
     public static boolean save(VisitorRecord visitorRecord) throws SQLException {
@@ -62,8 +59,8 @@ public class VisitorRecordRepo {
             String visitorRecordId1 = resultSet.getString(1);
             String visitorId = resultSet.getString(2);
             String inmateId = resultSet.getString(3);
-            String visitDate = resultSet.getString(4);
-            String visitTime = resultSet.getString(5);
+            Date visitDate = resultSet.getDate(4);
+            Time visitTime = resultSet.getTime(5);
 
             VisitorRecord visitorRecord = new VisitorRecord(visitorRecordId1, visitorId, inmateId, visitDate, visitTime);
 

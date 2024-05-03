@@ -4,9 +4,9 @@
 <?import com.jfoenix.controls.JFXClippedPane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.VisitorPageController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.AddVisitorController">
    <children>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
          <image>
@@ -23,29 +23,65 @@
       </ImageView>
       <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
          <children>
-            <TableView layoutX="270.0" layoutY="381.0" prefHeight="227.0" prefWidth="670.0" styleClass="tableView" stylesheets="@../css/dashBoardStyle.css">
-               <columns>
-                  <TableColumn fx:id="tvVisitorId" prefWidth="46.0" text="Id" />
-                  <TableColumn fx:id="tvFName" prefWidth="68.0" text=" F name" />
-                  <TableColumn fx:id="tvLName" prefWidth="68.0" text="L name" />
-                  <TableColumn fx:id="tvDOB" prefWidth="90.0" text="DOB" />
-                  <TableColumn fx:id="tvNIC" prefWidth="86.0" text="NIC" />
-                  <TableColumn fx:id="tvGender" prefWidth="86.0" text="Gender" />
-                  <TableColumn fx:id="tvAddress" prefWidth="82.0" text="Address" />
-                  <TableColumn fx:id="tvNumber" prefWidth="71.0" text="Number" />
-                  <TableColumn fx:id="tvType" prefWidth="71.0" text="Type" />
-               </columns>
-            </TableView>
-            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Access" wrappingWidth="170.0">
+            <DatePicker fx:id="DOB" layoutX="324.0" layoutY="303.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" />
+            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Visitor" wrappingWidth="170.0">
                <font>
                   <Font name="DejaVu Serif Bold" size="21.0" />
                </font>
             </Text>
-            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Update Visitors" wrappingWidth="246.00003051757812">
+            <TextField fx:id="visitorId" layoutX="323.0" layoutY="160.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="339.0" layoutY="153.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor Id">
                <font>
-                  <Font name="DejaVu Serif Bold" size="21.0" />
+                  <Font size="10.0" />
                </font>
-            </Text>
+            </Label>
+            <TextField fx:id="fName" layoutX="323.0" layoutY="233.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="339.0" layoutY="226.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Frist Name">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lName" layoutX="679.0" layoutY="233.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="695.0" layoutY="226.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Last Name">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="339.0" layoutY="296.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="DOB">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField fx:id="NIC" layoutX="679.0" layoutY="303.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="695.0" layoutY="296.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="NIC">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField fx:id="number" layoutX="324.0" layoutY="372.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="340.0" layoutY="365.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Number">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField fx:id="address" layoutX="680.0" layoutY="372.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <Label layoutX="696.0" layoutY="365.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Address">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="gender" layoutX="324.0" layoutY="441.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" />
+            <Label layoutX="342.0" layoutY="433.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Gender">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="visitorType" layoutX="681.0" layoutY="441.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" />
+            <Label layoutX="699.0" layoutY="433.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor Type">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
@@ -144,12 +180,12 @@
       </AnchorPane>
       <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
          <children>
-            <Text fontSmoothingType="LCD" layoutX="43.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Record" wrappingWidth="140.0">
+            <Text fontSmoothingType="LCD" layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add First Record" wrappingWidth="201.0">
                <font>
                   <Font name="DejaVu Serif Bold" size="21.0" />
                </font>
             </Text>
-            <JFXButton layoutX="78.0" layoutY="552.0" onAction="#submitRecordBtn" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit" textFill="WHITE">
+            <JFXButton layoutX="52.0" layoutY="547.0" onAction="#submitBtn" prefHeight="30.0" prefWidth="118.0" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit" textFill="WHITE">
                <font>
                   <Font name="DejaVu Sans ExtraLight" size="13.0" />
                </font>
@@ -166,39 +202,6 @@
             <TextField layoutX="32.0" layoutY="2.0" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="330.0" layoutY="162.0" prefHeight="125.0" prefWidth="185.0" styleClass="contAnchor" stylesheets="@../css/dashBoardStyle.css">
-         <children>
-            <Text layoutX="62.0" layoutY="54.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="Immediate Family" wrappingWidth="112.00003051757812">
-               <font>
-                  <Font name="Noto Sans Regular" size="17.0" />
-               </font>
-            </Text>
-            <Text fx:id="familyCount" fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="20 Visitors" wrappingWidth="112.00003051757812">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="8.0" prefWidth="8.0" style="-fx-background-color: green; -fx-background-radius: 10px;" />
-            <AnchorPane layoutX="8.0" layoutY="38.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
-               <children>
-                  <ImageView layoutX="4.0" layoutY="1.0">
-                     <image>
-                        <Image url="@../images/icon/familyIcon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#familyBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="157.0" layoutY="9.0">
-               <image>
-                  <Image url="@../images/icon/manuWhite.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
       <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -300,74 +303,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane layoutX="569.0" layoutY="163.0" prefHeight="125.0" prefWidth="185.0" styleClass="contAnchor" stylesheets="@../css/dashBoardStyle.css">
-         <children>
-            <Text layoutX="50.0" layoutY="54.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="Legal Representatives" wrappingWidth="133.0">
-               <font>
-                  <Font name="Noto Sans Regular" size="17.0" />
-               </font>
-            </Text>
-            <Text fx:id="legalRepresentativesCount" fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="10 Visitors" wrappingWidth="112.00003051757812">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="8.0" prefWidth="8.0" style="-fx-background-color: green; -fx-background-radius: 10px;" />
-            <AnchorPane layoutX="8.0" layoutY="38.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
-               <children>
-                  <ImageView layoutX="-1.0">
-                     <image>
-                        <Image url="@../images/icon/lawyerIcon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#legalRepBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="157.0" layoutY="9.0">
-               <image>
-                  <Image url="@../images/icon/manuWhite.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="804.0" layoutY="163.0" prefHeight="125.0" prefWidth="185.0" styleClass="contAnchor" stylesheets="@../css/dashBoardStyle.css">
-         <children>
-            <Text layoutX="62.0" layoutY="65.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="Officials" wrappingWidth="112.00003051757812">
-               <font>
-                  <Font name="Noto Sans Regular" size="17.0" />
-               </font>
-            </Text>
-            <Text fx:id="visitOfficerCount" fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="15 Visitors" wrappingWidth="112.00003051757812">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="8.0" prefWidth="8.0" style="-fx-background-color: green; -fx-background-radius: 10px;" />
-            <AnchorPane layoutX="8.0" layoutY="38.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0">
-                     <image>
-                        <Image url="@../images/icon/officerIcon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#visitOffficerBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="157.0" layoutY="9.0">
-               <image>
-                  <Image url="@../images/icon/manuWhite.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
       <Button layoutX="1209.0" mnemonicParsing="false" onAction="#systemCloseBtn" prefHeight="24.0" prefWidth="4.0" styleClass="closeBtn" stylesheets="@../css/dashBoardStyle.css">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -393,51 +328,44 @@
          </graphic>
       </Button>
       <JFXClippedPane />
-      <TextField fx:id="visitorId" layoutX="1066.0" layoutY="144.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1082.0" layoutY="137.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor Id">
+      <TextField fx:id="inmateId" layoutX="1068.0" layoutY="275.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <Label layoutX="1084.0" layoutY="268.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate Id">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <JFXButton layoutX="1171.0" layoutY="145.0" onAction="#scanQrBtn" prefHeight="19.0" prefWidth="74.0" style="-fx-background-radius: 5px;" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="Scan QR" textFill="WHITE">
+      <TextField fx:id="inmateName" layoutX="1068.0" layoutY="371.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <Label layoutX="1084.0" layoutY="364.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate Name">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <TextField fx:id="visitorRecordId" layoutX="1068.0" layoutY="183.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <Label layoutX="1084.0" layoutY="176.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Record Id">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="1185.0" layoutY="276.0" onAction="#searchInmateIdBtn" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="search" textFill="WHITE">
          <font>
             <Font name="DejaVu Sans ExtraLight" size="13.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="visitorNIC" layoutX="1067.0" layoutY="211.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1083.0" layoutY="204.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor NIC">
+      <TextField fx:id="inmateNIC" layoutX="1068.0" layoutY="465.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <Label layoutX="1084.0" layoutY="458.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate NIC">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="visitorName" layoutX="1068.0" layoutY="278.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1084.0" layoutY="271.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor Name">
+      <JFXButton layoutX="534.0" layoutY="556.0" onAction="#canselBtn" styleClass="submitBtn" text="Cancel">
          <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="inmateId" layoutX="1068.0" layoutY="345.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1084.0" layoutY="338.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate Id">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="inmateName" layoutX="1068.0" layoutY="416.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1084.0" layoutY="409.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate Name">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="visitorRecordId" layoutX="1068.0" layoutY="483.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="1084.0" layoutY="476.0" style="-fx-background-color: white;" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Record Id">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <JFXButton layoutX="1185.0" layoutY="346.0" onAction="#searchInmateIdBtn" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="search" textFill="WHITE">
-         <font>
-            <Font name="DejaVu Sans ExtraLight" size="13.0" />
+            <Font name="Kinnari Bold" size="18.0" />
          </font>
       </JFXButton>
+      <Button layoutX="692.0" layoutY="556.0" mnemonicParsing="false" onAction="#createQrBtn" prefHeight="45.0" prefWidth="133.0" styleClass="submitBtn" stylesheets="@../css/dashBoardStyle.css" text="Create QR">
+         <font>
+            <Font name="Kinnari Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

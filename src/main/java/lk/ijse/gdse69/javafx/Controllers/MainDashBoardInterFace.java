@@ -46,4 +46,12 @@ void addRecordBtn() throws IOException;
     void onUpdateSectionBtn() throws IOException;
     void onViewSectionBtn() throws IOException;
     void sectionProfileBtn() throws IOException;
+
+    //    visitorPage-Visitor method
+
+    void onAddVisitorBtn() throws IOException;
+    void onDeleteVisitorBtn() throws IOException;
+    void onUpdateVisitorBtn() throws IOException;
+    void onViewVisitorBtn() throws IOException;
+    void visitorProfileBtn() throws IOException;
 }

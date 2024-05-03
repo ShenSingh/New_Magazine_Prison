@@ -203,6 +203,35 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     }
 
+//    Visitor page method////////////////
+
+    @Override
+    public void onAddVisitorBtn() throws IOException {
+        createStage("/View/AddVisitor.fxml");
+    }
+
+    @Override
+    public void onDeleteVisitorBtn() throws IOException {
+        createStage("/View/SectionProfile.fxml");
+
+    }
+
+    @Override
+    public void onUpdateVisitorBtn() throws IOException {
+        createStage("/View/SectionProfile.fxml");
+    }
+
+    @Override
+    public void onViewVisitorBtn() throws IOException {
+        createStage("/View/ViewSection.fxml");
+    }
+
+    @Override
+    public void visitorProfileBtn() throws IOException {
+        createStage("/View/SectionProfile.fxml");
+
+    }
+
 
     @Override
     public void createStage(String path) throws IOException {

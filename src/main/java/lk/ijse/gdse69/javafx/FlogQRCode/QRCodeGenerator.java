@@ -1,3 +1,5 @@
+package lk.ijse.gdse69.javafx.FlogQRCode;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -15,7 +17,12 @@ import java.util.Map;
 
 public class QRCodeGenerator {
 
-    public static void generateQRCode(String text, int width, int height, String filePath) {
+    public static boolean generateQRCode(String text) {
+        int width = 300;
+        int height = 300;
+
+        boolean isGenerated;
+        String filePath = "src/main/resources/QRCodeStore/"+text+".png";
         try {
             // Encode text content into QR code
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -47,17 +54,14 @@ public class QRCodeGenerator {
             ImageIO.write(qrImage, "png", new File(filePath));
             System.out.println("QR code generated successfully at: " + filePath);
 
+            isGenerated = true;
+
         } catch (WriterException | IOException e) {
             System.out.println("Error generating QR code: " + e.getMessage());
+            isGenerated = false;
         }
+        return isGenerated;
     }
 
-    public static void main(String[] args) {
-        String text = "Hello, Poornamal!";
-        int width = 300;
-        int height = 300;
-        String filePath = "src/main/resources/QRCodeStore/v001.png";
 
-        generateQRCode(text, width, height, filePath);
-    }
 }

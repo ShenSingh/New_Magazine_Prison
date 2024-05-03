@@ -1,21 +1,26 @@
+package lk.ijse.gdse69.javafx.FlogQRCode;
+
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.google.zxing.*;
-import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class QRCodeScanner {
 
-    public static void main(String[] args) throws ChecksumException, FormatException {
-        // Get default webcam
+    public static String qrScanner() throws ChecksumException, FormatException {
         Webcam webcam = Webcam.getDefault();
+
+        String totalResult = null;
 
         // Create a JFrame for webcam display
         JFrame frame = new JFrame("QR Code Scanner");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
 
         // Create a panel to display webcam feed
         WebcamPanel panel = new WebcamPanel(webcam);
@@ -41,9 +46,11 @@ public class QRCodeScanner {
                     Result result = reader.decode(bitmap);
                     if (result != null) {
                         System.out.println("QR Code Content: " + result.getText());
+                        totalResult = result.getText();
                         webcam.close();
                         // Perform actions with the QR code content here
                         frame.setVisible(false);
+                        return totalResult;
                         // For example, open a URL, display information, etc.
                     }
                 } catch (NotFoundException e) {
