@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IncidentRepo {
     public static boolean save(Incident incident) throws SQLException {
@@ -73,4 +75,9 @@ public class IncidentRepo {
         return null;
     }
 
+    public static List<Incident> getIncidents(String InInmateId) {
+        List<Incident> incidentsRecord = new ArrayList<>();
+
+        return incidentsRecord;
+    }
 }

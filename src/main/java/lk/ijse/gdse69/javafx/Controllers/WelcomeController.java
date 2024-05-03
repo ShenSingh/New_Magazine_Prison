@@ -104,7 +104,7 @@ public class WelcomeController implements Initializable {
         String uId = uNameField.getText();
         String uPass = uPassField.getText();
 
-        if(/*UserRepo.valid(uId,uPass)*/  true){
+        if(/*UserRepo.valid(uId,uPass)*/ true){
             System.out.println("Login Success");
             Stage stage = (Stage) sAnchor.getScene().getWindow();
             dashBoardStage = new Stage();

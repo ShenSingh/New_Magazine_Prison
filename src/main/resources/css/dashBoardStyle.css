@@ -99,6 +99,7 @@
 
 }
 
+
 /* Hover effect on the TextField */
 .TextField:hover{
     /*-fx-border-color: rgb(0, 0, 138);*/
@@ -142,6 +143,7 @@
 .contAnchorViewBtn{
     -fx-background-color:transparent;
 
+
 }
 
 .inmateProfileBtn:hover{
@@ -149,8 +151,8 @@
     -fx-background-radius: 5px;
     -fx-text-fill: #2F95CB;
     -fx-border-color: #2F95CB;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
+    -fx-border-width: 1px ;
+    -fx-border-radius: 5px ;
 }
 .deleteInmateBtn:hover{
     -fx-background-color: white;
@@ -162,22 +164,6 @@
 }
 
 /*////////////////////////////// not set   ///////////////////////////////////////*/
-.table-view {
-    -fx-background-color: rgba(53, 151, 203, 0.53);
-}
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-.table-view .column-header {
-    -fx-text-fill: white;
-}
-.table-row-cell:odd {
-    -fx-background-color: #e0e0e0;
-}
-.table-row-cell:selected {
-    -fx-background-color: #6495ED;
-    -fx-text-fill: white;
-}
 /*///////////////////////////////////////////////////////////////////////////////////////*/
 /*///////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -203,7 +189,7 @@
 /* Define animation for indeterminate ProgressIndicator */
 .progress-indicator:indeterminate > .animation {
     -fx-indeterminate-bar-color: #007bff; /* Color of the indeterminate bar */
-    -fx-background-color: #f8f9fa; /* Background color of the indeterminate area */
+    -fx-background-color: #f8f9fa; /* B #f8f9faackground color of the indeterminate area */
     -fx-background-insets: 0; /* Ensure the background is not visible outside the bar */
     -fx-background-radius: 0; /* Remove rounded corners */
 }
@@ -238,4 +224,38 @@
     -fx-border-radius: 5px;
     -fx-text-fill: rgb(211, 48, 48);
     -fx-border-color: rgb(211, 48, 48);
+}
+
+.tableView {
+    -fx-background-color: rgba(53, 151, 203, 0.53);
+}
+.tableView.column-header-background {
+    -fx-background-color: transparent;
+}
+.tableView.column-header {
+    -fx-text-fill: white;
+}
+.tableView.table-row-cell:odd {
+    -fx-background-color: #e0e0e0;
+}
+.tableView.table-row-cell:selected {
+    -fx-background-color: #6495ED;
+    -fx-text-fill: white;
+}
+
+.tableViewOfficerView {
+    -fx-background-color: rgba(53, 151, 203, 0.53);
+}
+.tableViewOfficerView.column-header-background {
+    -fx-background-color: transparent;
+}
+.tableViewOfficerView.column-header {
+    -fx-text-fill: white;
+}
+.tableViewOfficerView.table-row-cell:odd {
+    -fx-background-color: #e0e0e0;
+}
+.tableViewOfficerView.table-row-cell:selected {
+    -fx-background-color: #6495ED;
+    -fx-text-fill: white;
 }

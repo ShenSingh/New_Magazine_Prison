@@ -92,6 +92,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
 //    inmate method //
     @Override
     public void onAddInmateBtn() throws IOException {
+
         createStage("/View/AddInmate.fxml");
     }
 
@@ -130,13 +131,13 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDeleteOfficerBtn() throws IOException {
-        createStage("/View/InmateProfile.fxml");
+        createStage("/View/OfficerProfile.fxml");
 
     }
 
     @Override
     public void onUpdateOfficerBtn() throws IOException {
-        createStage("/View/InmateProfile.fxml");
+        createStage("/View/OfficerProfile.fxml");
     }
 
     @Override
@@ -146,7 +147,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void officerProfileBtn() throws IOException {
-        createStage("/View/InmateProfile.fxml");
+        createStage("/View/OfficerProfile.fxml");
     }
 
 //    sectionPage-program method //
@@ -182,21 +183,23 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDeleteSectionBtn() throws IOException {
+        createStage("/View/SectionProfile.fxml");
 
     }
 
     @Override
     public void onUpdateSectionBtn() throws IOException {
-
+        createStage("/View/SectionProfile.fxml");
     }
 
     @Override
     public void onViewSectionBtn() throws IOException {
-
+        createStage("/View/ViewSection.fxml");
     }
 
     @Override
     public void sectionProfileBtn() throws IOException {
+        createStage("/View/SectionProfile.fxml");
 
     }
 
@@ -212,6 +215,12 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
         try {
             Stage stage = WelcomeController.getDashBoardStage();
+
+            if (stage== null){
+                stage = (Stage) new WelcomeController().suMainText1.getScene().getWindow();
+            }
+
+
             Parent root = FXMLLoader.load(getClass().getResource(path));
             Scene scene = new Scene(root);
             stage.setScene(scene);

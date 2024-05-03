@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InmateRepo {
 
@@ -77,9 +79,129 @@ public class InmateRepo {
             String address = resultSet.getString(7);
             String status = resultSet.getString(8);
 
-            Inmate inmate = new Inmate(id,firstName,lastName,dob,nic,gender,address,status);
+            Inmate inmate = new Inmate(id,firstName,lastName,dob, nic,gender,address,status);
         return inmate;
         }
         return null;
+    }
+
+    public static List<Inmate> getAllInmates() throws SQLException {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM Inmate";
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id,firstName,lastName,dob,nic,gender,address,status);
+
+                inmates.add(inmate);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmates;
+    }
+
+    public static List<Inmate> getLastUpdatedInmates() throws SQLException {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM Inmate LIMIT 10";
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+
+                inmates.add(inmate);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmates;
+    }
+
+    public static List<Inmate> getInmatesByGender(String pattern) throws SQLException {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM Inmate WHERE gender = ?";
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+
+            // Construct the city pattern with the first character 'A' and the second character 'B'
+
+            pstm.setString(1, pattern);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+                inmates.add(inmate);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmates;
+    }
+
+
+    public static List<Inmate> getActiveInmates() {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM Inmate WHERE status = 'Active'";
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+                inmates.add(inmate);
+            }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        return inmates;
     }
 }

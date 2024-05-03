@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -33,8 +35,6 @@
                 <TextField fx:id="officerId" layoutX="517.0" layoutY="143.0" styleClass="searchTextField" />
                 <TextField fx:id="fName" layoutX="518.0" layoutY="176.0" styleClass="searchTextField" />
                 <TextField fx:id="lName" layoutX="519.0" layoutY="210.0" styleClass="searchTextField" />
-                <TextField fx:id="DOB" layoutX="520.0" layoutY="246.0" styleClass="searchTextField" />
-                <TextField fx:id="gender" layoutX="521.0" layoutY="317.0" styleClass="searchTextField" />
                 <TextField fx:id="address" layoutX="522.0" layoutY="353.0" styleClass="searchTextField" />
                 <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
                     <font>
@@ -75,13 +75,13 @@
                </font>
             </Text>
             <AnchorPane layoutX="447.0" layoutY="476.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sectionId">
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
                <font>
                   <Font name="Gentium Book Basic Bold" size="14.0" />
                </font>
             </Text>
             <AnchorPane layoutX="447.0" layoutY="507.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="salary">
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salary">
                <font>
                   <Font name="Gentium Book Basic Bold" size="14.0" />
                </font>
@@ -89,7 +89,6 @@
             <AnchorPane layoutX="447.0" layoutY="538.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
             <TextField fx:id="email" layoutX="527.0" layoutY="387.0" styleClass="searchTextField" />
             <TextField fx:id="number" layoutX="526.0" layoutY="420.0" styleClass="searchTextField" />
-            <TextField fx:id="position" layoutX="528.0" layoutY="453.0" styleClass="searchTextField" />
             <TextField fx:id="sectionId" layoutX="528.0" layoutY="483.0" styleClass="searchTextField" />
             <TextField fx:id="salary" layoutX="526.0" layoutY="515.0" styleClass="searchTextField" />
             <JFXButton layoutX="794.0" layoutY="563.0" onAction="#saveBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Save">
@@ -102,6 +101,9 @@
                   <Font name="FreeSans Bold" size="18.0" />
                </font>
             </JFXButton>
+            <DatePicker fx:id="DOB" layoutX="515.0" layoutY="244.0" styleClass="searchTextField" />
+            <ComboBox fx:id="gender" layoutX="517.0" layoutY="316.0" prefWidth="150.0" styleClass="searchTextField" />
+            <ComboBox fx:id="position" layoutX="501.0" layoutY="452.0" prefWidth="150.0" styleClass="searchTextField" />
             </children></AnchorPane>
         <AnchorPane layoutX="500.0" layoutY="189.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
         <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
@@ -285,6 +287,49 @@
         <AnchorPane layoutX="500.0" layoutY="329.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
         <AnchorPane layoutX="500.0" layoutY="363.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
         <AnchorPane layoutX="500.0" layoutY="399.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-      <AnchorPane layoutX="1043.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor" />
+      <AnchorPane layoutX="1043.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+         <children>
+            <Text fontSmoothingType="LCD" layoutX="3.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Ditails" wrappingWidth="178.0">
+               <font>
+                  <Font name="Noto Mono" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="64.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsectionId" fill="#2f116b" layoutX="89.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="S001" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="51.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Name">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsectionName" fill="#2f116b" layoutX="89.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Jeail-1" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="71.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPlocation" fill="#2f116b" layoutX="92.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Bild-2" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="72.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPcapacity" fill="#2f116b" layoutX="96.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="200" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="53.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Level">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsecurityLevel" fill="#2f116b" layoutX="96.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Low" wrappingWidth="73.623046875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="83.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPstatus" fill="#2f116b" layoutX="95.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Active" wrappingWidth="73.623046875" />
+         </children></AnchorPane>
     </children>
 </AnchorPane>

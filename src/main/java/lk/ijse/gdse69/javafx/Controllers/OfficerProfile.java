@@ -3,18 +3,19 @@ package lk.ijse.gdse69.javafx.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Officer;
+import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
+import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class OfficerProfile extends MainDashBoard implements Initializable {
@@ -26,11 +27,11 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     @FXML
     private TextField lName;
     @FXML
-    private TextField DOB;
+    private DatePicker DOB;
     @FXML
     private TextField NIC;
     @FXML
-    private TextField gender;
+    private ComboBox<String> gender;
     @FXML
     private TextField address;
     @FXML
@@ -38,7 +39,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     @FXML
     private TextField number;
     @FXML
-    private TextField position;
+    private ComboBox<String> position;
     @FXML
     private TextField sectionId;
     @FXML
@@ -50,26 +51,33 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     private TextField searchField;
 
 
-    private void initialize() {
-        officerId.setEditable(false);
-        fName.setEditable(false);
-        lName.setEditable(false);
-        DOB.setEditable(false);
-        NIC.setEditable(false);
-        gender.setEditable(false);
-        address.setEditable(false);
-        email.setEditable(false);
-        number.setEditable(false);
-        position.setEditable(false);
-        sectionId.setEditable(false);
-        salary.setEditable(false);
-    }
+    @FXML
+    private Text OPsectionId;
+    @FXML
+    private Text OPsectionName;
+    @FXML
+    private Text OPlocation;
+    @FXML
+    private Text OPcapacity;
+    @FXML
+    private Text OPsecurityLevel;
+    @FXML
+    private Text OPstatus;
+
+
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setValuesComboBoxes();
     }
+
+    private void setValuesComboBoxes() {
+        gender.getItems().addAll("Male","Female");
+        position.getItems().addAll("Sergeant", "Lieutenant", "Captain", "Major", "Colonel", "General","Special Unit");
+    }
+
     public void deleteOfficer(ActionEvent actionEvent) {
 
         // Display confirmation alert
@@ -117,19 +125,27 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
-        if (!isEditingEnabled) {
-            fName.setEditable(true);
-            lName.setEditable(true);
-            DOB.setEditable(true);
-            NIC.setEditable(true);
-            gender.setEditable(true);
-            address.setEditable(true);
-            email.setEditable(true);
-            number.setEditable(true);
-            position.setEditable(true);
-            sectionId.setEditable(true);
-            salary.setEditable(true);
+
+        isEditingEnabled = !isEditingEnabled;
+
+
+            fName.setEditable(isEditingEnabled);
+            lName.setEditable(isEditingEnabled);
+            DOB.setEditable(isEditingEnabled);
+            NIC.setEditable(isEditingEnabled);
+            address.setEditable(isEditingEnabled);
+            email.setEditable(isEditingEnabled);
+            number.setEditable(isEditingEnabled);
+            sectionId.setEditable(isEditingEnabled);
+            salary.setEditable(isEditingEnabled);
+
+        for (String item : gender.getItems()){
+            gender.setDisable(!isEditingEnabled);
         }
+        for (String item : position.getItems()){
+            position.setDisable(!isEditingEnabled);
+        }
+
     }
 
     public void seachOfficer(ActionEvent actionEvent) throws SQLException {
@@ -137,16 +153,18 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         Officer officer = OfficerRepo.search(searchOfficerId);
 
         if (officer != null) {
+
+            setSectionValues(officer.getSectionId());
             this.officerId.setText(officer.getOfficerId());
             this.fName.setText(officer.getOfficerFirstName());
             this.lName.setText(officer.getOfficerLastName());
-            this.DOB.setText(officer.getOfficerDOB().toString());
+            this.DOB.getValue();
             this.NIC.setText(officer.getOfficerNIC());
-            this.gender.setText(officer.getGender());
+            this.gender.getSelectionModel().select(officer.getGender());
             this.address.setText(officer.getOfficerAddress());
             this.email.setText(officer.getOfficerEmail());
             this.number.setText(officer.getOfficerNumber());
-            this.position.setText(officer.getPosition());
+            this.position.getSelectionModel().select(officer.getPosition());
             this.sectionId.setText(officer.getSectionId());
             this.salary.setText(String.valueOf(officer.getSalary()));
         }else {
@@ -155,17 +173,33 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         }
     }
 
+    private void setSectionValues(String sectionId){
+        Section section = null;
+        try {
+           section = SectionRepo.search(sectionId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if (section != null){
+            OPsectionId.setText(section.getSectionId());
+            OPsectionName.setText(section.getSectionName());
+            OPlocation.setText(section.getLocation());
+            OPcapacity.setText(String.valueOf(section.getCapacity()));
+            OPsecurityLevel.setText(section.getSecurityLevel());
+            OPstatus.setText(section.getStatus());
+        }
+    }
     public void saveBtn(ActionEvent actionEvent) {
         String officerId = this.officerId.getText();
         String fName = this.fName.getText();
         String lName = this.lName.getText();
-        Date DOB = Date.valueOf(this.DOB.getText());
+        Date DOB = Date.valueOf(this.DOB.getValue());
         String NIC = this.NIC.getText();
-        String gender = this.gender.getText();
+        String gender = this.gender.getSelectionModel().getSelectedItem();
         String address = this.address.getText();
         String email = this.email.getText();
         String number = this.number.getText();
-        String position = this.position.getText();
+        String position = this.position.getSelectionModel().getSelectedItem();
         String sectionId = this.sectionId.getText();
         String salary = this.salary.getText();
 
@@ -188,13 +222,13 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         this.officerId.setText(officer.getOfficerId());
         this.fName.setText(officer.getOfficerFirstName());
         this.lName.setText(officer.getOfficerLastName());
-        this.DOB.setText(officer.getOfficerDOB().toString());
+        this.DOB.setValue(LocalDate.parse(officer.getOfficerDOB().toString()));
         this.NIC.setText(officer.getOfficerNIC());
-        this.gender.setText(officer.getGender());
+        this.gender.getSelectionModel().select(officer.getGender());
         this.address.setText(officer.getOfficerAddress());
         this.email.setText(officer.getOfficerEmail());
         this.number.setText(officer.getOfficerNumber());
-        this.position.setText(officer.getPosition());
+        this.position.getSelectionModel().select(officer.getPosition());
         this.sectionId.setText(officer.getSectionId());
         this.salary.setText(String.valueOf(officer.getSalary()));
     }
@@ -207,13 +241,13 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         officerId.clear();
         fName.clear();
         lName.clear();
-        DOB.clear();
+        DOB.getEditor().clear();
         NIC.clear();
-        gender.clear();
+        gender.getSelectionModel().clearSelection();
         address.clear();
         email.clear();
         number.clear();
-        position.clear();
+        position.getSelectionModel().clearSelection();
         sectionId.clear();
         salary.clear();
     }
