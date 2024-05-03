@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Section;
@@ -31,24 +32,31 @@ public class AddSectionController extends MainDashBoard implements Initializable
     @FXML
     private ComboBox<String> statusCombo;
 
+    @FXML
+    private Text totalSectionCount;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         securityLevelCombo.getItems().addAll("Low", "Medium", "High");
         statusCombo.getItems().addAll("Active", "Inactive");
 
+        setTotalCount();
+
+    }
+
+    private void setTotalCount() {
+        try {
+            String count=(String.valueOf(SectionRepo.getAllSections().size()));
+            totalSectionCount.setText(count+" Sections");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void canselBtn(ActionEvent actionEvent) {
         clearField();
     }
-
-    public void securityLevelComboBox(ActionEvent actionEvent) {
-    }
-
-    public void statusComboBox(ActionEvent actionEvent) {
-    }
-
 
 
     public void submitBtn(ActionEvent actionEvent) throws SQLException {

@@ -1,14 +1,375 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXClippedPane?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.gdse69.javafx.Controllers.ViewSectionController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.ViewSectionController">
+   <children>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
+         <image>
+            <Image url="@../images/icon/inmate.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
+         <children>
+            <TableView layoutX="290.0" layoutY="180.0" prefHeight="349.0" prefWidth="622.0" styleClass="tableView" stylesheets="@../css/dashBoardStyle.css">
+               <columns>
+                  <TableColumn fx:id="TVsectionId" prefWidth="75.0" text="Id " />
+                  <TableColumn fx:id="TVname" prefWidth="116.0" text="Name" />
+                  <TableColumn fx:id="TVlocation" prefWidth="114.0" text="Location" />
+                  <TableColumn fx:id="TVcapacity" prefWidth="108.0" text="Capacity" />
+                  <TableColumn fx:id="TVsecurityLevel" prefWidth="120.0" text="Security Lavel" />
+                  <TableColumn fx:id="TVstatus" prefWidth="88.0" text="Status" />
+               </columns>
+            </TableView>
+            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Sections" wrappingWidth="170.0">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="21.0" />
+               </font>
+            </Text>
+            <JFXComboBox fx:id="viewOptionCombo" layoutX="297.0" layoutY="156.0" promptText="All" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+         <children>
+            <Text fontSmoothingType="LCD" layoutX="7.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sections" wrappingWidth="133.0">
+               <font>
+                  <Font name="Noto Mono" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="totalSectionCount" fill="#000000a9" layoutX="9.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="520 Sctions" wrappingWidth="104.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="34.0" layoutY="72.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor" stylesheets="@../css/dashBoardStyle.css">
+               <children>
+                  <Text fill="#000000c4" layoutX="72.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Add Section" wrappingWidth="55.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="5.0" layoutY="14.0">
+                     <image>
+                        <Image url="@../images/icon/sectionIcon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="18.0" layoutY="29.0">
+                     <image>
+                        <Image url="@../images/icon/add.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="5.0" layoutY="8.0" mnemonicParsing="false" onAction="#onAddSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="30.0" layoutY="164.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="69.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Remove Section" wrappingWidth="63.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../images/icon/sectionIcon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="23.0" layoutY="23.0">
+                     <image>
+                        <Image url="@../images/icon/remove.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="34.0" layoutY="248.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="69.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Update Section" wrappingWidth="55.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="5.0" layoutY="7.0" mnemonicParsing="false" onAction="#onUpdateSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="6.0" layoutY="8.0">
+                     <image>
+                        <Image url="@../images/icon/sectionIcon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="20.0" layoutY="26.0">
+                     <image>
+                        <Image url="@../images/icon/update.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="34.0" layoutY="337.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="70.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="View Section" wrappingWidth="62.5341796875">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="4.0" layoutY="8.0" mnemonicParsing="false" onAction="#onViewSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView layoutX="10.0" layoutY="11.0">
+                     <image>
+                        <Image url="@../images/icon/ViewSection.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <JFXButton layoutX="59.0" layoutY="565.0" onAction="#sectionProfileBtn" styleClass="inmateProfileBtn" stylesheets="@../css/dashBoardStyle.css" text="Section Profile" textFill="WHITE">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="13.0" />
+               </font></JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+         <children>
+            <Text fontSmoothingType="LCD" layoutX="52.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programs" wrappingWidth="140.0">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="21.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="35.0" layoutY="114.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor" stylesheets="@../css/dashBoardStyle.css">
+               <children>
+                  <Text fill="#000000c4" layoutX="72.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Add Program" wrappingWidth="63.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddProgramBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="16.0" layoutY="14.0">
+                     <image>
+                        <Image url="@../images/icon/addProgramIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="35.0" layoutY="214.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="69.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Remove Program" wrappingWidth="63.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="5.0" layoutY="6.0" mnemonicParsing="false" onAction="#onDeleteProgramBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="16.0" layoutY="16.0">
+                     <image>
+                        <Image url="@../images/icon/deleteProgramIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="35.0" layoutY="316.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="69.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Update Program" wrappingWidth="63.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateProgramBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="18.0" layoutY="15.0">
+                     <image>
+                        <Image url="@../images/icon/updateProgramIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="35.0" layoutY="417.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+               <children>
+                  <Text fill="#000000c4" layoutX="70.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="View Program" wrappingWidth="76.5341796875">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewProgramBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="26.0" layoutY="23.0">
+                     <image>
+                        <Image url="@../images/icon/viewProgramIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
+         <children>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="6.0" layoutY="6.0">
+               <image>
+                  <Image url="@../images/icon/search.gif" />
+               </image>
+            </ImageView>
+            <TextField layoutX="32.0" layoutY="2.0" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="visitorBtn" layoutX="-2.0" layoutY="208.0" mnemonicParsing="false" onAction="#onVisitor" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/visitor.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="sectionBtn" layoutX="-2.0" layoutY="271.0" mnemonicParsing="false" onAction="#onSection" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/section.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="manyBtn" layoutX="-2.0" layoutY="329.0" mnemonicParsing="false" onAction="#onMany" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/coins.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="settingBtn" layoutX="-2.0" layoutY="387.0" mnemonicParsing="false" onAction="#onSetting" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/setting.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="-2.0" layoutY="456.0" mnemonicParsing="false" onAction="#onLogOut" prefHeight="28.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="27.0">
+               <image>
+                  <Image url="@../images/icon/logOut.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="officerBtn" layoutX="-2.0" layoutY="147.0" mnemonicParsing="false" onAction="#onOfficer" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/policeOfficer.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="inmateBtn" layoutX="-2.0" layoutY="88.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../images/icon/inmate (1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="dashBoardBtn" layoutY="25.0" mnemonicParsing="false" onAction="#onDashBord" prefHeight="47.0" prefWidth="50.0" styleClass="sriLogoBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fx:id="sirLankaLogo" fitHeight="40.0" fitWidth="40.0" styleClass="sriLankaLogo">
+               <image>
+                  <Image url="@../images/icon/sriLankaLogoMini.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1209.0" mnemonicParsing="false" onAction="#systemCloseBtn" prefHeight="24.0" prefWidth="4.0" styleClass="closeBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0">
+               <image>
+                  <Image url="@../images/icon/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1184.0" layoutY="1.0" mnemonicParsing="false" onAction="#miniHideBtn" prefHeight="15.0" prefWidth="20.0" styleClass="miniBtn" stylesheets="@../css/dashBoardStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0">
+               <image>
+                  <Image url="@../images/icon/minimaze.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <JFXClippedPane />
+   </children>
 </AnchorPane>

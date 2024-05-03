@@ -80,7 +80,7 @@ public class SectionRepo {
 
 
     public static List<Section> getAllSections() throws SQLException {
-        List<Section> sectionList = null;
+        List<Section> sectionList = new ArrayList<>();
         String query = "SELECT * FROM Section";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -110,6 +110,64 @@ public class SectionRepo {
         List<Section> sectionList = new ArrayList<>();
 
         String query = "SELECT * FROM Section WHERE sectionName LIKE 'Jail-%'";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String sectionId = resultSet.getString(1);
+                String sectionName = resultSet.getString(2);
+                String location = resultSet.getString(3);
+                Integer capacity = resultSet.getInt(4);
+                String securityLevel = resultSet.getString(5);
+                String status = resultSet.getString(6);
+
+                Section section = new Section(sectionId, sectionName, location, capacity, securityLevel, status);
+                sectionList.add(section);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return sectionList;
+
+    }
+
+    public static List<Section> getSectionByActive() throws SQLException {
+        List<Section> sectionList = new ArrayList<>();
+
+        String query = "SELECT * FROM Section WHERE status = 'Active'";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String sectionId = resultSet.getString(1);
+                String sectionName = resultSet.getString(2);
+                String location = resultSet.getString(3);
+                Integer capacity = resultSet.getInt(4);
+                String securityLevel = resultSet.getString(5);
+                String status = resultSet.getString(6);
+
+                Section section = new Section(sectionId, sectionName, location, capacity, securityLevel, status);
+                sectionList.add(section);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return sectionList;
+
+    }
+
+    public static List<Section> getSectionByHighSecurity() throws SQLException {
+        List<Section> sectionList = new ArrayList<>();
+
+        String query = "SELECT * FROM Section WHERE securityLevel = 'High'";
 
         Connection connection = DbConnection.getInstance().getConnection();
 
