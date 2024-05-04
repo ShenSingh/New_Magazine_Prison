@@ -4,6 +4,8 @@ import lk.ijse.gdse69.javafx.Model.VisitorRecord;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VisitorRecordRepo {
     public static boolean save(VisitorRecord visitorRecord) throws SQLException {
@@ -67,5 +69,55 @@ public class VisitorRecordRepo {
             return visitorRecord;
         }
         return null;
+    }
+
+    public static List<VisitorRecord> getVisitorRecords(String inVisitorID) throws SQLException {
+
+        List<VisitorRecord> visitorRecords = new ArrayList<>();
+
+        String query = "SELECT * FROM VisitorRecord WHERE visitorId = ?";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement pstm = connection.prepareStatement(query);
+        pstm.setObject(1, inVisitorID);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        while (resultSet.next()) {
+            String visitorRecordId1 = resultSet.getString(1);
+            String visitorId = resultSet.getString(2);
+            String inmateId = resultSet.getString(3);
+            Date visitDate = resultSet.getDate(4);
+            Time visitTime = resultSet.getTime(5);
+
+            VisitorRecord visitorRecord = new VisitorRecord(visitorRecordId1, visitorId, inmateId, visitDate, visitTime);
+
+            visitorRecords.add(visitorRecord);
+        }
+        return visitorRecords;
+    }
+
+    public static List<VisitorRecord> getAllVisitorRecords() throws SQLException {
+        List<VisitorRecord> visitorRecords = new ArrayList<>();
+
+        String query = "SELECT * FROM VisitorRecord";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement pstm = connection.prepareStatement(query);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        while (resultSet.next()) {
+            String visitorRecordId1 = resultSet.getString(1);
+            String visitorId = resultSet.getString(2);
+            String inmateId = resultSet.getString(3);
+            Date visitDate = resultSet.getDate(4);
+            Time visitTime = resultSet.getTime(5);
+
+            VisitorRecord visitorRecord = new VisitorRecord(visitorRecordId1, visitorId, inmateId, visitDate, visitTime);
+
+            visitorRecords.add(visitorRecord);
+        }
+        return visitorRecords;
     }
 }

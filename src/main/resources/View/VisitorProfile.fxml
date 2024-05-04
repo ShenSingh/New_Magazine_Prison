@@ -1,14 +1,322 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="View.VisitorProfile"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="MainAnchorPane" prefHeight="631.0" prefWidth="1274.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.VisitorProfileController">
+    <children>
+        <AnchorPane layoutX="54.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
+            <children>
+                <VBox layoutX="652.0" layoutY="1.0" prefHeight="606.0" prefWidth="574.0">
+                    <children>
+                        <AnchorPane fx:id="vBoxAnchorPane" prefHeight="606.0" prefWidth="595.0" styleClass="miniAnchor">
+                            <children>
+                                <Text fontSmoothingType="LCD" layoutX="7.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Records" wrappingWidth="233.0">
+                                    <font>
+                                        <Font name="DejaVu Sans Mono Bold" size="18.0" />
+                                    </font>
+                                </Text>
+                                <TableView layoutX="26.0" layoutY="99.0" prefHeight="480.0" prefWidth="525.0">
+                                    <columns>
+                                        <TableColumn fx:id="tvRecordId" prefWidth="75.0" text="Record Id" />
+                                        <TableColumn fx:id="tvVisitorId" prefWidth="109.0" text="Visitor Id" />
+                                        <TableColumn fx:id="tvInmateId" prefWidth="108.0" text="Inmate Id" />
+                                        <TableColumn fx:id="tvDate" prefWidth="113.0" text="Date" />
+                                        <TableColumn fx:id="tvTime" prefWidth="118.0" text="Time" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="290.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="293.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIC">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="292.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="visitorId" layoutX="565.0" layoutY="150.0" styleClass="searchTextField" stylesheets="@../css/dashBoardStyle.css" />
+                <TextField fx:id="fName" layoutX="565.0" layoutY="189.0" styleClass="searchTextField" />
+                <TextField fx:id="lName" layoutX="565.0" layoutY="230.0" styleClass="searchTextField" />
+                <TextField fx:id="NIC" layoutX="565.0" layoutY="315.0" styleClass="searchTextField" />
+                <TextField fx:id="status" layoutX="580.0" layoutY="339.0" styleClass="searchTextField" />
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="290.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="291.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="291.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visitor Id">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="292.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="291.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="290.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visitor Type">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="DOB" layoutX="565.0" layoutY="273.0" styleClass="searchTextField" />
+            <ComboBox fx:id="gender" layoutX="565.0" layoutY="357.0" prefHeight="24.0" prefWidth="198.0" styleClass="searchTextField" />
+            <ComboBox fx:id="visitorType" layoutX="565.0" layoutY="477.0" prefHeight="24.0" prefWidth="198.0" styleClass="searchTextField" />
+            <TextField fx:id="number" layoutX="565.0" layoutY="397.0" styleClass="searchTextField" />
+            <TextField fx:id="address" layoutX="565.0" layoutY="438.0" styleClass="searchTextField" />
+            </children></AnchorPane>
+        <AnchorPane fx:id="line1" layoutX="530.0" layoutY="199.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
+            <children>
+                <TextField fx:id="searchVisitorField" layoutX="32.0" layoutY="2.0" onAction="#searchVisitor" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="6.0" layoutY="6.0">
+                    <image>
+                        <Image url="@../images/icon/search.gif" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
+            <image>
+                <Image url="@../images/icon/inmate.png" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+            <children>
+                <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
+                    <image>
+                        <Image url="@../images/inmateProfilePhoto.png" />
+                    </image>
+                </ImageView>
+                <Text fx:id="sideVisitorName" fill="#66748a" fontSmoothingType="LCD" layoutX="55.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Hall 1" wrappingWidth="109.388671875">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <JFXButton layoutX="7.0" layoutY="303.0" onAction="#visitorProfileBtn" prefHeight="37.0" prefWidth="212.0" styleClass="profileManuBtn" stylesheets="@../css/dashBoardStyle.css" text="Profile">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="FreeSans" size="13.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteVisitor" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
+                <JFXButton layoutX="7.0" layoutY="357.0" onAction="#showRecordsBtn" prefHeight="37.0" prefWidth="212.0" styleClass="profileManuBtn" stylesheets="@../css/dashBoardStyle.css" text="Records">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="FreeSans" size="13.0" />
+                    </font>
+                </JFXButton>
+                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="368.0" nodeOrientation="INHERIT">
+                    <image>
+                        <Image url="@../images/icon/inmateRecordIcon.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="42.0" layoutY="309.0">
+                    <image>
+                        <Image url="@../images/icon/profileIcon.png" />
+                    </image>
+                </ImageView>
+                <JFXToggleButton layoutX="52.0" layoutY="176.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </JFXToggleButton>
+            </children>
+        </AnchorPane>
+        <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button fx:id="visitorBtn" layoutX="-2.0" layoutY="208.0" mnemonicParsing="false" onAction="#onVisitor" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/visitor.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="sectionBtn" layoutX="-2.0" layoutY="271.0" mnemonicParsing="false" onAction="#onSection" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/section.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="manyBtn" layoutX="-2.0" layoutY="329.0" mnemonicParsing="false" onAction="#onMany" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/coins.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="settingBtn" layoutX="-2.0" layoutY="387.0" mnemonicParsing="false" onAction="#onSetting" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/setting.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="-2.0" layoutY="456.0" mnemonicParsing="false" onAction="#onLogOut" prefHeight="28.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="27.0">
+                    <image>
+                        <Image url="@../images/icon/logOut.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="officerBtn" layoutX="-2.0" layoutY="147.0" mnemonicParsing="false" onAction="#onOfficer" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/policeOfficer.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="inmateBtn" layoutX="-2.0" layoutY="88.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/inmate (1).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="dashBoardBtn" layoutY="25.0" mnemonicParsing="false" onAction="#onDashBord" prefHeight="47.0" prefWidth="50.0" styleClass="sriLogoBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fx:id="sirLankaLogo" fitHeight="40.0" fitWidth="40.0" styleClass="sriLankaLogo">
+                    <image>
+                        <Image url="@../images/icon/sriLankaLogoMini.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="1209.0" mnemonicParsing="false" onAction="#systemCloseBtn" prefHeight="24.0" prefWidth="4.0" styleClass="closeBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0">
+                    <image>
+                        <Image url="@../images/icon/close.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="1184.0" layoutY="1.0" mnemonicParsing="false" onAction="#miniHideBtn" prefHeight="15.0" prefWidth="20.0" styleClass="miniBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="15.0" fitWidth="15.0">
+                    <image>
+                        <Image url="@../images/icon/minimaze.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="133.0">
+            <font>
+                <Font name="Kinnari" size="21.0" />
+            </font>
+        </Text>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Settings" wrappingWidth="233.0">
+            <font>
+                <Font name="Noto Mono" size="24.0" />
+            </font>
+        </Text>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile details" wrappingWidth="233.0">
+            <font>
+                <Font name="DejaVu Sans Mono Bold" size="18.0" />
+            </font>
+        </Text>
+        <AnchorPane fx:id="line2" layoutX="530.0" layoutY="237.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane fx:id="line3" layoutX="530.0" layoutY="277.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane fx:id="line4" layoutX="530.0" layoutY="320.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane fx:id="line5" layoutX="530.0" layoutY="363.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane fx:id="line6" layoutX="530.0" layoutY="404.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+      <JFXButton layoutX="763.0" layoutY="568.0" onAction="#saveBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Save">
+         <font>
+            <Font name="FreeSans Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="592.0" layoutY="568.0" onAction="#cancelBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Cancel">
+         <font>
+            <Font name="FreeSans Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane fx:id="line7" layoutX="529.0" layoutY="444.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+      <AnchorPane fx:id="line8" layoutX="530.0" layoutY="485.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+      <AnchorPane fx:id="line9" layoutX="531.0" layoutY="524.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+    </children>
 </AnchorPane>

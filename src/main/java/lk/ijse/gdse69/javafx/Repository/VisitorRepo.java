@@ -44,7 +44,7 @@ public class VisitorRepo {
     }
 
     public static boolean delete(String visitorID) throws SQLException {
-        String sql = "DELETE FROM visitor WHERE visitorID = ?";
+        String sql = "DELETE FROM Visitor WHERE visitorID = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -54,7 +54,7 @@ public class VisitorRepo {
     }
 
     public static boolean update(Visitor visitor) throws SQLException {
-        String sql = "UPDATE visitor SET visitorFirstName = ?, visitorLastName = ?, visitorDOB = ?, visitorNIC = ?, visitorNumber = ?, visitorAddress = ?, visitorType = ?, gender = ? WHERE visitorID = ?";
+        String sql = "UPDATE Visitor SET visitorFirstName = ?, visitorLastName = ?, visitorDOB = ?, visitorNIC = ?, visitorNumber = ?, visitorAddress = ?, visitorType = ?, gender = ? WHERE visitorID = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -140,6 +140,37 @@ public class VisitorRepo {
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setObject(1, InVisitorType);
+
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        while (resultSet.next()) {
+            String visitorId = resultSet.getString(1);
+            String visitorFirstName = resultSet.getString(2);
+            String visitorLastName = resultSet.getString(3);
+            Date visitorDOB = resultSet.getDate(4);
+            String visitorNIC = resultSet.getString(5);
+            Integer visitorNumber = resultSet.getInt(6);
+            String visitorAddress = resultSet.getString(7);
+            String visitorType = resultSet.getString(8);
+            String gender = resultSet.getString(9);
+
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender);
+
+            allVisitors.add(visitor);
+        }
+
+        return allVisitors;
+    }
+
+    public static List<Visitor> getVisitorByGender(String inGender) throws SQLException {
+        List<Visitor> allVisitors=new ArrayList<>();
+
+        String sql = "SELECT * FROM Visitor WHERE gender = ?";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setObject(1, inGender);
 
 
         ResultSet resultSet = pstm.executeQuery();

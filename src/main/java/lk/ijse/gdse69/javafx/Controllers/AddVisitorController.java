@@ -19,6 +19,7 @@ import lk.ijse.gdse69.javafx.Model.Visitor;
 import lk.ijse.gdse69.javafx.Model.VisitorRecord;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SetFirstVisitorRecordRepo;
+import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
 
 import java.io.File;
@@ -29,6 +30,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddVisitorController extends MainDashBoard implements Initializable {
@@ -115,25 +118,52 @@ public class AddVisitorController extends MainDashBoard implements Initializable
            //
             String newVisitorId = visitorId.getText();
 
-            String filePath = "src/main/resources/QRCodeStore/"+newVisitorId+".png";
-
-            boolean isGenerated = QRCodeGenerator.generateQRCode(newVisitorId);
 
 
+            if (checkValidId(newVisitorId)){
 
-            if (isGenerated){
-                createVisitorObject();
-                showQRCodeDialog(filePath);
+                String filePath = "src/main/resources/QRCodeStore/"+newVisitorId+".png";
 
-            } else {
-                System.out.println("Error Generating QR Code");
-                ShowAlert alert=new ShowAlert("Error","Error Generating QR Code","Error Generating QR Code", Type.ERROR);
+                boolean isGenerated = QRCodeGenerator.generateQRCode(newVisitorId);
+
+
+
+                if (isGenerated){
+                    createVisitorObject();
+                    showQRCodeDialog(filePath);
+
+                } else {
+                    System.out.println("Error Generating QR Code");
+                    ShowAlert alert=new ShowAlert("Error","Error Generating QR Code","Error Generating QR Code", Type.ERROR);
+                }
+            }else {
+                ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Already Exists", Type.ERROR);
             }
-
         } else {
             System.out.println("Empty Fields");
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
         }
+    }
+
+    private boolean checkValidId(String newVisitorId) {
+
+        List<Visitor> allVisitors=new ArrayList<>();
+
+        try {
+            allVisitors = VisitorRepo.getAllVisitors();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (allVisitors != null){
+
+            for (Visitor visitor : allVisitors){
+                if (!newVisitorId.equals(visitor.getVisitorID())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static void showQRCodeDialog(String filePath) {
@@ -206,8 +236,36 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         String formattedTime = localTime.format(formatter);
         Time newTime = Time.valueOf(formattedTime);
 
+        checkValidRecordId(newRecordId);
+
+        if (checkValidRecordId(newRecordId)){
         VisitorRecord newVisitorRecord = new VisitorRecord(newRecordId,newVisitorId,newInmateId,newDate,newTime);
         return newVisitorRecord;
+
+        }else{
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Already Exists", Type.ERROR);
+        }
+        return null;
+    }
+
+    private boolean checkValidRecordId(String newRecordId) {
+        List<VisitorRecord> allVisitorRecords=new ArrayList<>();
+
+        try {
+            allVisitorRecords = VisitorRecordRepo.getAllVisitorRecords();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (allVisitorRecords != null){
+
+            for (VisitorRecord visitorRecord : allVisitorRecords){
+                if (!newRecordId.equals(visitorRecord.getVisitorRecordId())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private Visitor createVisitorObject() {

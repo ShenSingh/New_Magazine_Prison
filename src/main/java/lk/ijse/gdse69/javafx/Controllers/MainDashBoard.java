@@ -212,23 +212,23 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDeleteVisitorBtn() throws IOException {
-        createStage("/View/SectionProfile.fxml");
+        createStage("/View/VisitorProfile.fxml");
 
     }
 
     @Override
     public void onUpdateVisitorBtn() throws IOException {
-        createStage("/View/SectionProfile.fxml");
+        createStage("/View/VisitorProfile.fxml");
     }
 
     @Override
     public void onViewVisitorBtn() throws IOException {
-        createStage("/View/ViewSection.fxml");
+        createStage("/View/ViewVisitor.fxml");
     }
 
     @Override
     public void visitorProfileBtn() throws IOException {
-        createStage("/View/SectionProfile.fxml");
+        createStage("/View/VisitorProfile.fxml");
 
     }
 

@@ -78,21 +78,16 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
 
     private void setVisitorCounts() {
         try {
-            totalVisitorCount.setText(String.valueOf(VisitorRepo.getAllVisitors().size()));
-            familyCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Immediate Family").size()));
-            legalRepresentativesCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Legal Representative").size()));
-            visitOfficerCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Officials").size()));
+            totalVisitorCount.setText(String.valueOf(VisitorRepo.getAllVisitors().size())+" Visitors");
+            familyCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Immediate Family").size())+" Visitors");
+            legalRepresentativesCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Legal Representative").size())+" Visitors");
+            visitOfficerCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Officials").size())+" Visitors");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void setTableDate(List<Visitor> allVisitors) {
-
-
-        for(Visitor visitor:allVisitors){
-            System.out.println(visitor.getGender());
-        }
 
         if (allVisitors != null){
             tvVisitorId.setCellValueFactory(new PropertyValueFactory<>("visitorID"));

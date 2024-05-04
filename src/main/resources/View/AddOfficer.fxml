@@ -145,7 +145,7 @@
          <children>
             <ImageView layoutX="-3.0" layoutY="-5.0">
                <image>
-                  <Image url="@../images/icon/specialUnitIcon%20.png" />
+                  <Image url="@../images/icon/specialUnitIcon .png" />
                </image>
             </ImageView>
          </children>
