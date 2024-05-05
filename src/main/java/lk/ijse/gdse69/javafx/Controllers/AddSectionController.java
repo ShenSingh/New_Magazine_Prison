@@ -14,6 +14,8 @@ import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddSectionController extends MainDashBoard implements Initializable {
@@ -69,24 +71,49 @@ public class AddSectionController extends MainDashBoard implements Initializable
             String securityLevel = securityLevelCombo.getSelectionModel().getSelectedItem();
             String status = statusCombo.getSelectionModel().getSelectedItem();
 
-            Section section = new Section(sectionId, sectionName, location, Integer.parseInt(capacity), securityLevel, status);
+            boolean isValid=checkSectionId(sectionId);
 
-            System.out.println(section);
+            if (isValid){
+                Section section = new Section(sectionId, sectionName, location, Integer.parseInt(capacity), securityLevel, status);
 
-            if (SectionRepo.save(section)) {
-                System.out.println("Section added successfully");
-                ShowAlert showAlert = new ShowAlert("Success", "Section Added", "Section added successfully", Type.SUCCESS);
-                clearField();
-            } else {
-                System.out.println("Failed to add section");
-                ShowAlert showAlert = new ShowAlert("Error", "Failed to add section", "Failed to add section", Type.ERROR);
+                if (SectionRepo.save(section)) {
+                    System.out.println("Section added successfully");
+                    ShowAlert showAlert = new ShowAlert("Success", "Section Added", "Section added successfully", Type.SUCCESS);
+                    clearField();
+                } else {
+                    System.out.println("Failed to add section");
+                    ShowAlert showAlert = new ShowAlert("Error", "Failed to add section", "Failed to add section", Type.ERROR);
+                    clearField();
+                }
+            }else{
+                System.out.println("Section Id already exist");
+                ShowAlert showAlert = new ShowAlert("Error", "Section Id already exist", "Section Id already exist", Type.ERROR);
                 clearField();
             }
+
 
         } else {
             System.out.println("Empty fields found");
             ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.ERROR);
         }
+    }
+
+    private boolean checkSectionId(String sectionId) {
+
+        List<Section> allSection = new ArrayList<>();
+
+        try {
+            allSection = SectionRepo.getAllSections();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(Section section:allSection){
+            if(!section.getSectionId().equals(sectionId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkEmpty() {

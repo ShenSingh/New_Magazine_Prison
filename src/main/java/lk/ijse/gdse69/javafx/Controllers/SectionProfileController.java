@@ -1,16 +1,84 @@
 package lk.ijse.gdse69.javafx.Controllers;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Alert.Type;
+import lk.ijse.gdse69.javafx.Model.Inmate;
+import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Model.Section;
+import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
+import lk.ijse.gdse69.javafx.Repository.InmateRepo;
+import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.*;
 
-public class SectionProfileController extends MainDashBoard{
+public class SectionProfileController extends MainDashBoard implements Initializable {
+
+    public AnchorPane MainAnchorPane;
+    public Text selectSecName;
+
+
+    public AnchorPane inmateAnchor;
+    public AnchorPane programAnchor;
+    public AnchorPane officerAnchor;
+
+
+    public Text secCapacityText;
+    public Text secSecuLevelText;
+    public Text secStatusText;
+    public Text secLocationText;
+    public Text secNameText;
+    public Text secIdText;
+
+    public AnchorPane line1;
+    public AnchorPane line2;
+    public AnchorPane line3;
+    public AnchorPane line4;
+    public AnchorPane line5;
+    public AnchorPane line6;
+
+    public Text mainPD;
+    public Text secondPD;
+    public JFXButton saveBtn;
+    public JFXButton cancelBtn;
+
+    public TableColumn<Officer, String> toAddress;
+    public TableColumn<Officer, String> toFName;
+    public TableColumn<Officer, String> toLName;
+    public TableColumn<Officer, String> toId;
+    public TableColumn<Officer, String> toDOB;
+    public TableColumn<Officer, String > toNIC;
+    public TableColumn<Officer, String> toGender;
+    public TableColumn<Officer, String> toEmail;
+    public TableColumn<Officer,String> toNumber;
+    public TableColumn<Officer, String> toPosition;
+    public TableColumn<Officer, String> toSalary;
+
+    /////////////////////////////
+    public TableColumn<Inmate, String > tiId;
+    public TableColumn<Inmate, String> tiFName;
+    public TableColumn<Inmate, String> tiLName;
+    public TableColumn<Inmate, String> tiDOB;
+    public TableColumn<Inmate, String> tiNIC;
+    public TableColumn<Inmate, String> tiGender;
+    public TableColumn<Inmate, String> tiAddress;
+    public TableColumn<Inmate, String> tiStatus;
+
 
     @FXML
     private TextField shearchSectionField;
@@ -24,27 +92,143 @@ public class SectionProfileController extends MainDashBoard{
     @FXML
     private TextField capacity;
     @FXML
-    private TextField securityLevel;
-
+    private ComboBox<String> securityLevel;
     @FXML
-    private TextField status;
+    private ComboBox<String> status;
+
+    private TranslateTransition sideTransition_1;
+    private TranslateTransition sideTransition_2;
+    private TranslateTransition sideTransition_3;
+
+    private boolean isOfficerVisible = false;
+    private boolean isProgramVisible = false;
+    private boolean isInmateVisible = false;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setTransition();
+        setComboBoxValues();
+
+
+    }
+
+    private void setComboBoxValues() {
+        securityLevel.getItems().addAll("High", "Medium", "Low");
+        status.getItems().addAll("Active", "Inactive");
+    }
+
+    private void setTransition() {
+        sideTransition_1 = new TranslateTransition(Duration.seconds(0.3), officerAnchor);
+        sideTransition_1.setFromX(450);
+
+        sideTransition_2 = new TranslateTransition(Duration.seconds(0.3), programAnchor);
+        sideTransition_2.setFromX(450);
+
+        sideTransition_3 = new TranslateTransition(Duration.seconds(0.3), inmateAnchor);
+        sideTransition_3.setFromX(450);
+
+        officerAnchor.setVisible(false);
+        programAnchor.setVisible(false);
+        inmateAnchor.setVisible(false);
+    }
+
+    public void showOfficersBtn(ActionEvent actionEvent) {
+        officerAnchor.setVisible(true);
+        programAnchor.setVisible(false);
+        inmateAnchor.setVisible(false);
+
+        isOfficerVisible = !isOfficerVisible;
+        if(isOfficerVisible){
+            sideTransition_1.setToX(730);
+            centerContentHideShow(isOfficerVisible);
+        }else{
+            sideTransition_1.setToX(0);
+            centerContentHideShow(isOfficerVisible);
+        }
+        sideTransition_1.play();
+    }
+
+    public void showProgramsBtn(ActionEvent actionEvent) {
+        programAnchor.setVisible(true);
+        officerAnchor.setVisible(false);
+        inmateAnchor.setVisible(false);
+
+        isProgramVisible = !isProgramVisible;
+        if(isProgramVisible){
+            sideTransition_2.setToX(730);
+            centerContentHideShow(isProgramVisible);
+        }else{
+            sideTransition_2.setToX(0);
+            centerContentHideShow(isProgramVisible);
+        }
+        sideTransition_2.play();
+    }
+    public void showInmatesBtn(ActionEvent actionEvent) {
+        inmateAnchor.setVisible(true);
+        officerAnchor.setVisible(false);
+        programAnchor.setVisible(false);
+
+        isInmateVisible = !isInmateVisible;
+        if(isInmateVisible){
+            sideTransition_3.setToX(730);
+            centerContentHideShow(isInmateVisible);
+        }else{
+            sideTransition_3.setToX(0);
+            centerContentHideShow(isInmateVisible);
+        }
+        sideTransition_3.play();
+    }
+
+    private void centerContentHideShow(boolean isVisible) {
+        sectionId.setVisible(isVisible);
+        secName.setVisible(isVisible);
+        secLocation.setVisible(isVisible);
+        capacity.setVisible(isVisible);
+        securityLevel.setVisible(isVisible);
+        status.setVisible(isVisible);
+
+        secIdText.setVisible(isVisible);
+        secNameText.setVisible(isVisible);
+        secLocationText.setVisible(isVisible);
+        secCapacityText.setVisible(isVisible);
+        secSecuLevelText.setVisible(isVisible);
+        secStatusText.setVisible(isVisible);
+
+        line1.setVisible(isVisible);
+        line2.setVisible(isVisible);
+        line3.setVisible(isVisible);
+        line4.setVisible(isVisible);
+        line5.setVisible(isVisible);
+        line6.setVisible(isVisible);
+
+        mainPD.setVisible(isVisible);
+        secondPD.setVisible(isVisible);
+
+        saveBtn.setVisible(isVisible);
+        cancelBtn.setVisible(isVisible);
+    }
 
     public void searchSection(ActionEvent actionEvent) throws SQLException {
         String secId = shearchSectionField.getText();
-        System.out.println(" section id -- "+secId);
+
+        if (!secId.isEmpty()){
+            setTableValues(secId);
+        }
 
         Section section = SectionRepo.search(secId);
 
         System.out.println(section.getSectionName());
 
 
-        if (!(section ==null)){
+        if (section !=null){
             sectionId.setText(section.getSectionId());
             secName.setText(section.getSectionName());
             secLocation.setText(section.getLocation());
             capacity.setText(String.valueOf(section.getCapacity()));
-            securityLevel.setText(section.getSecurityLevel());
-            status.setText(section.getStatus());
+            securityLevel.getSelectionModel().select(section.getSecurityLevel());
+            status.getSelectionModel().select(section.getStatus());
 
         }else {
             ShowAlert alert = new ShowAlert("Error","Not Found","Please Enter Valid Id", Type.ERROR);
@@ -52,16 +236,64 @@ public class SectionProfileController extends MainDashBoard{
 
     }
 
+    private void setTableValues(String secId) throws SQLException {
+
+        List<Officer> officers = OfficerRepo.getOfficersBySection(secId);
+        setOfficerTableValues(officers);
+
+        List<String> inmateid = InmateRecordRepo.getInmatesIdBySection(secId);
+
+        for (int i = 0; i < inmateid.size(); i++) {
+            System.out.println(inmateid.get(i));
+        }
+
+        Set<String> inmateIds = new HashSet<>(inmateid);
+
+        List<Inmate> inmatesBySec = new ArrayList<>();
+
+        for (String id : inmateIds) {
+            Inmate inmate = InmateRepo.search(id);
+            inmatesBySec.add(inmate);
+        }
+        setInmateTableValues(inmatesBySec);
+
+        //TODO: set Inmate table values
+        //TODO: set Program table values
+    }
+
+    private void setInmateTableValues(List<Inmate> inmatesBySec) {
+        tiId.setCellValueFactory(new PropertyValueFactory<>("inmateId"));
+        tiFName.setCellValueFactory(new PropertyValueFactory<>("inmateFirstName"));
+        tiLName.setCellValueFactory(new PropertyValueFactory<>("inmateLastName"));
+        tiDOB.setCellValueFactory(new PropertyValueFactory<>("inmateDOB"));
+        tiNIC.setCellValueFactory(new PropertyValueFactory<>("inmateNIC"));
+        tiGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        tiAddress.setCellValueFactory(new PropertyValueFactory<>("inmateAddress"));
+        tiStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        tiAddress.getTableView().setItems(FXCollections.observableArrayList(inmatesBySec));
+    }
+
+    private void setOfficerTableValues(List<Officer> officers) {
+        toId.setCellValueFactory(new PropertyValueFactory<>("officerId"));
+        toFName.setCellValueFactory(new PropertyValueFactory<>("officerFirstName"));
+        toLName.setCellValueFactory(new PropertyValueFactory<>("officerLastName"));
+        toDOB.setCellValueFactory(new PropertyValueFactory<>("officerDOB"));
+        toNIC.setCellValueFactory(new PropertyValueFactory<>("officerNIC"));
+        toGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        toAddress.setCellValueFactory(new PropertyValueFactory<>("officerAddress"));
+        toEmail.setCellValueFactory(new PropertyValueFactory<>("officerEmail"));
+        toNumber.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
+        toPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        toSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+
+        toAddress.getTableView().setItems(FXCollections.observableArrayList(officers));
+    }
+
     public void secProfileBtn(ActionEvent actionEvent) {
     }
 
     public void deleteSection(ActionEvent actionEvent) {
-    }
-
-    public void showOfficers(ActionEvent actionEvent) {
-    }
-
-    public void showPrograms(ActionEvent actionEvent) {
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
@@ -74,8 +306,8 @@ public class SectionProfileController extends MainDashBoard{
             String secName = this.secName.getText();
             String secLocation = this.secLocation.getText();
             String capacity = this.capacity.getText();
-            String securityLevel = this.securityLevel.getText();
-            String status = this.status.getText();
+            String securityLevel = this.securityLevel.getSelectionModel().getSelectedItem();
+            String status = this.status.getSelectionModel().getSelectedItem();
 
             Section section = new Section(secId, secName, secLocation, Integer.parseInt(capacity), securityLevel, status);
 
@@ -97,7 +329,7 @@ public class SectionProfileController extends MainDashBoard{
 
     private boolean checkEmptyField() {
 
-        if (sectionId.getText().isEmpty() || secName.getText().isEmpty() || secLocation.getText().isEmpty() || capacity.getText().isEmpty() || securityLevel.getText().isEmpty() || status.getText().isEmpty()){
+        if (sectionId.getText().isEmpty() || secName.getText().isEmpty() || secLocation.getText().isEmpty() || capacity.getText().isEmpty() || securityLevel.getSelectionModel().getSelectedItem() == null || status.getSelectionModel().getSelectedItem() == null){
             return false;
         }
         return true;
@@ -105,4 +337,6 @@ public class SectionProfileController extends MainDashBoard{
 
     public void cancelBtn(ActionEvent actionEvent) {
     }
+
+
 }

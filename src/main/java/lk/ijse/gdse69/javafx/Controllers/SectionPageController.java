@@ -70,7 +70,7 @@ public class SectionPageController extends MainDashBoard{
 
         if(allSection != null){
 
-        totalSection.setText(String.valueOf(allSection.size()));
+        totalSection.setText(String.valueOf(allSection.size())+ " Section");
 
         long activeCount = allSection.stream().filter(section -> section.getStatus().equals("Active")).count();
         String totalActive = String.valueOf(activeCount);

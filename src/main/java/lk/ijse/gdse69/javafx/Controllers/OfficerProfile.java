@@ -158,7 +158,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
             this.officerId.setText(officer.getOfficerId());
             this.fName.setText(officer.getOfficerFirstName());
             this.lName.setText(officer.getOfficerLastName());
-            this.DOB.getValue();
+            this.DOB.setValue(LocalDate.parse(officer.getOfficerDOB().toString()));
             this.NIC.setText(officer.getOfficerNIC());
             this.gender.getSelectionModel().select(officer.getGender());
             this.address.setText(officer.getOfficerAddress());
@@ -190,6 +190,8 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         }
     }
     public void saveBtn(ActionEvent actionEvent) {
+
+
         String officerId = this.officerId.getText();
         String fName = this.fName.getText();
         String lName = this.lName.getText();

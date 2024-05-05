@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="635.0" prefWidth="1275.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.DashBoardController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="635.0" prefWidth="1275.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.DashBoardController">
    <children>
       <AnchorPane layoutX="64.0" layoutY="27.0" prefHeight="608.0" prefWidth="1211.0" styleClass="secAnchorPane" stylesheets="@../css/dashBoardStyle.css" />
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">

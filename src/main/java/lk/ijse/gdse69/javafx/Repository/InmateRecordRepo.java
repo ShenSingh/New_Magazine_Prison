@@ -57,6 +57,26 @@ public class InmateRecordRepo {
         return inmateRecords;
     }
 
+    public static List<String> getInmatesIdBySection(String secId) {
+        List<String> inmateIds = new ArrayList<>();
+        try {
+            String query = "SELECT inmateId FROM InmateRecord WHERE sectionId = ?";
+
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            pstm.setObject(1, secId);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String inmateId = resultSet.getString(1);
+                inmateIds.add(inmateId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmateIds;
+    }
+
 //    public static boolean delete(String inmateRecordId) throws SQLException {
 //        String query = "DELETE FROM User WHERE inmateRecordId = ?";
 //
