@@ -54,4 +54,12 @@ void addRecordBtn() throws IOException;
     void onUpdateVisitorBtn() throws IOException;
     void onViewVisitorBtn() throws IOException;
     void visitorProfileBtn() throws IOException;
+
+    //   FinancialPage method
+
+    void onAddExpencesBtn() throws IOException;
+    void onDeleteExpencesBtn() throws IOException;
+    void onUpdateExpencesBtn() throws IOException;
+    void onViewExpencesBtn() throws IOException;
+    void expensesProfileBtn() throws IOException;
 }

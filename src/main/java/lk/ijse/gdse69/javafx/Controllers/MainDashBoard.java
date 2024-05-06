@@ -232,6 +232,33 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     }
 
+    //   FinancialPage method
+
+    @Override
+    public void onAddExpencesBtn() throws IOException {
+        createStage("/View/AddExpences.fxml");
+    }
+
+    @Override
+    public void onDeleteExpencesBtn() throws IOException {
+
+    }
+
+    @Override
+    public void onUpdateExpencesBtn() throws IOException {
+
+    }
+
+    @Override
+    public void onViewExpencesBtn() throws IOException {
+
+    }
+
+    @Override
+    public void expensesProfileBtn() throws IOException {
+
+    }
+
 
     @Override
     public void createStage(String path) throws IOException {
