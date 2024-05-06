@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXClippedPane?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.AddProgramController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.ViewProgramController">
    <children>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
          <image>
@@ -16,12 +23,22 @@
       </ImageView>
       <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
          <children>
-            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Program" wrappingWidth="170.0">
+            <TableView layoutX="290.0" layoutY="180.0" prefHeight="349.0" prefWidth="622.0" styleClass="tableView" stylesheets="@../css/dashBoardStyle.css">
+               <columns>
+                  <TableColumn fx:id="TprogramId" prefWidth="75.0" text="Id " />
+                  <TableColumn fx:id="Tname" prefWidth="135.0" text="Name" />
+                  <TableColumn fx:id="TsectionId" prefWidth="95.0" text="Section Id" />
+                  <TableColumn fx:id="Tdate" prefWidth="94.0" text="Date" />
+                  <TableColumn fx:id="Ttime" prefWidth="94.0" text="Time" />
+                  <TableColumn fx:id="Tdescription" prefWidth="128.0" text="Description" />
+               </columns>
+            </TableView>
+            <Text fontSmoothingType="LCD" layoutX="268.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Program" wrappingWidth="170.0">
                <font>
                   <Font name="DejaVu Serif Bold" size="21.0" />
                </font>
             </Text>
-            <DatePicker fx:id="programDate" layoutX="656.0" layoutY="317.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" />
+            <JFXComboBox fx:id="viewOptionCombo" layoutX="297.0" layoutY="156.0" promptText="All" unFocusColor="#4d4d4d00" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
@@ -53,12 +70,11 @@
                         <Image url="@../images/icon/add.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="8.0" layoutY="7.0" mnemonicParsing="false" onAction="#onAddSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="8.0" mnemonicParsing="false" onAction="#onAddSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <JFXClippedPane layoutX="-92.0" layoutY="53.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="30.0" layoutY="164.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
@@ -68,7 +84,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button layoutX="5.0" layoutY="7.0" mnemonicParsing="false" onAction="#onDeleteSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteSectionBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -354,50 +370,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="programId" layoutX="372.0" layoutY="242.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="385.0" layoutY="235.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Program Id">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="programName" layoutX="708.0" layoutY="242.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="721.0" layoutY="235.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Program Name">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="sectionId" layoutX="372.0" layoutY="341.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="385.0" layoutY="335.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Section Id">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="721.0" layoutY="333.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Program Date">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <JFXButton layoutX="492.0" layoutY="560.0" onAction="#canselBtn" styleClass="submitBtn" text="Cancel">
-         <font>
-            <Font name="Kinnari Bold" size="18.0" />
-         </font>
-      </JFXButton>
-      <Button layoutX="656.0" layoutY="561.0" mnemonicParsing="false" onAction="#submitBtn" prefHeight="30.0" prefWidth="100.0" styleClass="submitBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit">
-         <font>
-            <Font name="Kinnari Bold" size="18.0" />
-         </font>
-      </Button>
-      <TextField fx:id="programDescription" layoutX="708.0" layoutY="439.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="723.0" layoutY="432.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Description">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="programTime" layoutX="373.0" layoutY="438.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <Label layoutX="386.0" layoutY="431.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Program Time">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
+      <JFXClippedPane />
    </children>
 </AnchorPane>

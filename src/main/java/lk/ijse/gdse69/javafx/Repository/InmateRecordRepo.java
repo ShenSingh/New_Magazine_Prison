@@ -48,7 +48,7 @@ public class InmateRecordRepo {
                 String caseStatus = resultSet.getString(6);
 
                 InmateRecord inmateRecord = new InmateRecord(InmateId, sectionId, entryDate, releaseDate, crime, caseStatus);
-                System.out.println("relese date  =  "+inmateRecord.getReleaseDate());
+
                 inmateRecords.add(inmateRecord);
             }
         } catch (SQLException e) {

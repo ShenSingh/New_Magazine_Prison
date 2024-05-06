@@ -1,12 +1,14 @@
 package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -28,7 +30,7 @@ public class InmateProfileController extends  MainDashBoard{
     public TableColumn<InmateRecord, String> IPInmateId;
     public TableColumn<InmateRecord, String> IPSectionId;
     public TableColumn<InmateRecord, String> IPEntryDate;
-    public TableColumn<InmateRecord, String> IPReleaseDate;
+    public TableColumn<InmateRecord, String> IPReleasedate;
     public TableColumn<InmateRecord, String> IPCaseStatus;
     public TableColumn<InmateRecord, String> IPCrime;
     @FXML
@@ -178,7 +180,6 @@ public class InmateProfileController extends  MainDashBoard{
     public void searchInmateField(ActionEvent actionEvent) {
         String inmateId = searchInmate.getText();
 
-        getTableValues(inmateId);
 
         if (inmateId.isEmpty()){
             ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Type.ERROR);
@@ -193,6 +194,7 @@ public class InmateProfileController extends  MainDashBoard{
                 this.fullName.setText(fullName);
 
 
+                getTableValues(inmateId);
                 this.inmateId.setText(inmate.getInmateId());
                 this.fName.setText(inmate.getInmateFirstName());
                 this.lName.setText(inmate.getInmateLastName());
@@ -213,21 +215,17 @@ public class InmateProfileController extends  MainDashBoard{
         List<InmateRecord> inmateRecords = InmateRecordRepo.getRecords(inmateId);
         //List<IncidentRepo> incidentRepos = IncidentRepo.getIncidents(inmateId);
 
+        for (InmateRecord inmateRecord : inmateRecords){
+            System.out.println(inmateRecord.getReleaseDate());
+        }
+        IPInmateId.setCellValueFactory(new PropertyValueFactory<>("inmateId"));
+        IPSectionId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
+        IPEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
+        IPReleasedate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+        IPCrime.setCellValueFactory(new PropertyValueFactory<>("crime"));
+        IPCaseStatus.setCellValueFactory(new PropertyValueFactory<>("caseStatus"));
 
-
-//        IPInmateId.setCellValueFactory(new PropertyValueFactory<>("inmateId"));
-//        IPSectionId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
-//        IPEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
-//        IPReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
-//        IPCrime.setCellValueFactory(new PropertyValueFactory<>("crime"));
-//        IPCaseStatus.setCellValueFactory(new PropertyValueFactory<>("caseStatus"));
-
-        //IPCrime.getTableView().setItems(FXCollections.observableArrayList(inmateRecords));
-
-
-
-
-
+        IPCrime.getTableView().setItems(FXCollections.observableArrayList(inmateRecords));
     }
 
     public void inInmateProfileBtn(ActionEvent actionEvent) throws IOException {

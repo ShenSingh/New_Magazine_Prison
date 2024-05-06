@@ -30,14 +30,14 @@
                            </font>
                         </Text>
                         <TableView layoutX="19.0" layoutY="99.0" prefHeight="406.0" prefWidth="630.0">
-                          <columns>
-                            <TableColumn fx:id="IPInmateId" prefWidth="77.0" text="Inmate Id" />
-                            <TableColumn fx:id="IPSectionId" prefWidth="85.0" text="Section Id" />
+                           <columns>
+                              <TableColumn fx:id="IPInmateId" prefWidth="77.0" text="Inmate Id" />
+                              <TableColumn fx:id="IPSectionId" prefWidth="85.0" text="Section Id" />
                               <TableColumn fx:id="IPEntryDate" prefWidth="130.0" text="Entry Date" />
                               <TableColumn fx:id="IPReleasedate" prefWidth="122.0" text="Release date" />
                               <TableColumn fx:id="IPCrime" prefWidth="127.0" text="Crime" />
                               <TableColumn fx:id="IPCaseStatus" prefWidth="87.0" text="Status" />
-                          </columns>
+                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>

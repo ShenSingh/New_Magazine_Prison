@@ -154,23 +154,23 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onAddProgramBtn() throws IOException {
-        createStage("");
+        createStage("/View/AddProgram.fxml");
     }
 
     @Override
     public void onDeleteProgramBtn() throws IOException {
-        createStage("");
+        createStage("/View/ProgramProfile.fxml");
 
     }
 
     @Override
     public void onUpdateProgramBtn() throws IOException {
-        createStage("");
+        createStage("/View/ProgramProfile.fxml");
     }
 
     @Override
     public void onViewProgramBtn() throws IOException {
-        createStage("");
+        createStage("/View/ViewProgram.fxml");
     }
 
 

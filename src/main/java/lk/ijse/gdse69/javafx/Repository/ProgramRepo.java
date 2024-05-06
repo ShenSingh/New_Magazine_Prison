@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProgramRepo {
 
@@ -63,8 +67,8 @@ public class ProgramRepo {
             String id = resultSet.getString(1);
             String name = resultSet.getString(2);
             String sectionId = resultSet.getString(3);
-            String date = resultSet.getString(4);
-            String time = resultSet.getString(5);
+            LocalDate date = resultSet.getDate(4).toLocalDate();
+            LocalTime time = resultSet.getTime(5).toLocalTime();
             String description = resultSet.getString(6);
 
             Program program = new Program(id, name, sectionId, date, time, description);
@@ -72,5 +76,31 @@ public class ProgramRepo {
             return program;
         }
         return null;
+    }
+
+    public static List<Program> getAllPrograms() throws SQLException {
+        List<Program> programs = new ArrayList<>();
+
+        String query = "SELECT * FROM Program";
+
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement pstm = connection.prepareStatement(query);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        while (resultSet.next()) {
+            String id = resultSet.getString(1);
+            String name = resultSet.getString(2);
+            String sectionId = resultSet.getString(3);
+            LocalDate date = resultSet.getDate(4).toLocalDate();
+            LocalTime time = resultSet.getTime(5).toLocalTime();
+            String description = resultSet.getString(6);
+
+            Program program = new Program(id, name, sectionId, date, time, description);
+
+            programs.add(program);
+
+        }
+        return programs;
     }
 }

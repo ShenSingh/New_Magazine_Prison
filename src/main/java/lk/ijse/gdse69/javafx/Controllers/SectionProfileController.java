@@ -23,6 +23,7 @@ import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -103,6 +104,8 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     private boolean isOfficerVisible = false;
     private boolean isProgramVisible = false;
     private boolean isInmateVisible = false;
+
+    private boolean isEditableEnable = false;
 
 
     @Override
@@ -213,27 +216,25 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     public void searchSection(ActionEvent actionEvent) throws SQLException {
         String secId = shearchSectionField.getText();
 
-        if (!secId.isEmpty()){
-            setTableValues(secId);
+        if (secId.isEmpty()){
+            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Type.ERROR);
+            return;
         }
 
         Section section = SectionRepo.search(secId);
 
-        System.out.println(section.getSectionName());
+        if (section != null){
 
-
-        if (section !=null){
+            setTableValues(secId);
             sectionId.setText(section.getSectionId());
             secName.setText(section.getSectionName());
             secLocation.setText(section.getLocation());
             capacity.setText(String.valueOf(section.getCapacity()));
             securityLevel.getSelectionModel().select(section.getSecurityLevel());
             status.getSelectionModel().select(section.getStatus());
-
         }else {
-            ShowAlert alert = new ShowAlert("Error","Not Found","Please Enter Valid Id", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Section Not Found", "Section not found", Type.ERROR);
         }
-
     }
 
     private void setTableValues(String secId) throws SQLException {
@@ -290,13 +291,36 @@ public class SectionProfileController extends MainDashBoard implements Initializ
         toAddress.getTableView().setItems(FXCollections.observableArrayList(officers));
     }
 
-    public void secProfileBtn(ActionEvent actionEvent) {
+    public void secProfileBtn(ActionEvent actionEvent) throws IOException {
+        createStage("/View/SectionProfile.fxml");
     }
 
-    public void deleteSection(ActionEvent actionEvent) {
+    public void deleteSection(ActionEvent actionEvent) throws SQLException {
+
+        if (!shearchSectionField.getText().isEmpty()){
+            String sectionId = shearchSectionField.getText();
+
+            if (SectionRepo.delete(sectionId)){
+                clearFields();
+                ShowAlert alert = new ShowAlert("Success", "Section Deleted", "Section deleted successfully", Type.SUCCESS);
+            }else {
+                ShowAlert alert = new ShowAlert("Error", "Failed to delete", "Failed to delete section", Type.ERROR);
+            }
+        }else{
+            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Type.ERROR);
+        }
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
+        isEditableEnable = !isEditableEnable;
+
+        sectionId.setEditable(isEditableEnable);
+        secName.setEditable(isEditableEnable);
+        secLocation.setEditable(isEditableEnable);
+        capacity.setEditable(isEditableEnable);
+
+        securityLevel.setDisable(!isEditableEnable);
+        status.setDisable(!isEditableEnable);
     }
 
     public void saveBtn(ActionEvent actionEvent) throws SQLException {
@@ -336,6 +360,16 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     }
 
     public void cancelBtn(ActionEvent actionEvent) {
+        clearFields();
+    }
+
+    private void clearFields() {
+        sectionId.clear();
+        secName.clear();
+        secLocation.clear();
+        capacity.clear();
+        securityLevel.getSelectionModel().clearSelection();
+        status.getSelectionModel().clearSelection();
     }
 
 
