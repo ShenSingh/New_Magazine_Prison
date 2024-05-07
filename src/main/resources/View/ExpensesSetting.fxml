@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="MainAnchorPane" prefHeight="631.0" prefWidth="1255.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.ExpensesSettingController">
+    <children>
+        <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
+            <children>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="expensesId" layoutX="517.0" layoutY="204.0" styleClass="searchTextField" />
+                <TextField fx:id="fName" layoutX="518.0" layoutY="129.0" styleClass="searchTextField" />
+                <TextField fx:id="sectionId" layoutX="519.0" layoutY="252.0" styleClass="searchTextField" />
+                <TextField fx:id="cost" layoutX="505.0" layoutY="396.0" styleClass="searchTextField" />
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses Id">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="month" layoutX="515.0" layoutY="301.0" styleClass="searchTextField" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="447.0" layoutY="419.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+            <JFXButton layoutX="663.0" layoutY="549.0" onAction="#saveBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Save">
+               <font>
+                  <Font name="FreeSans Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="492.0" layoutY="549.0" onAction="#cancelBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Cancel">
+               <font>
+                  <Font name="FreeSans Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <ComboBox fx:id="type" layoutX="512.0" layoutY="349.0" prefHeight="24.0" prefWidth="171.0" styleClass="searchTextField" />
+            </children></AnchorPane>
+        <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
+            <children>
+                <TextField fx:id="searchField" layoutX="32.0" layoutY="2.0" onAction="#seachExpenses" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="6.0" layoutY="6.0">
+                    <image>
+                        <Image url="@../images/icon/search.gif" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
+            <image>
+                <Image url="@../images/icon/inmate.png" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+            <children>
+                <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
+                    <image>
+                        <Image url="@../images/inmateProfilePhoto.png" />
+                    </image>
+                </ImageView>
+                <Text fx:id="programName" fill="#66748a" fontSmoothingType="LCD" layoutX="44.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamal kumara">
+                    <font>
+                        <Font name="Gentium Book Basic Bold" size="18.0" />
+                    </font>
+                </Text>
+                <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteExpenses" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
+                <JFXToggleButton layoutX="52.0" layoutY="176.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </JFXToggleButton>
+            </children>
+        </AnchorPane>
+        <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button fx:id="visitorBtn" layoutX="-2.0" layoutY="208.0" mnemonicParsing="false" onAction="#onVisitor" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/visitor.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="sectionBtn" layoutX="-2.0" layoutY="271.0" mnemonicParsing="false" onAction="#onSection" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/section.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="manyBtn" layoutX="-2.0" layoutY="329.0" mnemonicParsing="false" onAction="#onMany" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/coins.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="settingBtn" layoutX="-2.0" layoutY="387.0" mnemonicParsing="false" onAction="#onSetting" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/setting.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="-2.0" layoutY="456.0" mnemonicParsing="false" onAction="#onLogOut" prefHeight="28.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="27.0">
+                    <image>
+                        <Image url="@../images/icon/logOut.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="officerBtn" layoutX="-2.0" layoutY="147.0" mnemonicParsing="false" onAction="#onOfficer" prefHeight="53.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/policeOfficer.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="inmateBtn" layoutX="-2.0" layoutY="88.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="55.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="28.0" fitWidth="28.0">
+                    <image>
+                        <Image url="@../images/icon/inmate (1).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="dashBoardBtn" layoutY="25.0" mnemonicParsing="false" onAction="#onDashBord" prefHeight="47.0" prefWidth="50.0" styleClass="sriLogoBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fx:id="sirLankaLogo" fitHeight="40.0" fitWidth="40.0" styleClass="sriLankaLogo">
+                    <image>
+                        <Image url="@../images/icon/sriLankaLogoMini.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="1209.0" mnemonicParsing="false" onAction="#systemCloseBtn" prefHeight="24.0" prefWidth="4.0" styleClass="closeBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0">
+                    <image>
+                        <Image url="@../images/icon/close.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button layoutX="1184.0" layoutY="1.0" mnemonicParsing="false" onAction="#miniHideBtn" prefHeight="15.0" prefWidth="20.0" styleClass="miniBtn" stylesheets="@../css/dashBoardStyle.css">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="15.0" fitWidth="15.0">
+                    <image>
+                        <Image url="@../images/icon/minimaze.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="133.0">
+            <font>
+                <Font name="Kinnari" size="21.0" />
+            </font>
+        </Text>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses Settings" wrappingWidth="282.0">
+            <font>
+                <Font name="Noto Mono" size="24.0" />
+            </font>
+        </Text>
+        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses details" wrappingWidth="233.0">
+            <font>
+                <Font name="DejaVu Sans Mono Bold" size="18.0" />
+            </font>
+        </Text>
+        <AnchorPane layoutX="500.0" layoutY="251.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane layoutX="500.0" layoutY="299.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane layoutX="500.0" layoutY="348.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+        <AnchorPane layoutX="500.0" layoutY="396.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
+      <AnchorPane layoutX="1043.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+         <children>
+            <Text fontSmoothingType="LCD" layoutX="23.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Ditails" wrappingWidth="178.0">
+               <font>
+                  <Font name="Noto Mono" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="64.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsectionId" fill="#2f116b" layoutX="89.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="S001" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="51.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Name">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsectionName" fill="#2f116b" layoutX="89.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Jeail-1" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="71.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPlocation" fill="#2f116b" layoutX="92.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Bild-2" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="72.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPcapacity" fill="#2f116b" layoutX="96.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="200" wrappingWidth="96.7294921875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="53.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Level">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPsecurityLevel" fill="#2f116b" layoutX="96.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Low" wrappingWidth="73.623046875" />
+            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="83.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+               <font>
+                  <Font name="Gentium Book Basic Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="OPstatus" fill="#2f116b" layoutX="95.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Active" wrappingWidth="73.623046875" />
+         </children></AnchorPane>
+    </children>
+</AnchorPane>

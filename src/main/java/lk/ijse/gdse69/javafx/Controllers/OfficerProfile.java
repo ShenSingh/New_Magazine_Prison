@@ -253,4 +253,6 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         sectionId.clear();
         salary.clear();
     }
+
+
 }

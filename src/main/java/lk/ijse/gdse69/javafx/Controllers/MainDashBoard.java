@@ -203,6 +203,28 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     }
 
+    //    sectionPage-Incident method
+
+    @Override
+    public void onAddIncidentBtn() throws IOException {
+        createStage("/View/AddIncident.fxml");
+    }
+
+    @Override
+    public void onDeleteIncidentBtn() throws IOException {
+        createStage("/View/IncidentSetting.fxml");
+    }
+
+    @Override
+    public void onUpdateIncidentBtn() throws IOException {
+        createStage("/View/IncidentSetting.fxml");
+    }
+
+    @Override
+    public void onViewIncidentBtn() throws IOException {
+        createStage("/View/ViewIncident.fxml");
+    }
+
 //    Visitor page method////////////////
 
     @Override

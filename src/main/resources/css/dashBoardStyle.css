@@ -65,8 +65,16 @@
     -fx-background-radius: 15px;
 
 }
-.cateManuBtn{
+.cateManuBtn ,.inciBtn{
     -fx-background-color: transparent;
+}
+.inciBtn:hover{
+    -fx-background-color: transparent;
+    -fx-border-color: #2F95CB;
+    -fx-border-width: 0px 0px 0px 2px;
+}
+.inciBtn:hover .inciText{  // not set
+    -fx-fill: #2F95CB;
 }
 .cateManuBtn:hover{
     -fx-background-color: transparent;
