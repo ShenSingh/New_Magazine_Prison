@@ -40,7 +40,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
     @Override
     public void onMany() throws IOException {
 
-        createStage("/View/FinancialPage.fxml");
+        createStage("/View/financialPage.fxml");
     }
 
     @Override
@@ -207,7 +207,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onAddIncidentBtn() throws IOException {
-        createStage("/View/AddIncident.fxml");
+        createStage("/View/AddIcident.fxml");
     }
 
     @Override
@@ -263,21 +263,23 @@ public class MainDashBoard implements MainDashBoardInterFace{
 
     @Override
     public void onDeleteExpencesBtn() throws IOException {
-
+        createStage("/View/ExpensesSetting.fxml");
     }
 
     @Override
     public void onUpdateExpencesBtn() throws IOException {
+        createStage("/View/ExpensesSetting.fxml");
 
     }
 
     @Override
     public void onViewExpencesBtn() throws IOException {
-
+        createStage("/View/ViewExpenses.fxml");
     }
 
     @Override
     public void expensesProfileBtn() throws IOException {
+        createStage("/View/ExpensesSetting.fxml");
 
     }
 

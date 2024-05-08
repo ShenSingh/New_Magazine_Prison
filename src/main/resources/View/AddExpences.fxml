@@ -44,7 +44,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="addinmate" layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button  layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -63,7 +63,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="deleteInmate" layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onDeleteExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button  layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onDeleteExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -82,7 +82,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="updateInmate" layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -121,7 +121,7 @@
       </AnchorPane>
       <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
          <children>
-            <Text fx:id="iyHelthExpen" fill="#00000079" layoutX="82.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000.00">
+            <Text fx:id="iyHealthExpen" fill="#00000079" layoutX="82.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000.00">
                <font>
                   <Font size="10.0" />
                </font>

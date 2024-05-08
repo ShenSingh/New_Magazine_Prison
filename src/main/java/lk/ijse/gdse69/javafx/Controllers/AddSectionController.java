@@ -11,6 +11,7 @@ import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -64,6 +65,9 @@ public class AddSectionController extends MainDashBoard implements Initializable
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
 
         if (checkEmpty()) {
+
+            if(checkValidSectionId()){}else {return;}
+
             String sectionId = this.sectionId.getText();
             String sectionName = this.sectionName.getText();
             String location = this.location.getText();
@@ -98,6 +102,16 @@ public class AddSectionController extends MainDashBoard implements Initializable
         }
     }
 
+    private boolean checkValidSectionId() {
+        String secId = this.sectionId.getText().trim();
+
+        if (secId.matches("S\\d{3}")){
+            return true;
+        }
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section Id", "Invalid Section Id Ex : SXXX", Type.ERROR);
+        return false;
+    }
+
     private boolean checkSectionId(String sectionId) {
 
         List<Section> allSection = new ArrayList<>();
@@ -113,16 +127,20 @@ public class AddSectionController extends MainDashBoard implements Initializable
                 return true;
             }
         }
+        ShowAlert showAlert = new ShowAlert("Error", "Section Id Already Exist", "Section Id Already Exist", Type.ERROR);
         return false;
     }
 
     private boolean checkEmpty() {
 
-        if (sectionId.getText().isEmpty() || sectionName.getText().isEmpty() || location.getText().isEmpty() || capacity.getText().isEmpty() || securityLevelCombo.getSelectionModel().isEmpty() || statusCombo.getSelectionModel().isEmpty()){
+//        if (sectionId.getText().isEmpty() || sectionName.getText().isEmpty() || location.getText().isEmpty() || capacity.getText().isEmpty() || securityLevelCombo.getSelectionModel().isEmpty() || statusCombo.getSelectionModel().isEmpty()){
+//
+//            return false;
+//        }
+//        return true;
 
-            return false;
-        }
-        return true;
+        return Util.checkEmptyFields(sectionId.getText(),sectionName.getText(),location.getText(),capacity.getText(),securityLevelCombo.getSelectionModel().getSelectedItem(),statusCombo.getSelectionModel().getSelectedItem());
+
     }
 
     private void clearField(){

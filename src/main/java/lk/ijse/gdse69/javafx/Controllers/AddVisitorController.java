@@ -21,6 +21,7 @@ import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SetFirstVisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
 
 import java.io.File;
 import java.net.URL;
@@ -118,6 +119,8 @@ public class AddVisitorController extends MainDashBoard implements Initializable
            //
             String newVisitorId = visitorId.getText();
 
+            if (checkValidVisitorId(newVisitorId)){} else {return;}
+            if (checkValidVisitorName()){} else {return;}
 
 
             if (checkValidId(newVisitorId)){
@@ -142,6 +145,28 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         } else {
             System.out.println("Empty Fields");
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
+        }
+    }
+
+    private boolean checkValidVisitorName() {
+        String newFName = fName.getText();
+        String newLName = lName.getText();
+
+        if (newFName.matches("[a-zA-Z]+") && newLName.matches("[a-zA-Z]+")){
+            return true;
+        } else {
+            ShowAlert alert=new ShowAlert("Error","Invalid Name","Name Should Be Letters", Type.ERROR);
+            return false;
+        }
+    }
+
+    private boolean checkValidVisitorId(String newVisitorId) {
+
+        if (newVisitorId.matches("V\\d{3}")){
+            return true;
+        } else {
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Should Be VXXX", Type.ERROR);
+            return false;
         }
     }
 
@@ -192,6 +217,8 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         if (createVisitorObject() != null && checkRecordEmptyFields()) {
             System.out.println("Not Empty");
 
+            if (checkValidationRecordId()){} else {return;}
+
 
             createVisitorRecordObject();
 
@@ -216,13 +243,19 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         }
     }
 
-    private boolean checkRecordEmptyFields() {
-        if (visitorRecordId.getText().isEmpty() || inmateId.getText().isEmpty() || inmateName.getText().isEmpty() || inmateNIC.getText().isEmpty()) {
-            return false;
-        } else {
-            System.out.println("Not Empty");
+    private boolean checkValidationRecordId() {
+        String newRecordId = visitorRecordId.getText();
+
+        if (newRecordId.matches("VR\\d{3}")){
             return true;
+        } else {
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Should Be VRXXX", Type.ERROR);
+            return false;
         }
+    }
+
+    private boolean checkRecordEmptyFields() {
+        return Util.checkEmptyFields(visitorRecordId.getText(), inmateId.getText(), inmateName.getText(), inmateNIC.getText());
     }
 
     private VisitorRecord createVisitorRecordObject() {
@@ -277,13 +310,10 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         String newLName = lName.getText();
             String dateString = DOB.getEditor().getText();
 
-// Define a DateTimeFormatter for parsing the date string
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
-// Parse the date string into a LocalDate object
             LocalDate localDate = LocalDate.parse(dateString, formatter);
 
-// Convert LocalDate to java.sql.Date
             Date newDOB = Date.valueOf(localDate);
 
         String newNIC = NIC.getText();
@@ -300,19 +330,11 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
             return null;
         }
-
     }
-
 
     private boolean checkEmptyFields() {
-        if (visitorId.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() || DOB.getEditor().getText().isEmpty() || NIC.getText().isEmpty() || number.getText().isEmpty() || address.getText().isEmpty() || gender.getSelectionModel().isEmpty() || visitorType.getSelectionModel().isEmpty()) {
-            return false;
-        } else {
-            System.out.println("Not Empty");
-            return true;
-        }
+        return Util.checkEmptyFields(visitorId.getText(), fName.getText(), lName.getText(), DOB.getEditor().getText(), NIC.getText(), number.getText(),address.getText(),gender.getSelectionModel().getSelectedItem(),visitorType.getSelectionModel().getSelectedItem());
     }
-
 
     private void clearFields() {
         visitorId.clear();

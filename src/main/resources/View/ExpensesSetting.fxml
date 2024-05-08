@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="631.0" prefWidth="1255.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.ExpensesSettingController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="631.0" prefWidth="1255.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.ExpensesSettingController">
     <children>
         <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
             <children>
@@ -22,7 +22,6 @@
                     </font>
                 </Text>
                 <TextField fx:id="expensesId" layoutX="517.0" layoutY="204.0" styleClass="searchTextField" />
-                <TextField fx:id="fName" layoutX="518.0" layoutY="129.0" styleClass="searchTextField" />
                 <TextField fx:id="sectionId" layoutX="519.0" layoutY="252.0" styleClass="searchTextField" />
                 <TextField fx:id="cost" layoutX="505.0" layoutY="396.0" styleClass="searchTextField" />
                 <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
@@ -81,13 +80,8 @@
                         <Image url="@../images/inmateProfilePhoto.png" />
                     </image>
                 </ImageView>
-                <Text fx:id="programName" fill="#66748a" fontSmoothingType="LCD" layoutX="44.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamal kumara">
-                    <font>
-                        <Font name="Gentium Book Basic Bold" size="18.0" />
-                    </font>
-                </Text>
                 <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteExpenses" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
-                <JFXToggleButton layoutX="52.0" layoutY="176.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
+                <JFXToggleButton layoutX="52.0" layoutY="159.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
                     <font>
                         <Font size="11.0" />
                     </font>
@@ -250,37 +244,37 @@
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPsectionId" fill="#2f116b" layoutX="89.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="S001" wrappingWidth="96.7294921875" />
+            <Text fx:id="OPsectionId" fill="#2f116b" layoutX="89.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="96.7294921875" />
             <Text fill="#66748a" fontSmoothingType="LCD" layoutX="51.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Name">
                <font>
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPsectionName" fill="#2f116b" layoutX="89.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Jeail-1" wrappingWidth="96.7294921875" />
+            <Text fx:id="OPsectionName" fill="#2f116b" layoutX="89.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="96.7294921875" />
             <Text fill="#66748a" fontSmoothingType="LCD" layoutX="71.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                <font>
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPlocation" fill="#2f116b" layoutX="92.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Bild-2" wrappingWidth="96.7294921875" />
+            <Text fx:id="OPlocation" fill="#2f116b" layoutX="92.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="96.7294921875" />
             <Text fill="#66748a" fontSmoothingType="LCD" layoutX="72.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
                <font>
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPcapacity" fill="#2f116b" layoutX="96.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="200" wrappingWidth="96.7294921875" />
+            <Text fx:id="OPcapacity" fill="#2f116b" layoutX="96.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="96.7294921875" />
             <Text fill="#66748a" fontSmoothingType="LCD" layoutX="53.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Level">
                <font>
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPsecurityLevel" fill="#2f116b" layoutX="96.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Low" wrappingWidth="73.623046875" />
+            <Text fx:id="OPsecurityLevel" fill="#2f116b" layoutX="96.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="73.623046875" />
             <Text fill="#66748a" fontSmoothingType="LCD" layoutX="83.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
                <font>
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="OPstatus" fill="#2f116b" layoutX="95.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Active" wrappingWidth="73.623046875" />
+            <Text fx:id="OPstatus" fill="#2f116b" layoutX="95.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" wrappingWidth="73.623046875" />
          </children></AnchorPane>
     </children>
 </AnchorPane>

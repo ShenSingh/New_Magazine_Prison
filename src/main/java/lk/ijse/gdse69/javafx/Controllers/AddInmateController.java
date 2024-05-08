@@ -10,13 +10,18 @@ import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
+import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Model.SetFirstInmateRecord;
+import lk.ijse.gdse69.javafx.Repository.InmateRepo;
+import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Repository.SetFirstInmateRecordRepo;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddInmateController extends MainDashBoard {
 
@@ -81,7 +86,11 @@ public class AddInmateController extends MainDashBoard {
             // You can proceed with the form submission
             // For example, save the form data to the database
 
+            if (checkValidateInmateId()){}else {return;}
 
+            if (checkInmateId()){}else {return;}
+
+            if(checkSectionId()){}else {return;}
 
             Inmate inmate = new Inmate(inmateId.getText(), inmateFName.getText(), inmateLName.getText(), inmateDOB.getValue(),inmateNIC.getText(), inmateGender.getText(), inmateAddress.getText(), inmateStatus.getText());
             InmateRecord inmateRecord = new InmateRecord( inmateId.getText(), inRecoSectionId.getText(), Date.valueOf(LocalDate.now()), Date.valueOf(inRecoReleseDate.getValue()),inRecoCrime.getText() ,caseStatusComboBox.getSelectionModel().getSelectedItem());
@@ -105,6 +114,53 @@ public class AddInmateController extends MainDashBoard {
             clearFields();
             // Show an alert to the user to fill all the fields
         }
+    }
+
+    private boolean checkValidateInmateId() {
+        String id = this.inmateId.getText().trim();
+
+        if (id.matches("I\\d{3}")){
+            return true;
+        }
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Inmate Id", "Invalid Inmate Id Ex : IXXX", Type.ERROR);
+        return false;
+    }
+
+    private boolean checkSectionId() {
+        List<Section> sections = new ArrayList<>();
+
+        try {
+            sections = SectionRepo.getAllSections();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (Section section : sections){
+            if (section.getSectionId().equals(this.inRecoSectionId.getText())){
+                return true;
+            }
+        }
+        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Type.ERROR);
+        return false;
+    }
+
+    private boolean checkInmateId() {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            inmates = InmateRepo.getAllInmates();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (Inmate inmate : inmates){
+            if (!inmate.getInmateId().equals(this.inmateId.getText())){
+                return true;
+            }
+        }
+        ShowAlert showAlert = new ShowAlert("Error", "Inmate Id Already Exist", "Inmate Id Already Exist", Type.ERROR);
+        return false;
+
     }
 
     private Boolean checkEmptyFields() {
