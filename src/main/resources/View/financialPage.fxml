@@ -57,7 +57,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="addinmate" layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button fx:id="addinmate" layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -95,7 +95,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="updateInmate" layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button fx:id="updateInmate" layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -107,14 +107,14 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="24.0" layoutY="323.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+            <AnchorPane layoutX="34.0" layoutY="323.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
                <children>
                   <Text fill="#000000c4" layoutX="70.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="View Expenses" wrappingWidth="75.0">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#onViewExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -141,7 +141,7 @@
             </Text>
             <AnchorPane layoutX="21.0" layoutY="357.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="2.0" layoutY="5.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="3.0">
                      <image>
                         <Image url="@../images/icon/equipmentExpencesIcon.png" />
                      </image>
@@ -160,7 +160,7 @@
             </Text>
             <AnchorPane layoutX="20.0" layoutY="422.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="4.0" layoutY="1.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="3.0">
                      <image>
                         <Image url="@../images/icon/electricExpencesIcon.png" />
                      </image>
@@ -169,7 +169,7 @@
             </AnchorPane>
             <AnchorPane layoutX="25.0" layoutY="484.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="-1.0" layoutY="3.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="3.0">
                      <image>
                         <Image url="@../images/icon/watherexpencesIcon.png" />
                      </image>
@@ -216,7 +216,14 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="21.0" layoutY="159.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css" />
+            <AnchorPane layoutX="21.0" layoutY="159.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
+               <children>
+                  <ImageView layoutY="3.0">
+                     <image>
+                        <Image url="@../images/icon/staffExpencesIcon.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
             <Text fx:id="lyFoodExpen" fill="#00000079" layoutX="80.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000.00">
                <font>
                   <Font size="10.0" />
@@ -238,7 +245,7 @@
             </AnchorPane>
             <AnchorPane layoutX="21.0" layoutY="298.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
                <children>
-                  <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="5.0" layoutY="1.0">
+                  <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="5.0" layoutY="3.0">
                      <image>
                         <Image url="@../images/icon/foodExpencesIcon.png" />
                      </image>

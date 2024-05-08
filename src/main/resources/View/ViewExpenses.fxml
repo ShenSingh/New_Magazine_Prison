@@ -54,7 +54,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="addinmate" layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button fx:id="addinmate" layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -92,7 +92,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="updateInmate" layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button fx:id="updateInmate" layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onUpdateExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -104,14 +104,14 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="31.0" layoutY="323.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
+            <AnchorPane layoutX="34.0" layoutY="323.0" prefHeight="70.0" prefWidth="150.0" styleClass="categoryAnchor">
                <children>
                   <Text fill="#000000c4" layoutX="70.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="View Expenses" wrappingWidth="75.0">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#onViewExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
