@@ -7,24 +7,34 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IncidentRepo {
-    public static boolean save(Incident incident) throws SQLException {
-
+    public static boolean save(Incident incident) {
         String query = "INSERT INTO Incident VALUES(?,?,?,?,?,?)";
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(query);
-        pstm.setObject(1, incident.getIncidentId());
-        pstm.setObject(2, incident.getSectionId());
-        pstm.setObject(3, incident.getIncidentDate());
-        pstm.setObject(4, incident.getIncidentTime());
-        pstm.setObject(5, incident.getDescription());
-        pstm.setObject(6, incident.getIncidentType());
+        System.out.println("IncidentRepo.save()");
 
-        return pstm.executeUpdate() > 0;
+        try (Connection connection = DbConnection.getInstance().getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query)) {
+            System.out.println("IncidentRepo.save() - try");
+
+            pstm.setObject(1, incident.getIncidentId());
+            pstm.setObject(2, incident.getSectionId());
+            pstm.setObject(3, incident.getIncidentType());
+            pstm.setObject(4, incident.getIncidentDate());
+            pstm.setObject(5, incident.getIncidentTime());
+            pstm.setObject(6, incident.getDescription());
+
+            return pstm.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            // Handle the SQLException here, such as logging the error or displaying a message to the user
+            e.printStackTrace(); // This prints the exception trace to the console
+            return false; // Or handle the error according to your application's requirements
+        }
     }
 
     public static boolean delete(String incidentId) throws SQLException {
@@ -63,7 +73,7 @@ public class IncidentRepo {
         if (resultSet.next()) {
             String id = resultSet.getString(1);
             String sectionId = resultSet.getString(2);
-            String incidentDate = resultSet.getString(3);
+            LocalDate incidentDate = resultSet.getDate(3).toLocalDate();
             String incidentTime = resultSet.getString(4);
             String description = resultSet.getString(5);
             String incidentType = resultSet.getString(6);
