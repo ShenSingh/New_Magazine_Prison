@@ -38,7 +38,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class WelcomeController implements Initializable {
 
     public TextField uNameField;
@@ -50,7 +49,6 @@ public class WelcomeController implements Initializable {
     public Text secondLoginText;
     public JFXButton signInSignupBtn;
 
-//
     public Text suMainText1;
     public Text suMainText2;
     public Text suMainText3;
@@ -82,17 +80,9 @@ public class WelcomeController implements Initializable {
     public Text secondLoginTextMain1;
     private Integer otpMail;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flogHide(false);
-
-
-
-
-
-
-
     }
 
     public void signInBtn(ActionEvent actionEvent) throws SQLException {
@@ -161,7 +151,6 @@ public class WelcomeController implements Initializable {
         root.getChildren().add(mediaView);
         return root;
     }
-
 
     public void sendOTPBtn(ActionEvent actionEvent) {
 
@@ -279,8 +268,6 @@ public class WelcomeController implements Initializable {
             return false;
         }
     }
-
-
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
@@ -288,14 +275,6 @@ public class WelcomeController implements Initializable {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    
-
-
-
-
-
-
-
     public void signInSignupBtn(ActionEvent actionEvent) {
 
         secondLoginTextMain.setVisible(false);
@@ -311,15 +290,6 @@ public class WelcomeController implements Initializable {
         secondLoginText.setVisible(false);
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public void signUpSignInBtn(ActionEvent actionEvent) {
 
         TranslateTransition tt = new TranslateTransition(Duration.millis(800), sAnchor);
@@ -329,12 +299,7 @@ public class WelcomeController implements Initializable {
         flogHide(false);
         signInSignupBtn.setVisible(true);
 
-
     }
-    
-    
-    
-    
 
     private void flogHide(boolean b) {
         signupSignInBtn.setVisible(b);

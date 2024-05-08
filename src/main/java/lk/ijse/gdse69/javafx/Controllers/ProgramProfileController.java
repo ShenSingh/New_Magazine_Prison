@@ -33,6 +33,8 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
 
     public TextField searchField;
 
+    private boolean isEdit = false;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -120,7 +122,6 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
             ShowAlert showAlert= new ShowAlert("Error","Empty Fields","Please Enter Program Id", Alert.AlertType.ERROR);
         }
     }
-
     private boolean checkEmptyFields() {
         if (programId.getText().isEmpty() || programName.getText().isEmpty() || sectionId.getText().isEmpty() || programTime.getText().isEmpty() || programDate.getValue() == null || description.getText().isEmpty()) {
             return false;
@@ -129,6 +130,15 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
+        isEdit = !isEdit;
+
+        programId.setEditable(isEdit);
+        programName.setEditable(isEdit);
+        sectionId.setEditable(isEdit);
+        programTime.setEditable(isEdit);
+        programDate.setEditable(isEdit);
+        description.setEditable(isEdit);
+
     }
 
     public void deleteProgram(ActionEvent actionEvent) throws SQLException {
@@ -145,6 +155,5 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
             }
         }
     }
-
 
 }
