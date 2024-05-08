@@ -142,11 +142,6 @@
         </ImageView>
         <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
             <children>
-                <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
-                    <image>
-                        <Image url="@../images/inmateProfilePhoto.png" />
-                    </image>
-                </ImageView>
                 <Text fx:id="selectSecName" fill="#66748a" fontSmoothingType="LCD" layoutX="55.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Hall 1" wrappingWidth="109.388671875">
                     <font>
                         <Font name="Gentium Book Basic Bold" size="18.0" />
@@ -205,6 +200,11 @@
                   <Font name="FreeSans" size="13.0" />
                </font>
             </JFXButton>
+            <ImageView layoutX="50.0" layoutY="45.0">
+               <image>
+                  <Image url="@../images/icon/icons8-police-station-100.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
         <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">

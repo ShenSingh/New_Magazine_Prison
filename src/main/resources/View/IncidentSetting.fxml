@@ -35,6 +35,11 @@
                   <Font name="Noto Mono" size="24.0" />
                </font>
             </Text>
+            <ImageView layoutX="55.0" layoutY="57.0">
+               <image>
+                  <Image url="@../images/icon/icons8-incident-100%20(1).png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
@@ -248,12 +253,7 @@
       <AnchorPane layoutX="548.0" layoutY="483.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
       <TextField fx:id="incidentTime" layoutX="600.0" layoutY="402.0" styleClass="searchTextField" />
       <TextField fx:id="description" layoutX="600.0" layoutY="460.0" styleClass="searchTextField" />
-      <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="105.0" layoutY="81.0">
-         <image>
-            <Image url="@../images/inmateProfilePhoto.png" />
-         </image>
-      </ImageView>
-      <Text  fill="#66748a" fontSmoothingType="LCD" layoutX="99.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fill="#66748a" fontSmoothingType="LCD" layoutX="99.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="Gentium Book Basic Bold" size="18.0" />
          </font>
