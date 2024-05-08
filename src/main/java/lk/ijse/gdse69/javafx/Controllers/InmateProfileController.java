@@ -4,16 +4,12 @@ import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
@@ -182,7 +178,7 @@ public class InmateProfileController extends  MainDashBoard{
 
 
         if (inmateId.isEmpty()){
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.ERROR);
             return;
         }
 
@@ -204,7 +200,7 @@ public class InmateProfileController extends  MainDashBoard{
                 this.address.setText(inmate.getInmateAddress());
                 this.status.getSelectionModel().select(inmate.getStatus());
             }else{
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -236,16 +232,16 @@ public class InmateProfileController extends  MainDashBoard{
         String inmateId = searchInmate.getText();
 
         if (inmateId.isEmpty()){
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.WARNING);
             return;
         }
         try {
             if (InmateRepo.delete(inmateId)){
-                ShowAlert showAlert = new ShowAlert("Success", "Inmate Deleted", "Inmate deleted successfully", Type.INFORMATIONAL);
+                ShowAlert showAlert = new ShowAlert("Success", "Inmate Deleted", "Inmate deleted successfully", Alert.AlertType.INFORMATION);
                 clearFields();
                 this.fullName.setText("");
             }else {
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Deleted", "Inmate not deleted successfully", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Deleted", "Inmate not deleted successfully", Alert.AlertType.ERROR);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -268,16 +264,16 @@ public class InmateProfileController extends  MainDashBoard{
             Inmate inmate = new Inmate(inmateId, fName, lName,DOB, NIC, Gender, address, status);
 
             if (InmateRepo.update(inmate)){
-                ShowAlert showAlert = new ShowAlert("Success", "Inmate Updated", "Inmate updated successfully", Type.INFORMATIONAL);
+                ShowAlert showAlert = new ShowAlert("Success", "Inmate Updated", "Inmate updated successfully", Alert.AlertType.INFORMATION);
 
             }else {
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Updated", "Inmate not updated successfully", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Updated", "Inmate not updated successfully", Alert.AlertType.ERROR);
 
             }
 
 
         }else{
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.INFORMATIONAL);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
         }
     }
 

@@ -2,13 +2,13 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
@@ -128,7 +128,7 @@ public class AddOfficerController extends MainDashBoard {
             if (checkValidName(this.lName.getText())){}else {return;}
 
             if (Double.valueOf(this.salery.getText())  > 0){}else {
-                showAlert = new ShowAlert("Error", "Officer Salary is Invalid", "Officer Salary is Invalid. Ex : xxxx.xx", Type.ERROR);
+                showAlert = new ShowAlert("Error", "Officer Salary is Invalid", "Officer Salary is Invalid. Ex : xxxx.xx", Alert.AlertType.ERROR);
                 return;
             }
             if (checkValidEmail()){}else {return;}
@@ -139,10 +139,10 @@ public class AddOfficerController extends MainDashBoard {
 
             if (OfficerRepo.save(officer)) {
 
-                showAlert = new ShowAlert("Success", "Officer Added", "Officer added successfully", Type.INFORMATIONAL);
+                showAlert = new ShowAlert("Success", "Officer Added", "Officer added successfully", Alert.AlertType.INFORMATION);
                 clearFields();
             } else {
-                showAlert = new ShowAlert("Error", "Officer Not Added", "Officer not added successfully", Type.ERROR);
+                showAlert = new ShowAlert("Error", "Officer Not Added", "Officer not added successfully", Alert.AlertType.ERROR);
             }
 
         }else {
@@ -166,7 +166,7 @@ public class AddOfficerController extends MainDashBoard {
                 return true;
             }
         }
-        showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Type.ERROR);
+        showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -175,7 +175,7 @@ public class AddOfficerController extends MainDashBoard {
         if (text.matches( "^[A-Za-z\\s'-]+$")){
             return true;
         }
-        showAlert = new ShowAlert("Error", "Inmate Name Invalid", "Invalid Inmate first Name or Last Name", Type.ERROR);
+        showAlert = new ShowAlert("Error", "Inmate Name Invalid", "Invalid Inmate first Name or Last Name", Alert.AlertType.ERROR);
         return false;
     }
 
@@ -185,7 +185,7 @@ public class AddOfficerController extends MainDashBoard {
         if (email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Email", "Invalid Officer Email Ex : xxxxx@gmail.com", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Email", "Invalid Officer Email Ex : xxxxx@gmail.com", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -195,7 +195,7 @@ public class AddOfficerController extends MainDashBoard {
         if (id.matches("O\\d{3}")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Id", "Invalid Officer Id Ex : OXXX", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Id", "Invalid Officer Id Ex : OXXX", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -210,7 +210,7 @@ public class AddOfficerController extends MainDashBoard {
 
         for (Officer officer : officers){
             if (officer.getOfficerId().equals(this.officerId.getText())){
-                ShowAlert showAlert = new ShowAlert("Error", "Officer Id Already Exist", "Officer Id Already Exist", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Officer Id Already Exist", "Officer Id Already Exist", Alert.AlertType.ERROR);
                 return false;
             }
         }

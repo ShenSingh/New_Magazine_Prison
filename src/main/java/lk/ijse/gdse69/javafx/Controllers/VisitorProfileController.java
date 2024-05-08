@@ -5,15 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Visitor;
 import lk.ijse.gdse69.javafx.Model.VisitorRecord;
 import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
@@ -120,7 +116,7 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
                 visitorType.getSelectionModel().select(visitor.getVisitorType());
             }
         }else {
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Enter Search Visitor Id", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Field","Enter Search Visitor Id", Alert.AlertType.WARNING);
         }
     }
 
@@ -146,12 +142,12 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
             String visitorId = searchVisitorField.getText();
 
             if (VisitorRepo.delete(visitorId)) {
-                ShowAlert alert = new ShowAlert("Success", "Delete Success", "Visitor Deleted Successfully", Type.SUCCESS);
+                ShowAlert alert = new ShowAlert("Success", "Delete Success", "Visitor Deleted Successfully", Alert.AlertType.INFORMATION);
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Delete Failed", "Visitor Delete Failed", Type.ERROR);
+                ShowAlert alert = new ShowAlert("Error", "Delete Failed", "Visitor Delete Failed", Alert.AlertType.ERROR);
             }
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Enter Visitor ID to Delete", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Enter Visitor ID to Delete", Alert.AlertType.ERROR);
         }
     }
 
@@ -219,12 +215,12 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
             Visitor visitor = new Visitor(visitorId.getText(), fName.getText(), lName.getText(), java.sql.Date.valueOf(DOB.getValue()), NIC.getText(), Integer.parseInt(number.getText()), address.getText(), visitorType.getSelectionModel().getSelectedItem(), gender.getSelectionModel().getSelectedItem());
 
             if (VisitorRepo.update(visitor)) {
-                ShowAlert alert = new ShowAlert("Success", "Update Success", "Visitor Profile Updated Successfully", Type.SUCCESS);
+                ShowAlert alert = new ShowAlert("Success", "Update Success", "Visitor Profile Updated Successfully", Alert.AlertType.INFORMATION);
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Update Failed", "Visitor Profile Update Failed", Type.ERROR);
+                ShowAlert alert = new ShowAlert("Error", "Update Failed", "Visitor Profile Update Failed", Alert.AlertType.ERROR);
             }
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
         }
     }
 

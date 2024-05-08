@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.FlogQRCode.QRCodeScanner;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Visitor;
@@ -140,7 +140,7 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
             } else {
                 visitorId.clear();
                 System.out.println("Visitor Not Found");
-                ShowAlert alert=new ShowAlert("Error","Visitor Not Found","Visitor Not Found", Type.ERROR);
+                ShowAlert alert=new ShowAlert("Error","Visitor Not Found","Visitor Not Found", Alert.AlertType.ERROR);
             }
         }
     }
@@ -158,11 +158,11 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
             } else {
                 inmateId.clear();
                 System.out.println("Inmate Not Found");
-                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Type.ERROR);
+                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Alert.AlertType.ERROR);
             }
         }else{
             System.out.println("inmateId Field Empty");
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Alert.AlertType.ERROR);
         }
     }
 

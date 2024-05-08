@@ -2,12 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
 import lk.ijse.gdse69.javafx.Model.Section;
@@ -99,18 +99,18 @@ public class AddInmateController extends MainDashBoard {
 
             if (SetFirstInmateRecordRepo.setFirstInmateRecord(firstInmateRecord)) {
                 System.out.println("Inmate record added successfully");
-                showAlert = new ShowAlert("Success", "Record Added", "Record added successfully", Type.SUCCESS);
+                showAlert = new ShowAlert("Success", "Record Added", "Record added successfully", Alert.AlertType.INFORMATION);
                 clearFields();
             }
             else {
                 System.out.println("Inmate record not added successfully");
-                showAlert = new ShowAlert("Error", "Record Not Added", "Record not added successfully", Type.ERROR);
+                showAlert = new ShowAlert("Error", "Record Not Added", "Record not added successfully", Alert.AlertType.INFORMATION);
                 clearFields();
             }
         }
         else {
             System.out.println("Please fill all the fields");
-            showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.INFORMATIONAL);
+            showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.INFORMATION);
             clearFields();
             // Show an alert to the user to fill all the fields
         }
@@ -122,7 +122,7 @@ public class AddInmateController extends MainDashBoard {
         if (id.matches("I\\d{3}")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Inmate Id", "Invalid Inmate Id Ex : IXXX", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Inmate Id", "Invalid Inmate Id Ex : IXXX", Alert.AlertType.ERROR);
         return false;
     }
 
@@ -140,7 +140,7 @@ public class AddInmateController extends MainDashBoard {
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Alert.AlertType.ERROR);
         return false;
     }
 
@@ -158,7 +158,7 @@ public class AddInmateController extends MainDashBoard {
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Inmate Id Already Exist", "Inmate Id Already Exist", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Inmate Id Already Exist", "Inmate Id Already Exist", Alert.AlertType.WARNING);
         return false;
 
     }

@@ -4,10 +4,8 @@ import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.Model.IncidentRelatedInmate;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IncidentRelatedInmateRepo {
@@ -48,6 +46,27 @@ public class IncidentRelatedInmateRepo {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static List<String> getInmateIds(String incidentId) {
+        List<String> inmateIds = new ArrayList<>();
+
+        String query = "SELECT inmateId FROM IncidentRelatedInmate WHERE incidentId = ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+             PreparedStatement pstm = connection.prepareStatement(query)) {
+            pstm.setObject(1, incidentId);
+
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+                inmateIds.add(rst.getString(1));
+            }
+            System.out.println(inmateIds);
+            return inmateIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

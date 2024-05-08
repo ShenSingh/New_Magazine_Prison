@@ -3,12 +3,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
@@ -82,23 +82,23 @@ public class AddSectionController extends MainDashBoard implements Initializable
 
                 if (SectionRepo.save(section)) {
                     System.out.println("Section added successfully");
-                    ShowAlert showAlert = new ShowAlert("Success", "Section Added", "Section added successfully", Type.SUCCESS);
+                    ShowAlert showAlert = new ShowAlert("Success", "Section Added", "Section added successfully", Alert.AlertType.INFORMATION);
                     clearField();
                 } else {
                     System.out.println("Failed to add section");
-                    ShowAlert showAlert = new ShowAlert("Error", "Failed to add section", "Failed to add section", Type.ERROR);
+                    ShowAlert showAlert = new ShowAlert("Error", "Failed to add section", "Failed to add section", Alert.AlertType.ERROR);
                     clearField();
                 }
             }else{
                 System.out.println("Section Id already exist");
-                ShowAlert showAlert = new ShowAlert("Error", "Section Id already exist", "Section Id already exist", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Section Id already exist", "Section Id already exist", Alert.AlertType.WARNING);
                 clearField();
             }
 
 
         } else {
             System.out.println("Empty fields found");
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
         }
     }
 
@@ -108,7 +108,7 @@ public class AddSectionController extends MainDashBoard implements Initializable
         if (secId.matches("S\\d{3}")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section Id", "Invalid Section Id Ex : SXXX", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section Id", "Invalid Section Id Ex : SXXX", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -127,7 +127,7 @@ public class AddSectionController extends MainDashBoard implements Initializable
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Section Id Already Exist", "Section Id Already Exist", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Section Id Already Exist", "Section Id Already Exist", Alert.AlertType.WARNING);
         return false;
     }
 

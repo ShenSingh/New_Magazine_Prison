@@ -4,13 +4,13 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
 
@@ -125,17 +125,17 @@ public class AddInmateRecordController extends MainDashBoard{
                 System.out.println(inmateRecord.toString());
 
                 if (InmateRecordRepo.save(inmateRecord)){
-                    ShowAlert showAlert = new ShowAlert("Success", "Record Added", "Record added successfully", Type.SUCCESS);
+                    ShowAlert showAlert = new ShowAlert("Success", "Record Added", "Record added successfully", Alert.AlertType.INFORMATION);
                 }else {
-                    ShowAlert showAlert = new ShowAlert("Error", "Record Not Added", "Record not added successfully", Type.ERROR);
+                    ShowAlert showAlert = new ShowAlert("Error", "Record Not Added", "Record not added successfully", Alert.AlertType.ERROR);
                 }
 
             }else {
-                ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please fill all the fields", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please fill all the fields", Alert.AlertType.ERROR);
             }
 
         }else{
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.ERROR);
         }
     }
 

@@ -2,11 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Program;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ProgramRepo;
@@ -30,6 +31,8 @@ public class AddProgramController extends MainDashBoard implements Initializable
     public TextField sectionId;
     public TextField programTime;
     public TextField programDescription;
+
+    public AnchorPane MainAnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,14 +84,14 @@ public class AddProgramController extends MainDashBoard implements Initializable
 
             if (isAdded) {
                 clearFields();
-                ShowAlert showAlert = new ShowAlert("Success", "Program Added", "Program Added Successfully", Type.SUCCESS);
+                ShowAlert showAlert = new ShowAlert("Success", "Program Added", "Program Added Successfully", Alert.AlertType.INFORMATION);
             } else {
                 clearFields();
-                ShowAlert showAlert = new ShowAlert("Error", "Program Not Added", "Program Not Added", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Program Not Added", "Program Not Added", Alert.AlertType.ERROR);
             }
 
         } else {
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
         }
     }
 
@@ -98,7 +101,7 @@ public class AddProgramController extends MainDashBoard implements Initializable
         if (time.matches("^(?:[01]\\d|2[0-3]).(?:[0-5]\\d)$")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Time", "Invalid Program Time Ex : XX.XX", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Time", "Invalid Program Time Ex : XX.XX", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -107,7 +110,7 @@ public class AddProgramController extends MainDashBoard implements Initializable
         if (id.matches("P\\d{3}")) {
             return true;
         } else {
-            ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Id", "Invalid Program Id Ex : PXXX", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Id", "Invalid Program Id Ex : PXXX", Alert.AlertType.WARNING);
             return false;
         }
     }
@@ -124,7 +127,7 @@ public class AddProgramController extends MainDashBoard implements Initializable
 
         for (Program program : programs) {
             if (program.getProgramId().equals(programId.getText())) {
-                ShowAlert showAlert = new ShowAlert("Error", "Program Id Already Exist", "Program Id Already Exist", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Program Id Already Exist", "Program Id Already Exist", Alert.AlertType.WARNING);
                 return false;
             }
         }
@@ -144,7 +147,7 @@ public class AddProgramController extends MainDashBoard implements Initializable
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Alert.AlertType.ERROR);
         return false;
     }
 

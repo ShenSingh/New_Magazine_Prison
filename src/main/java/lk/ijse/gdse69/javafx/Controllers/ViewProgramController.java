@@ -29,6 +29,7 @@ public class ViewProgramController extends MainDashBoard implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewOptionCombo.getItems().addAll("All Programs", "Today Programs","This Month Programs");
+        viewOptionCombo.setVisible(false);//not needed in this controller
 
         try {
             setTableValues(ProgramRepo.getAllPrograms());

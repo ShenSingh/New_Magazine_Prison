@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.FlogQRCode.QRCodeGenerator;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.SetFirstVisitorRecord;
@@ -99,11 +98,11 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             } else {
                 inmateId.clear();
                 System.out.println("Inmate Not Found");
-                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Type.ERROR);
+                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Alert.AlertType.ERROR);
             }
         }else{
             System.out.println("inmateId Field Empty");
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Alert.AlertType.ERROR);
         }
     }
 
@@ -137,14 +136,14 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
                 } else {
                     System.out.println("Error Generating QR Code");
-                    ShowAlert alert=new ShowAlert("Error","Error Generating QR Code","Error Generating QR Code", Type.ERROR);
+                    ShowAlert alert=new ShowAlert("Error","Error Generating QR Code","Error Generating QR Code", Alert.AlertType.ERROR);
                 }
             }else {
-                ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Already Exists", Type.ERROR);
+                ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Already Exists", Alert.AlertType.WARNING);
             }
         } else {
             System.out.println("Empty Fields");
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.WARNING);
         }
     }
 
@@ -155,7 +154,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         if (newFName.matches("[a-zA-Z]+") && newLName.matches("[a-zA-Z]+")){
             return true;
         } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid Name","Name Should Be Letters", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Invalid Name","Name Should Be Letters", Alert.AlertType.WARNING);
             return false;
         }
     }
@@ -165,7 +164,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         if (newVisitorId.matches("V\\d{3}")){
             return true;
         } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Should Be VXXX", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Should Be VXXX", Alert.AlertType.WARNING);
             return false;
         }
     }
@@ -230,16 +229,16 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
             if (isSaved){
                 System.out.println("Saved successfully");
-                ShowAlert alert=new ShowAlert("Success","Saved","Visitor Record Saved", Type.SUCCESS);
+                ShowAlert alert=new ShowAlert("Success","Saved","Visitor Record Saved", Alert.AlertType.INFORMATION);
                 clearFields();
             } else {
                 System.out.println("Saved unsuccessfully");
-                ShowAlert alert=new ShowAlert("Error","Not Saved","Visitor Record Not Saved", Type.ERROR);
+                ShowAlert alert=new ShowAlert("Error","Not Saved","Visitor Record Not Saved", Alert.AlertType.ERROR);
             }
 
         } else {
             System.out.println("Empty Fields");
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
         }
     }
 
@@ -249,7 +248,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         if (newRecordId.matches("VR\\d{3}")){
             return true;
         } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Should Be VRXXX", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Should Be VRXXX", Alert.AlertType.WARNING);
             return false;
         }
     }
@@ -276,7 +275,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         return newVisitorRecord;
 
         }else{
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Already Exists", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Already Exists", Alert.AlertType.WARNING);
         }
         return null;
     }
@@ -327,7 +326,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
         }else{
             System.out.println("Empty Fields");
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Type.ERROR);
+            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
             return null;
         }
     }

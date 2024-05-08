@@ -253,7 +253,7 @@
             <Image url="@../images/inmateProfilePhoto.png" />
          </image>
       </ImageView>
-      <Text fx:id="fullProgramName" fill="#66748a" fontSmoothingType="LCD" layoutX="99.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text  fill="#66748a" fontSmoothingType="LCD" layoutX="99.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="Gentium Book Basic Bold" size="18.0" />
          </font>

@@ -3,10 +3,7 @@ package lk.ijse.gdse69.javafx.Repository;
 import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,11 @@ public class ExpencesRepo {
         String query = "INSERT INTO Expences VALUES(?,?,?,?,?)";
 
         Connection connection = DbConnection.getInstance().getConnection();
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, expences.getExpenceId());
         pstm.setObject(2, expences.getSectionId());
@@ -27,9 +29,15 @@ public class ExpencesRepo {
     }
 
     public static boolean delete(String expenceId) throws SQLException {
-        String query = "DELETE FROM Expences WHERE expenceId = ?";
+        String query = "DELETE FROM Expences WHERE expencesId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, expenceId);
 
@@ -40,6 +48,12 @@ public class ExpencesRepo {
         String query = "UPDATE Expences SET sectionId = ?, month = ?, type = ?, cost = ? WHERE expencesId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, expences.getSectionId());
         pstm.setObject(2, expences.getMonth());
@@ -54,6 +68,11 @@ public class ExpencesRepo {
         String query = "SELECT * FROM Expences WHERE expencesId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, expenceId);
 
@@ -79,6 +98,11 @@ public class ExpencesRepo {
             String query = "SELECT * FROM Expences";
 
             Connection connection = DbConnection.getInstance().getConnection();
+            if (connection != null && !connection.isClosed()) {
+                System.out.println("Connection is active.");
+            } else {
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+            }
             PreparedStatement pstm = connection.prepareStatement(query);
 
             ResultSet resultSet = pstm.executeQuery();
@@ -106,6 +130,11 @@ public class ExpencesRepo {
             String query = "SELECT * FROM Expences WHERE type = ?";
 
             Connection connection = DbConnection.getInstance().getConnection();
+            if (connection != null && !connection.isClosed()) {
+                System.out.println("Connection is active.");
+            } else {
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+            }
             PreparedStatement pstm = connection.prepareStatement(query);
 
             pstm.setObject(1, inType);

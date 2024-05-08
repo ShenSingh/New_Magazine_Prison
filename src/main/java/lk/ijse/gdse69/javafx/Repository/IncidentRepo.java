@@ -3,10 +3,7 @@ package lk.ijse.gdse69.javafx.Repository;
 import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,8 @@ public class IncidentRepo {
 
         System.out.println("IncidentRepo.save()");
 
-        try (Connection connection = DbConnection.getInstance().getConnection();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+
              PreparedStatement pstm = connection.prepareStatement(query)) {
             System.out.println("IncidentRepo.save() - try");
 
@@ -41,6 +39,13 @@ public class IncidentRepo {
         String query = "DELETE FROM Incident WHERE incidentId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
+
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incidentId);
 
@@ -50,6 +55,11 @@ public class IncidentRepo {
         String query = "UPDATE Incident SET sectionId = ?, incidentDate = ?, incidentTime = ?, description = ?, incidentType = ? WHERE incidentId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incident.getSectionId());
         pstm.setObject(2, incident.getIncidentDate());
@@ -65,6 +75,12 @@ public class IncidentRepo {
         String query = "SELECT * FROM Incident WHERE incidentId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
+
+        if (connection != null && !connection.isClosed()) {
+            System.out.println("Connection is active.");
+        } else {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incidentId);
 
@@ -73,10 +89,10 @@ public class IncidentRepo {
         if (resultSet.next()) {
             String id = resultSet.getString(1);
             String sectionId = resultSet.getString(2);
-            LocalDate incidentDate = resultSet.getDate(3).toLocalDate();
-            String incidentTime = resultSet.getString(4);
-            String description = resultSet.getString(5);
-            String incidentType = resultSet.getString(6);
+            String incidentType = resultSet.getString(3);
+            LocalDate incidentDate = resultSet.getDate(4).toLocalDate();
+            String incidentTime = resultSet.getString(5).toString();
+            String description = resultSet.getString(6);
 
             Incident incident = new Incident(id, sectionId, incidentType, incidentDate, incidentTime, description);
 
@@ -85,9 +101,32 @@ public class IncidentRepo {
         return null;
     }
 
-    public static List<Incident> getIncidents(String InInmateId) {
-        List<Incident> incidentsRecord = new ArrayList<>();
+    public static List<Incident> getAllIncidents() {
+        String query = "SELECT * FROM Incident";
 
-        return incidentsRecord;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+
+
+
+             PreparedStatement pstm = connection.prepareStatement(query);
+             ResultSet resultSet = pstm.executeQuery()) {
+
+            List<Incident> incidents = new ArrayList<>();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String sectionId = resultSet.getString(2);
+                String incidentType = resultSet.getString(3);
+                LocalDate incidentDate = resultSet.getDate(4).toLocalDate();
+                String incidentTime = resultSet.getString(5).toString();
+                String description = resultSet.getString(6);
+
+                Incident incident = new Incident(id, sectionId, incidentType, incidentDate, incidentTime, description);
+                incidents.add(incident);
+            }
+            return incidents;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

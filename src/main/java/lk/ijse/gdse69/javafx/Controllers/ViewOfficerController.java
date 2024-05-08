@@ -100,9 +100,6 @@ private JFXComboBox<String> viewOptionCombo;
                     throw new RuntimeException(e);
                 }
             }
-            else if (newValue.equals("City")){
-                //TODO
-            }
             else if (newValue.equals("Male")) {
                 try {
                     setTableData(OfficerRepo.getOfficerByGender("Male"));

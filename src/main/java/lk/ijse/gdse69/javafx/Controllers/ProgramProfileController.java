@@ -2,12 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Program;
 import lk.ijse.gdse69.javafx.Repository.ProgramRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
@@ -64,18 +64,18 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
                     boolean isUpdated = ProgramRepo.update(program);
 
                     if (isUpdated) {
-                        ShowAlert showAlert = new ShowAlert("Success", "Program Updated", "Program Update Successfully", Type.INFORMATIONAL);
+                        ShowAlert showAlert = new ShowAlert("Success", "Program Updated", "Program Update Successfully", Alert.AlertType.INFORMATION);
                         clearFields();
                     } else {
-                        ShowAlert showAlert = new ShowAlert("Error", "Program Not Updated", "Program Not Update Successfully", Type.ERROR);
+                        ShowAlert showAlert = new ShowAlert("Error", "Program Not Updated", "Program Not Update Successfully", Alert.AlertType.ERROR);
                     }
                 } else {
 
-                    ShowAlert showAlert = new ShowAlert("Error", "Section Not Found", "Section Not Found", Type.ERROR);
+                    ShowAlert showAlert = new ShowAlert("Error", "Section Not Found", "Section Not Found", Alert.AlertType.ERROR);
                 }
 
             } else {
-                ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
             }
         }
     }
@@ -114,10 +114,10 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
 
                 description.setText(program.getDescription());
             }else {
-                ShowAlert showAlert= new ShowAlert("Error","Program Not Found","Program Not Found", Type.ERROR);
+                ShowAlert showAlert= new ShowAlert("Error","Program Not Found","Program Not Found", Alert.AlertType.ERROR);
             }
         }else {
-            ShowAlert showAlert= new ShowAlert("Error","Empty Fields","Please Enter Program Id", Type.ERROR);
+            ShowAlert showAlert= new ShowAlert("Error","Empty Fields","Please Enter Program Id", Alert.AlertType.ERROR);
         }
     }
 
@@ -138,10 +138,10 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
             boolean isDeleted = ProgramRepo.delete(id);
 
             if (isDeleted) {
-                ShowAlert showAlert = new ShowAlert("Success", "Program Deleted", "Program Deleted Successfully", Type.INFORMATIONAL);
+                ShowAlert showAlert = new ShowAlert("Success", "Program Deleted", "Program Deleted Successfully", Alert.AlertType.INFORMATION);
                 clearFields();
             } else {
-                ShowAlert showAlert = new ShowAlert("Error", "Program Not Deleted", "Program Not Deleted Successfully", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Program Not Deleted", "Program Not Deleted Successfully", Alert.AlertType.ERROR);
             }
         }
     }

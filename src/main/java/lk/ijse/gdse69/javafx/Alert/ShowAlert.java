@@ -5,32 +5,25 @@ import lk.ijse.gdse69.javafx.Sound.Sound;
 
 public class ShowAlert {
 
-    private String title;
-    private String headerText;
-    private String contentText;
-    private Type alertType;
+    private final String title;
+    private final String headerText;
+    private final String contentText;
+    private final Alert.AlertType alertType;
 
-
-
-    public ShowAlert(String title, String headerText, String contentText, Type alertType) {
+    public ShowAlert(String title, String headerText, String contentText, Alert.AlertType alertType) {
         this.title = title;
         this.headerText = headerText;
         this.contentText = contentText;
         this.alertType = alertType;
-
-
         show();
     }
 
     private void show() {
-        Alert alert = new Alert(alertType == Type.INFORMATIONAL ? Alert.AlertType.INFORMATION :
-                alertType == Type.WARNING ? Alert.AlertType.WARNING : Alert.AlertType.ERROR);
-        new Sound().playOneClickSound();
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         alert.show();
+        new Sound().playOneClickSound(); // Make sure to handle sound properly
     }
-
-
 }

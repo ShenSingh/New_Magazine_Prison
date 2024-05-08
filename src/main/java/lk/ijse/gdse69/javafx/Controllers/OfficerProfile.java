@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
@@ -115,9 +114,9 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         try {
             boolean isDeleted = OfficerRepo.delete(officerId);
             if (isDeleted) {
-                ShowAlert alert1 = new ShowAlert("Success", "Officer Deleted", "Officer deleted successfully", Type.SUCCESS);
+                ShowAlert alert1 = new ShowAlert("Success", "Officer Deleted", "Officer deleted successfully", Alert.AlertType.INFORMATION);
             } else {
-                ShowAlert alert1 = new ShowAlert("Error", "Officer not deleted", "Officer not deleted successfully", Type.ERROR);
+                ShowAlert alert1 = new ShowAlert("Error", "Officer not deleted", "Officer not deleted successfully", Alert.AlertType.ERROR);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +168,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
             this.salary.setText(String.valueOf(officer.getSalary()));
         }else {
             System.out.println("Officer not found");
-            ShowAlert alert = new ShowAlert("Error", "Officer not found", "Please enter a valid officer ID", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Officer not found", "Please enter a valid officer ID", Alert.AlertType.ERROR);
         }
     }
 
@@ -210,10 +209,10 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         try {
             boolean isUpdated = OfficerRepo.update(officer);
             if (isUpdated) {
-                ShowAlert alert = new ShowAlert("Success", "Officer Updated", "Officer updated successfully", Type.SUCCESS);
+                ShowAlert alert = new ShowAlert("Success", "Officer Updated", "Officer updated successfully", Alert.AlertType.INFORMATION);
                 setNewValues(officer);
             } else {
-                ShowAlert alert = new ShowAlert("Error", "Officer not updated", "Officer not updated successfully", Type.ERROR);
+                ShowAlert alert = new ShowAlert("Error", "Officer not updated", "Officer not updated successfully", Alert.AlertType.ERROR);
             }
         } catch (SQLException e) {
             e.printStackTrace();

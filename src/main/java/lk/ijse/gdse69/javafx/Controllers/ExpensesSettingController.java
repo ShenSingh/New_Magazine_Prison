@@ -2,12 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ExpencesRepo;
@@ -49,17 +49,17 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
     public void saveBtn(ActionEvent actionEvent) {
 
         if (searchField.getText().isEmpty()){
-            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Type.INFORMATIONAL);
+            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Alert.AlertType.ERROR);
             return;
         }
 
         if (checkEmptyFields()){
             if (Util.checkValidText(sectionId.getText(),"S\\d{3}")){} else{
-                new ShowAlert("Error", "Invalid Section ID", "Section ID should be like SXXX", Type.ERROR);
+                new ShowAlert("Error", "Invalid Section ID", "Section ID should be like SXXX", Alert.AlertType.WARNING);
                 return;
             }
             if(Util.checkValidText(expensesId.getText(),"E\\d{3}")){}else{
-                new ShowAlert("Error", "Invalid Expenses ID", "Expenses ID should be like EXXX", Type.ERROR);
+                new ShowAlert("Error", "Invalid Expenses ID", "Expenses ID should be like EXXX", Alert.AlertType.WARNING);
                 return;
             }
             if(checkSectionId()){}else{return;}
@@ -75,16 +75,16 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
             try {
                 boolean isUpdated = ExpencesRepo.update(expenses);
                 if(isUpdated){
-                    new ShowAlert("Success", "Expenses Updated", "Expenses Update Successfully", Type.INFORMATIONAL);
+                    new ShowAlert("Success", "Expenses Updated", "Expenses Update Successfully", Alert.AlertType.INFORMATION);
                 }else{
-                    new ShowAlert("Error", "Expenses Not Updated", "Expenses Not Updated", Type.ERROR);
+                    new ShowAlert("Error", "Expenses Not Updated", "Expenses Not Updated", Alert.AlertType.ERROR);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }else {
-            new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.INFORMATIONAL);
+            new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
         }
 
     }
@@ -100,7 +100,7 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
 
         for (Expences expence : expenses) {
             if(expence.getExpenceId().equals(expensesId.getText()) ){
-                ShowAlert showAlert = new ShowAlert("Error", "Expenses ID Already Exist", "Expenses ID Already Exist", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Expenses ID Already Exist", "Expenses ID Already Exist", Alert.AlertType.WARNING);
                 return false;
             }
         }
@@ -120,7 +120,7 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section ID", "Section ID not found", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section ID", "Section ID not found", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -136,7 +136,7 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
     public void seachExpenses(ActionEvent actionEvent) {
         String id = searchField.getText();
         if (id.isEmpty()){
-            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Type.INFORMATIONAL);
+            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Alert.AlertType.WARNING);
             return;
         }
         try {
@@ -149,7 +149,7 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
                 month.setText(expences.getMonth());
                 type.getSelectionModel().select(expences.getType());
             }else{
-                new ShowAlert("Error", "Expenses Not Found", "Expenses Not Found", Type.ERROR);
+                new ShowAlert("Error", "Expenses Not Found", "Expenses Not Found", Alert.AlertType.ERROR);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -175,16 +175,16 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
     public void deleteExpenses(ActionEvent actionEvent) {
         String id = searchField.getText();
         if (id.isEmpty()){
-            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Type.INFORMATIONAL);
+            new ShowAlert("Error", "Empty Search Field", "Please Search Id ", Alert.AlertType.WARNING);
             return;
         }
         try {
             boolean isDeleted = ExpencesRepo.delete(id);
             if (isDeleted){
-                new ShowAlert("Success", "Expenses Deleted", "Expenses Deleted Successfully", Type.INFORMATIONAL);
+                new ShowAlert("Success", "Expenses Deleted", "Expenses Deleted Successfully", Alert.AlertType.INFORMATION);
                 clearFields();
             }else{
-                new ShowAlert("Error", "Expenses Not Deleted", "Expenses Not Deleted", Type.ERROR);
+                new ShowAlert("Error", "Expenses Not Deleted", "Expenses Not Deleted", Alert.AlertType.WARNING);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,12 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ExpencesRepo;
@@ -65,16 +65,16 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
             try {
                 boolean isAdded = ExpencesRepo.save(expences);
                 if(isAdded){
-                    ShowAlert showAlert = new ShowAlert("Success", "Expenses Added", "Expenses Added Successfully", Type.INFORMATIONAL);
+                    ShowAlert showAlert = new ShowAlert("Success", "Expenses Added", "Expenses Added Successfully", Alert.AlertType.INFORMATION);
                 }else{
-                    ShowAlert showAlert = new ShowAlert("Error", "Expenses Not Added", "Expenses Not Added", Type.ERROR);
+                    ShowAlert showAlert = new ShowAlert("Error", "Expenses Not Added", "Expenses Not Added", Alert.AlertType.ERROR);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }else{
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.INFORMATIONAL);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
         }
     }
 
@@ -89,7 +89,7 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
 
         for (Expences expence : expenses) {
             if(expence.getExpenceId().equals(expensesId.getText())){
-                ShowAlert showAlert = new ShowAlert("Error", "Expenses ID Already Exist", "Expenses ID Already Exist", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Expenses ID Already Exist", "Expenses ID Already Exist", Alert.AlertType.INFORMATION);
                 return false;
             }
         }
@@ -109,7 +109,7 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
                 return true;
             }
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section ID", "Section ID not found", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section ID", "Section ID not found", Alert.AlertType.WARNING);
         return false;
     }
 
@@ -120,7 +120,7 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
         if(id.matches("E\\d{3}")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Expenses ID", "Expenses ID should be like EXXX", Type.ERROR);
+        ShowAlert showAlert = new ShowAlert("Error", "Invalid Expenses ID", "Expenses ID should be like EXXX", Alert.AlertType.WARNING);
         return false;
     }
 

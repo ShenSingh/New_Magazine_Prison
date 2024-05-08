@@ -5,13 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Section;
@@ -68,15 +68,15 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
                     if (Util.validateTime(time.getText())){
                         createIncidentOjt();
                     }else{
-                        new ShowAlert("Invalid Time", "Invalid Time Type","Please Enter Valid Time. EX : XX:XX.", Type.ERROR);
+                        new ShowAlert("Invalid Time", "Invalid Time Type","Please Enter Valid Time. EX : XX:XX.", Alert.AlertType.INFORMATION);
                         return;
                     }
                 }
             }else {
-                new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IDXXX.", Type.ERROR);
+                new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IDXXX.", Alert.AlertType.ERROR);
             }
         }else {
-            new ShowAlert("Empty Fields", "Empty Fields","Please fill All fields.", Type.ERROR);
+            new ShowAlert("Empty Fields", "Empty Fields","Please fill All fields.", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -102,9 +102,9 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
 
         if (isAdded) {
             clearFields();
-            new ShowAlert("Success", "Incident Added", "Incident Added Successfully.", Type.SUCCESS);
+            new ShowAlert("Success", "Incident Added", "Incident Added Successfully.", Alert.AlertType.INFORMATION);
         }else {
-            new ShowAlert("Failed", "Incident Added", "Incident Added Failed.", Type.ERROR);
+            new ShowAlert("Failed", "Incident Added", "Incident Added Failed.", Alert.AlertType.ERROR);
         }
 
 
@@ -152,11 +152,11 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
                     inmateId.clear();
                 }
             }else{
-            new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IXXX.", Type.ERROR);
+            new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IXXX.", Alert.AlertType.ERROR);
 
             }
         }else{
-            new ShowAlert("Empty Field", "Empty Inmate Id Field","Please Enter Inmate Id.", Type.ERROR);
+            new ShowAlert("Empty Field", "Empty Inmate Id Field","Please Enter Inmate Id.", Alert.AlertType.INFORMATION);
         }
 
 
@@ -176,7 +176,7 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
                 return true;
             }
         }
-        new ShowAlert("Invalid Id", "No Inmate","Please Enter Valid Inmate Id.", Type.ERROR);
+        new ShowAlert("Invalid Id", "No Inmate","Please Enter Valid Inmate Id.", Alert.AlertType.ERROR);
         return false;
     }
 

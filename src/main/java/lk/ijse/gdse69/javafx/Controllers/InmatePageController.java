@@ -2,18 +2,17 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Inmate;
+import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
+import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
-import javax.swing.text.TableView;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -33,65 +32,49 @@ public class InmatePageController extends MainDashBoard{
     public TableColumn<Inmate, String> tvAddress;
     public TableColumn<Inmate, String> tvStatus;
 
+    public Text activeInmateCount;
     public Text totalInmateCount;
-    public ProgressIndicator freeSpase;
-    public Text maleInmateCount;
+    public Text tGenderInmateCount;
     public Text femaleInmateCount;
-    public Text athorInmateCount;
+    public Text maleInmateCount;
 
+    public PieChart freeSpase;
 
-    @FXML
-    private TableView tableView;
-    @FXML
-    private Button addInmate;
-    @FXML
-    private Button deleteInmate;
-
-    @FXML
-    private Button updateInmate;
 
     ViewInmateController viewInmateController = new ViewInmateController();
 
-    public void initialize(){
+    public void initialize() throws SQLException {
         setCellValueFactory();
         setValues();
         setGenderCount();
     }
 
-    private void setValues() {
-        freeSpase=new ProgressIndicator();
-        double progressValue =viewInmateController.setProgressValue();
-        //freeSpase.setProgress(progressValue);
-    }
-    private void setGenderCount() {
-        int totalCount= 0;
-        int maleCount= 0;
-        int femaleCount= 0;
-        int athorInmateCount= 0;
-        try {
-            List<Inmate>  inmates =InmateRepo.getAllInmates();
+    private void setValues() throws SQLException {
+        List<Section> allSections = SectionRepo.getJailSections();
 
-            totalCount = inmates.size();
-            for (Inmate inmate : inmates) {
-                if (inmate.getGender().equals("Male")){
-                    maleCount++;
-                }
-                else if(inmate.getGender().equals("Female")){
-                    femaleCount++;
-                }
-                else{
-                    athorInmateCount++;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        int totalSpase=0;
+
+        for (Section section : allSections) {
+            totalSpase+=section.getCapacity();
         }
-//        this.totalInmateCount.setText(String.valueOf(totalCount));
-//        this.maleInmateCount.setText(String.valueOf(maleCount));
-//        this.femaleInmateCount.setText(String.valueOf(femaleCount));
-//        this.athorInmateCount.setText(String.valueOf(athorInmateCount));
+
+        int totalInmates = InmateRepo.getAllInmates().size();
+
+        int freeSpaseCount = totalSpase-totalInmates;
+
+        this.freeSpase.getData().add(new PieChart.Data("Free Spase",freeSpaseCount));
+        this.freeSpase.getData().add(new PieChart.Data("Occupied Spase",totalInmates));
 
 
+
+    }
+    private void setGenderCount() throws SQLException {
+
+        maleInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Male").size())+" Inmates");
+        femaleInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Female").size())+" Inmates");
+        tGenderInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Transgender").size())+" Inmates");
+        activeInmateCount.setText(String.valueOf(InmateRepo.getActiveInmates().size())+" Inmates");
+        totalInmateCount.setText(String.valueOf(InmateRepo.getAllInmates().size())+" Inmates");
 
     }
 

@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -14,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Alert.Type;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Model.Section;
@@ -217,7 +217,7 @@ public class SectionProfileController extends MainDashBoard implements Initializ
         String secId = shearchSectionField.getText();
 
         if (secId.isEmpty()){
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Alert.AlertType.WARNING);
             return;
         }
 
@@ -233,7 +233,7 @@ public class SectionProfileController extends MainDashBoard implements Initializ
             securityLevel.getSelectionModel().select(section.getSecurityLevel());
             status.getSelectionModel().select(section.getStatus());
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Section Not Found", "Section not found", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Section Not Found", "Section not found", Alert.AlertType.ERROR);
         }
     }
 
@@ -302,12 +302,12 @@ public class SectionProfileController extends MainDashBoard implements Initializ
 
             if (SectionRepo.delete(sectionId)){
                 clearFields();
-                ShowAlert alert = new ShowAlert("Success", "Section Deleted", "Section deleted successfully", Type.SUCCESS);
+                ShowAlert alert = new ShowAlert("Success", "Section Deleted", "Section deleted successfully", Alert.AlertType.INFORMATION);
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Failed to delete", "Failed to delete section", Type.ERROR);
+                ShowAlert alert = new ShowAlert("Error", "Failed to delete", "Failed to delete section", Alert.AlertType.ERROR);
             }
         }else{
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Type.ERROR);
+            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Alert.AlertType.WARNING);
         }
     }
 
@@ -339,15 +339,15 @@ public class SectionProfileController extends MainDashBoard implements Initializ
 
             if (SectionRepo.update(section)) {
                 System.out.println("Section updated successfully");
-                ShowAlert showAlert = new ShowAlert("Success", "Section Updated", "Section updated successfully", Type.SUCCESS);
+                ShowAlert showAlert = new ShowAlert("Success", "Section Updated", "Section updated successfully", Alert.AlertType.INFORMATION);
             } else {
                 System.out.println("Failed to update section");
-                ShowAlert showAlert = new ShowAlert("Error", "Failed to update section", "Failed to update section", Type.ERROR);
+                ShowAlert showAlert = new ShowAlert("Error", "Failed to update section", "Failed to update section", Alert.AlertType.WARNING);
             }
 
         } else {
             System.out.println("Empty fields found");
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Type.ERROR);
+            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
         }
     }
 
