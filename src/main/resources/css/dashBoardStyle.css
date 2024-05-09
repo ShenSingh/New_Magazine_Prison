@@ -267,3 +267,15 @@
     -fx-background-color: #6495ED;
     -fx-text-fill: white;
 }
+
+/*dashBoard*/
+
+.dashAddText{
+    -fx-fill: #2F95CB;
+}
+.dashContAnchor{
+    -fx-background-color: rgba(88, 180, 229, 0.71);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);
+    -fx-opacity: 1.0;
+    -fx-background-radius: 20px;
+}

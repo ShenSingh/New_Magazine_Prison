@@ -5,7 +5,9 @@ import lk.ijse.gdse69.javafx.db.DbConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExpencesRepo {
     public static boolean save(Expences expences) throws SQLException {
@@ -151,6 +153,50 @@ public class ExpencesRepo {
                 expenses.add(expences);
             }
             return expenses;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Map<String, Double> getTotalCostByType(){
+        String yearAndMonth = "2024/6"; // Example: "YYYY/MM"
+
+        // Parse the year and month
+        String[] parts = yearAndMonth.split("/");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+
+        // Subtract one from the year to get the previous year
+        int previousYear = year - 1;
+
+        // Construct a new string for the previous year
+        String previousYearAndMonth = previousYear + "/" + month;
+
+        // Query the database for expenses from the previous year
+        try (Connection connection = DbConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT type, SUM(cost) AS total_cost FROM Expences WHERE month LIKE ? GROUP BY type")) {
+            statement.setString(1, previousYear + "/%");
+            ResultSet resultSet = statement.executeQuery();
+
+            // Map to store total expenses for each expense type
+            Map<String, Double> expensesByType = new HashMap<>();
+
+            // Process the result set
+            while (resultSet.next()) {
+                // Retrieve expense type and total cost
+                String expenseType = resultSet.getString("type");
+                double totalCost = resultSet.getDouble("total_cost");
+
+                // Store total cost for the expense type
+                expensesByType.put(expenseType, totalCost);
+            }
+
+            // Print total expenses for each expense type
+            for (Map.Entry<String, Double> entry : expensesByType.entrySet()) {
+                System.out.println("Expense Type: " + entry.getKey() + ", Total Cost: " + entry.getValue());
+            }
+            return expensesByType;
         } catch (SQLException e) {
             e.printStackTrace();
         }
