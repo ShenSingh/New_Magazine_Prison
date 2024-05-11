@@ -44,9 +44,6 @@ public class Mail implements Runnable{
 
         System.out.println("sending mail");
 
-
-
-
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("prisonsystem737@gmail.com", "vtgrticiqeblrxdi");  // have to change some settings in SMTP

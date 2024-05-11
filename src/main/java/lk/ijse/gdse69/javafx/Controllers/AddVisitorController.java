@@ -22,7 +22,9 @@ import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -138,6 +140,8 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
     public void createQrBtn(ActionEvent actionEvent) {
 
+        captureImage();
+
 
         if (checkEmptyFields()) {
            //
@@ -179,6 +183,28 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.WARNING);
         }
     }
+
+    public void captureImage() {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder();
+            processBuilder.command("python", "/pyCapturePhoto/app.py");
+            Process process = processBuilder.start();
+
+            // Read output from Python script and handle it as needed
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Process the output from the Python script
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("Python script exited with code: " + exitCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private String getNextVisitorRecordId(List<VisitorRecord> allVisitorRecords) {
         String maxId = "VR000"; // Initialize with a minimum ID
