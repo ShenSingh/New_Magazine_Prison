@@ -13,11 +13,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, section.getSectionId());
         pstm.setObject(2, section.getSectionName());
@@ -33,11 +28,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, sectionId);
 
@@ -49,11 +39,7 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
+
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, section.getSectionName());
         pstm.setObject(2, section.getLocation());
@@ -70,11 +56,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, sectionId);
 
@@ -101,13 +82,6 @@ public class SectionRepo {
         String query = "SELECT * FROM Section";
 
         Connection connection = DbConnection.getInstance().getConnection();
-
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
-
         try {
             PreparedStatement pstm = connection.prepareStatement(query);
             ResultSet resultSet = pstm.executeQuery();
@@ -136,11 +110,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         try {
             PreparedStatement pstm = connection.prepareStatement(query);
             ResultSet resultSet = pstm.executeQuery();
@@ -170,11 +139,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         try {
             PreparedStatement pstm = connection.prepareStatement(query);
             ResultSet resultSet = pstm.executeQuery();
@@ -204,11 +168,6 @@ public class SectionRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         try {
             PreparedStatement pstm = connection.prepareStatement(query);
             ResultSet resultSet = pstm.executeQuery();
@@ -228,7 +187,5 @@ public class SectionRepo {
             throw new RuntimeException(e);
         }
         return sectionList;
-
     }
-
 }

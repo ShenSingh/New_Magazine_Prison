@@ -81,12 +81,38 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            visitorPageVisitorId();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         //
         setComboBoxValues();
 
         slideTransition = new TranslateTransition(Duration.seconds(0.3), vBoxAnchorPane);
         slideTransition.setToX(450);
         vBoxAnchorPane.setVisible(false);
+    }
+
+    private void visitorPageVisitorId() throws SQLException {
+        String id = VisitorPageController.getFlogVisitorId();
+
+        Visitor visitor = VisitorRepo.search(id);
+
+        if (visitor != null){
+            setTableValues(visitor.getVisitorID());
+            searchVisitorField.setText(visitor.getVisitorID());
+            visitorId.setText(visitor.getVisitorID());
+            fName.setText(visitor.getVisitorFirstName());
+            lName.setText(visitor.getVisitorLastName());
+            DOB.setValue(visitor.getVisitorDOB().toLocalDate());
+            NIC.setText(visitor.getVisitorNIC());
+            number.setText(String.valueOf(visitor.getVisitorNumber()));
+            address.setText(visitor.getVisitorAddress());
+            gender.getSelectionModel().select(visitor.getGender());
+            visitorType.getSelectionModel().select(visitor.getVisitorType());
+        }
     }
 
     private void setComboBoxValues() {

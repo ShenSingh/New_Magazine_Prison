@@ -14,7 +14,7 @@ public class IncidentRepo {
 
         System.out.println("IncidentRepo.save()");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        try (Connection connection = DbConnection.getInstance().getConnection();
 
              PreparedStatement pstm = connection.prepareStatement(query)) {
             System.out.println("IncidentRepo.save() - try");
@@ -40,11 +40,6 @@ public class IncidentRepo {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
 
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incidentId);
@@ -55,11 +50,7 @@ public class IncidentRepo {
         String query = "UPDATE Incident SET sectionId = ?, incidentDate = ?, incidentTime = ?, description = ?, incidentType = ? WHERE incidentId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
+
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incident.getSectionId());
         pstm.setObject(2, incident.getIncidentDate());
@@ -75,12 +66,6 @@ public class IncidentRepo {
         String query = "SELECT * FROM Incident WHERE incidentId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
-
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Connection is active.");
-        } else {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-        }
         PreparedStatement pstm = connection.prepareStatement(query);
         pstm.setObject(1, incidentId);
 
@@ -104,10 +89,7 @@ public class IncidentRepo {
     public static List<Incident> getAllIncidents() {
         String query = "SELECT * FROM Incident";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
-
-
-
+        try (Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement pstm = connection.prepareStatement(query);
              ResultSet resultSet = pstm.executeQuery()) {
 

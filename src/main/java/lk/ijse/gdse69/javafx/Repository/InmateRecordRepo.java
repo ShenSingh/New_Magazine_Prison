@@ -14,7 +14,6 @@ public class InmateRecordRepo {
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         Connection connection = DbConnection.getInstance().getConnection();
-
         PreparedStatement pstm = connection.prepareStatement(query);
         System.out.println(inmateRecord.getEntryDate() + " " + inmateRecord.getReleaseDate());
 

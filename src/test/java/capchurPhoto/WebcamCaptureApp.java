@@ -20,7 +20,11 @@ public class WebcamCaptureApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME); // Load OpenCV library
+        // Load OpenCV library
+        System.setProperty("java.library.path", "/home/shen/Documents/git/opencv/build/lib");
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+
 
         capture = new VideoCapture(0); // Access the first webcam (index 0)
         capture.set(Videoio.CAP_PROP_FRAME_WIDTH, 640); // Set frame width
@@ -61,4 +65,3 @@ public class WebcamCaptureApp extends Application {
         launch(args);
     }
 }
-

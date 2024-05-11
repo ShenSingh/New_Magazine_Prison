@@ -83,8 +83,6 @@ public class AddInmateController extends MainDashBoard {
 
         if (checkEmptyFields()) {
             System.out.println("All fields are filled");
-            // You can proceed with the form submission
-            // For example, save the form data to the database
 
             if (checkValidateInmateId()){}else {return;}
 
@@ -151,6 +149,11 @@ public class AddInmateController extends MainDashBoard {
             inmates = InmateRepo.getAllInmates();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        if (inmates.size() == 0){
+            System.out.println("inmate count 0 ");
+            return true;
         }
 
         for (Inmate inmate : inmates){

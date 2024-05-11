@@ -74,11 +74,36 @@ public class AddVisitorController extends MainDashBoard implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            totalVisitorCount.setText(String.valueOf(VisitorRepo.getAllVisitors().size()));
+            totalVisitorCount.setText(String.valueOf(VisitorRepo.getAllVisitors().size())+" Visitors");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         setValuesComboBox();
+
+
+        String nextVisitorId = null;
+        try {
+            nextVisitorId = getNextVisitorId(VisitorRepo.getAllVisitors());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        visitorId.setText(nextVisitorId);
+        visitorId.setEditable(false);
+        
+    }
+
+    private String getNextVisitorId(List<Visitor> allVisitors) {
+        String maxId = "V000"; // Initialize with a minimum ID
+        for (Visitor visitor : allVisitors) {
+            String currentId = visitor.getVisitorID();
+            // Compare and update maxId if currentId is greater
+            if (currentId.compareTo(maxId) > 0) {
+                maxId = currentId;
+            }
+        }
+        // Increment the ID
+        int idNumber = Integer.parseInt(maxId.substring(1)) + 1;
+        return "V" + String.format("%03d", idNumber);
     }
 
     private void setValuesComboBox() {
@@ -128,11 +153,19 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
                 boolean isGenerated = QRCodeGenerator.generateQRCode(newVisitorId);
 
-
-
                 if (isGenerated){
                     createVisitorObject();
                     showQRCodeDialog(filePath);
+
+                    String nextVisitorRecordId = null;
+                    try {
+                        nextVisitorRecordId = getNextVisitorRecordId(VisitorRecordRepo.getAllVisitorRecords());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    visitorRecordId.setText(nextVisitorRecordId);
+                    visitorRecordId.setEditable(false);
 
                 } else {
                     System.out.println("Error Generating QR Code");
@@ -145,6 +178,20 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             System.out.println("Empty Fields");
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.WARNING);
         }
+    }
+
+    private String getNextVisitorRecordId(List<VisitorRecord> allVisitorRecords) {
+        String maxId = "VR000"; // Initialize with a minimum ID
+        for (VisitorRecord visitorRecord : allVisitorRecords) {
+            String currentId = visitorRecord.getVisitorRecordId();
+            // Compare and update maxId if currentId is greater
+            if (currentId.compareTo(maxId) > 0) {
+                maxId = currentId;
+            }
+        }
+        // Increment the ID
+        int idNumber = Integer.parseInt(maxId.substring(2)) + 1;
+        return "VR" + String.format("%03d", idNumber);
     }
 
     private boolean checkValidVisitorName() {
@@ -178,6 +225,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        if (allVisitors.size() == 0){
+            return true;
+        }
 
         if (allVisitors != null){
 
@@ -210,8 +260,6 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         qrCodeAlert.showAndWait();
     }
 
-
-
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
         if (createVisitorObject() != null && checkRecordEmptyFields()) {
             System.out.println("Not Empty");
@@ -231,6 +279,10 @@ public class AddVisitorController extends MainDashBoard implements Initializable
                 System.out.println("Saved successfully");
                 ShowAlert alert=new ShowAlert("Success","Saved","Visitor Record Saved", Alert.AlertType.INFORMATION);
                 clearFields();
+                this.inmateId.clear();
+                this.visitorRecordId.clear();
+                this.inmateName.clear();
+                this.inmateNIC.clear();
             } else {
                 System.out.println("Saved unsuccessfully");
                 ShowAlert alert=new ShowAlert("Error","Not Saved","Visitor Record Not Saved", Alert.AlertType.ERROR);
@@ -268,8 +320,6 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         String formattedTime = localTime.format(formatter);
         Time newTime = Time.valueOf(formattedTime);
 
-        checkValidRecordId(newRecordId);
-
         if (checkValidRecordId(newRecordId)){
         VisitorRecord newVisitorRecord = new VisitorRecord(newRecordId,newVisitorId,newInmateId,newDate,newTime);
         return newVisitorRecord;
@@ -287,6 +337,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             allVisitorRecords = VisitorRecordRepo.getAllVisitorRecords();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        if (allVisitorRecords.size() == 0){
+            return true;
         }
 
         if (allVisitorRecords != null){
@@ -346,5 +399,4 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         gender.getSelectionModel().clearSelection();
         visitorType.getSelectionModel().clearSelection();
     }
-
 }

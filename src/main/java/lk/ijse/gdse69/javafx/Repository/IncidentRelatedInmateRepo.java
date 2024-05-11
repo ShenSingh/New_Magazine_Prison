@@ -29,7 +29,7 @@ public class IncidentRelatedInmateRepo {
     public static boolean save(Incident incident, List<String> inmateIds) {
         String query = "INSERT INTO IncidentRelatedInmate VALUES(?,?)";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        try (Connection connection =DbConnection.getInstance().getConnection();
              PreparedStatement pstm = connection.prepareStatement(query)) {
 
             for (String inmateId : inmateIds) {
@@ -54,7 +54,7 @@ public class IncidentRelatedInmateRepo {
 
         String query = "SELECT inmateId FROM IncidentRelatedInmate WHERE incidentId = ?";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        try (Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement pstm = connection.prepareStatement(query)) {
             pstm.setObject(1, incidentId);
 

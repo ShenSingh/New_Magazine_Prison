@@ -81,32 +81,23 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
 
         // Display confirmation alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Inmate");
-        alert.setHeaderText("Delete Inmate");
-        alert.setContentText("Are you sure you want to delete this inmate?");
+        alert.setTitle("Delete Officer");
+        alert.setHeaderText("Delete officer");
+        alert.setContentText("Are you sure you want to delete this officer?");
 
-        // Add "OK" and "Cancel" buttons
         Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
         Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
 
-        // Event handler for the "OK" button
         okButton.setOnAction(e -> {
-            // Delete inmate (replace this with your actual deletion logic)
             goDeleteOfficer();
 
-            // Close the alert
             alert.close();
         });
-
-        // Event handler for the "Cancel" button
         cancelButton.setOnAction(e -> {
-            // Close the alert without deleting the inmate
             alert.close();
         });
 
         alert.showAndWait();
-
-
     }
 
     private void goDeleteOfficer() {
@@ -121,12 +112,12 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        clearField();
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
 
         isEditingEnabled = !isEditingEnabled;
-
 
             fName.setEditable(isEditingEnabled);
             lName.setEditable(isEditingEnabled);

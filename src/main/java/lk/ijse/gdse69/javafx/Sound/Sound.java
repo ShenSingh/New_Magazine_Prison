@@ -13,26 +13,22 @@ public class Sound {
 
     public void playNotifySound() {
         playSound(notifySound01);
-        System.out.println("Sound played notify");
     }
 
     public void playOneClickSound() {
-        System.out.println("Sound played one click");
         playSound(oneClickSound01);
     }
 
-    public void playDoubleClickSound() {
-        System.out.println("Sound played double click");
+    public static void playDoubleClickSound() {
         playSound(doubleClickSound01);
     }
 
-    private  void playSound(String soundPath) {
+    private static void playSound(String soundPath) {
         try {
             URL url = Sound.class.getResource(soundPath);
             if (url != null) {
                 Media media = new Media(url.toExternalForm());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
-                System.out.println("Sound played - " + soundPath);
                 mediaPlayer.play();
             } else {
                 System.err.println("Sound resource not found: " + soundPath);
@@ -40,6 +36,10 @@ public class Sound {
         } catch (Exception e) {
             System.err.println("Error playing sound: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        playDoubleClickSound();
     }
 
 

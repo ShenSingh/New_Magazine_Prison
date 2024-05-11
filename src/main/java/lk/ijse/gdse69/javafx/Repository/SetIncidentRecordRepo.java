@@ -1,15 +1,15 @@
 package lk.ijse.gdse69.javafx.Repository;
 
 import lk.ijse.gdse69.javafx.Model.SetIncidentRecord;
+import lk.ijse.gdse69.javafx.db.DbConnection;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SetIncidentRecordRepo {
     public static boolean save(SetIncidentRecord setIncidentRecord) throws SQLException {
 
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/New_Magazine_Prison", "root", "Ijse@123");
+        Connection connection = DbConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
         System.out.println(setIncidentRecord.getIncident().getIncidentId());

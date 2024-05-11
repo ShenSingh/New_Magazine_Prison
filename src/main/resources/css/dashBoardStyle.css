@@ -171,38 +171,6 @@
     -fx-border-radius: 5px;
 }
 
-/*////////////////////////////// not set   ///////////////////////////////////////*/
-/*///////////////////////////////////////////////////////////////////////////////////////*/
-/*///////////////////////////////////////////////////////////////////////////////////////*/
-
-
-/* Styling the ProgressIndicator */
-.progress-indicator {
-    -fx-progress-color: #0078d7; /* Color of the progress bar */
-    -fx-progress-: #0078d7; /* Color of the progress bar */
-    -fx-background-color: transparent; /* Transparent background */
-
-}
-
-/* Styling the text inside the ProgressIndicator */
-.progress-indicator .text {
-    -fx-fill: #0078d7; /* Text color */
-    -fx-font-size: 14px; /* Font size */
-}
-/* Define styles for ProgressIndicator */
-.progress-indicator {
-    -fx-progress-color: #007bff; /* Color of the progress */
-}
-
-/* Define animation for indeterminate ProgressIndicator */
-.progress-indicator:indeterminate > .animation {
-    -fx-indeterminate-bar-color: #007bff; /* Color of the indeterminate bar */
-    -fx-background-color: #f8f9fa; /* B #f8f9faackground color of the indeterminate area */
-    -fx-background-insets: 0; /* Ensure the background is not visible outside the bar */
-    -fx-background-radius: 0; /* Remove rounded corners */
-}
-
-
 /*/////////////////////      Inmate Profile       /////////////////////*/
 
 .editProfileBtn{
@@ -238,10 +206,10 @@
     -fx-background-color: rgba(53, 151, 203, 0.53);
 }
 .tableView.column-header-background {
-    -fx-background-color: transparent;
+    -fx-background-color: #2F95CB;
 }
 .tableView.column-header {
-    -fx-text-fill: white;
+    -fx-text: white;
 }
 .tableView.table-row-cell:odd {
     -fx-background-color: #e0e0e0;

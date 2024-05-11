@@ -15,6 +15,8 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+
+
 public class Launcher extends Application {
     static Stage signstage;
 
