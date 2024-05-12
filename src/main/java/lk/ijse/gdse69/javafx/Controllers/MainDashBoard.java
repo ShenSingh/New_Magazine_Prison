@@ -82,6 +82,7 @@ public class MainDashBoard implements MainDashBoardInterFace{
     }
     @Override
     public void systemCloseBtn(){
+
         System.exit(0);
     }
     @Override

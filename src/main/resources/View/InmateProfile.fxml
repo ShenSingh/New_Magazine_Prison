@@ -128,7 +128,7 @@
       </ImageView>
       <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
          <children>
-            <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
+            <ImageView fx:id="inmateImg" fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
                <image>
                   <Image url="@../images/inmateProfilePhoto.png" />
                </image>
@@ -318,11 +318,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="133.0">
-         <font>
-            <Font name="Kinnari" size="21.0" />
-         </font>
-      </Text>
       <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Settings" wrappingWidth="233.0">
          <font>
             <Font name="Noto Mono" size="24.0" />

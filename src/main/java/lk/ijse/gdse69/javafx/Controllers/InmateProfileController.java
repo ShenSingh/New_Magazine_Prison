@@ -6,7 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
@@ -14,6 +17,7 @@ import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,6 +33,8 @@ public class InmateProfileController extends  MainDashBoard{
     public TableColumn<InmateRecord, String> IPReleasedate;
     public TableColumn<InmateRecord, String> IPCaseStatus;
     public TableColumn<InmateRecord, String> IPCrime;
+    public AnchorPane MainAnchorPane;
+    public ImageView inmateImg;
     @FXML
     private AnchorPane iconsPane;
     @FXML
@@ -176,7 +182,6 @@ public class InmateProfileController extends  MainDashBoard{
     public void searchInmateField(ActionEvent actionEvent) {
         String inmateId = searchInmate.getText();
 
-
         if (inmateId.isEmpty()){
             ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.ERROR);
             return;
@@ -199,8 +204,61 @@ public class InmateProfileController extends  MainDashBoard{
                 this.gender.getSelectionModel().select(inmate.getGender());
                 this.address.setText(inmate.getInmateAddress());
                 this.status.getSelectionModel().select(inmate.getStatus());
+
+                inmateImg.setFitWidth(100);
+                inmateImg.setFitHeight(100);
+                Circle clip = new Circle(inmateImg.getFitWidth() / 2, inmateImg.getFitHeight() / 2, inmateImg.getFitWidth() / 2);
+                inmateImg.setClip(clip);
+
+                Image image = Util.showImage(inmate.getInmateImage());
+                inmateImg.setImage(image);
+
             }else{
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
+                new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void searchInmateNonPage(ActionEvent actionEvent) {
+
+        String inmateId = null;
+
+        inmateId = AddInmateController.getInmateIdForSearch();
+
+        if (inmateId == null){
+            return;
+        }
+
+        try {
+            Inmate inmate = InmateRepo.search(inmateId);
+            if (inmate != null) {
+
+                String fullName = inmate.getInmateFirstName() + " " + inmate.getInmateLastName();
+                this.fullName.setText(fullName);
+
+
+                getTableValues(inmateId);
+                this.inmateId.setText(inmate.getInmateId());
+                this.fName.setText(inmate.getInmateFirstName());
+                this.lName.setText(inmate.getInmateLastName());
+                this.DOB.setValue(LocalDate.parse(inmate.getInmateDOB().toString()));
+                this.NIC.setText(inmate.getInmateNIC());
+                this.gender.getSelectionModel().select(inmate.getGender());
+                this.address.setText(inmate.getInmateAddress());
+                this.status.getSelectionModel().select(inmate.getStatus());
+
+                inmateImg.setFitWidth(100);
+                inmateImg.setFitHeight(100);
+                Circle clip = new Circle(inmateImg.getFitWidth() / 2, inmateImg.getFitHeight() / 2, inmateImg.getFitWidth() / 2);
+                inmateImg.setClip(clip);
+
+                Image image = Util.showImage(inmate.getInmateImage());
+                inmateImg.setImage(image);
+
+            }else{
+                new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -212,7 +270,6 @@ public class InmateProfileController extends  MainDashBoard{
         //List<IncidentRepo> incidentRepos = IncidentRepo.getIncidents(inmateId);
 
         for (InmateRecord inmateRecord : inmateRecords){
-            System.out.println(inmateRecord.getReleaseDate());
         }
         IPInmateId.setCellValueFactory(new PropertyValueFactory<>("inmateId"));
         IPSectionId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
@@ -261,7 +318,9 @@ public class InmateProfileController extends  MainDashBoard{
             String address = this.address.getText();
             String status = this.status.getSelectionModel().getSelectedItem();
 
-            Inmate inmate = new Inmate(inmateId, fName, lName,DOB, NIC, Gender, address, status);
+            byte[] imageData =  InmateRepo.search(inmateId).getInmateImage();
+
+            Inmate inmate = new Inmate(inmateId, fName, lName,DOB, NIC, Gender, address, status,imageData);
 
             if (InmateRepo.update(inmate)){
                 ShowAlert showAlert = new ShowAlert("Success", "Inmate Updated", "Inmate updated successfully", Alert.AlertType.INFORMATION);

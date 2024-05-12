@@ -312,11 +312,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
                 this.inmateName.clear();
                 this.inmateNIC.clear();
             } else {
-                System.out.println("Saved unsuccessfully");
                 ShowAlert alert=new ShowAlert("Error","Not Saved","Visitor Record Not Saved", Alert.AlertType.ERROR);
             }
         } else {
-            System.out.println("Empty Fields");
             ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
         }
     }

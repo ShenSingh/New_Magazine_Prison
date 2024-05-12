@@ -15,7 +15,7 @@ public class InmateRepo {
 
     public static boolean save(Inmate inmate) throws SQLException {
 
-        String query = "INSERT INTO Inmate VALUES(?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO Inmate VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -28,7 +28,7 @@ public class InmateRepo {
         pstm.setObject(6, inmate.getGender());
         pstm.setObject(7, inmate.getInmateAddress());
         pstm.setObject(8, inmate.getStatus());
-
+        pstm.setObject(9, inmate.getInmateImage());
         return pstm.executeUpdate() > 0;
     }
 
@@ -44,7 +44,7 @@ public class InmateRepo {
 
     public static boolean update(Inmate inmate) throws SQLException {
         String query = "UPDATE Inmate SET inmateFirstName = ?," +
-                " inmateLastName = ?, inmateDOB = ?, inmateNIC = ?, gender = ?, inmateAddress = ?, status = ? WHERE inmateId = ?";
+                " inmateLastName = ?, inmateDOB = ?, inmateNIC = ?, gender = ?, inmateAddress = ?, status = ?, imageData = ? WHERE inmateId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(query);
@@ -55,7 +55,8 @@ public class InmateRepo {
         pstm.setObject(5, inmate.getGender());
         pstm.setObject(6, inmate.getInmateAddress());
         pstm.setObject(7, inmate.getStatus());
-        pstm.setObject(8, inmate.getInmateId());
+        pstm.setObject(8, inmate.getInmateImage());
+        pstm.setObject(9, inmate.getInmateId());
 
         return pstm.executeUpdate() > 0;
     }
@@ -78,8 +79,8 @@ public class InmateRepo {
             String gender = resultSet.getString(6);
             String address = resultSet.getString(7);
             String status = resultSet.getString(8);
-
-            Inmate inmate = new Inmate(id,firstName,lastName,dob, nic,gender,address,status);
+            byte[] imageData = resultSet.getBytes(9);
+            Inmate inmate = new Inmate(id,firstName,lastName,dob, nic,gender,address,status,imageData);
         return inmate;
         }
         return null;
@@ -103,8 +104,9 @@ public class InmateRepo {
                 String gender = resultSet.getString(6);
                 String address = resultSet.getString(7);
                 String status = resultSet.getString(8);
+                byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id,firstName,lastName,dob,nic,gender,address,status);
+                Inmate inmate = new Inmate(id,firstName,lastName,dob,nic,gender,address,status,imageData);
 
                 inmates.add(inmate);
             }
@@ -118,7 +120,7 @@ public class InmateRepo {
         List<Inmate> inmates = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM Inmate LIMIT 10";
+            String query = "SELECT * FROM Inmate LIMIT 8";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(query);
             ResultSet resultSet = pstm.executeQuery();
@@ -132,8 +134,9 @@ public class InmateRepo {
                 String gender = resultSet.getString(6);
                 String address = resultSet.getString(7);
                 String status = resultSet.getString(8);
+                byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
 
                 inmates.add(inmate);
             }
@@ -151,8 +154,6 @@ public class InmateRepo {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(query);
 
-            // Construct the city pattern with the first character 'A' and the second character 'B'
-
             pstm.setString(1, pattern);
 
             ResultSet resultSet = pstm.executeQuery();
@@ -166,8 +167,9 @@ public class InmateRepo {
                 String gender = resultSet.getString(6);
                 String address = resultSet.getString(7);
                 String status = resultSet.getString(8);
+                byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
                 inmates.add(inmate);
             }
         } catch (SQLException e) {
@@ -195,8 +197,9 @@ public class InmateRepo {
                 String gender = resultSet.getString(6);
                 String address = resultSet.getString(7);
                 String status = resultSet.getString(8);
+                byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
                 inmates.add(inmate);
             }
             } catch (SQLException e) {
