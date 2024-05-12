@@ -111,4 +111,20 @@ public class IncidentRepo {
             throw new RuntimeException(e);
         }
     }
+
+    public static String getLastId() {
+        String query = "SELECT incidentId FROM Incident ORDER BY incidentId DESC LIMIT 1";
+
+        try (Connection connection = DbConnection.getInstance().getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query);
+             ResultSet resultSet = pstm.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -177,4 +177,23 @@ public class ExpencesRepo {
         }
         return null;
     }
+
+    public static String getLastId() {
+        try {
+            String query = "SELECT expencesId FROM Expences ORDER BY expencesId DESC LIMIT 1";
+
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            PreparedStatement pstm = connection.prepareStatement(query);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

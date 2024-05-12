@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.AddExpensesController">
+<AnchorPane fx:id="MainAnchorPane" prefHeight="630.0" prefWidth="1265.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.AddExpensesController">
    <children>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
          <image>
@@ -44,7 +44,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button  layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#onAddExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -63,7 +63,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Button  layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onDeleteExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
+                  <Button layoutX="5.0" layoutY="9.0" mnemonicParsing="false" onAction="#onDeleteExpencesBtn" prefHeight="50.0" prefWidth="140.0" styleClass="cateManuBtn" stylesheets="@../css/dashBoardStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -121,7 +121,7 @@
       </AnchorPane>
       <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
          <children>
-            <Text fx:id="iyHealthExpen" fill="#00000079" layoutX="82.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000.00">
+            <Text fx:id="iyHealthExpen" fill="#00000079" layoutX="82.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -140,7 +140,7 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="lyEquipmentExpen" fill="#00000079" layoutX="81.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2000.00">
+            <Text fx:id="lyEquipmentExpen" fill="#00000079" layoutX="81.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -163,7 +163,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Text fx:id="lyElectricExpen" fill="#00000079" layoutX="79.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5000.00">
+            <Text fx:id="lyElectricExpen" fill="#00000079" layoutX="79.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -183,7 +183,7 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="lyStaffExpen" fill="#00000079" layoutX="85.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2000000.00">
+            <Text fx:id="lyStaffExpen" fill="#00000079" layoutX="85.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -193,7 +193,7 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="lyWaterExpen" fill="#00000079" layoutX="81.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5000.00">
+            <Text fx:id="lyWaterExpen" fill="#00000079" layoutX="81.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -203,8 +203,15 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="21.0" layoutY="159.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css" />
-            <Text fx:id="lyFoodExpen" fill="#00000079" layoutX="80.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000.00">
+            <AnchorPane layoutX="21.0" layoutY="159.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
+               <children>
+                  <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="4.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../images/icon/staffExpencesIcon.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+            <Text fx:id="lyFoodExpen" fill="#00000079" layoutX="80.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000">
                <font>
                   <Font size="10.0" />
                </font>
@@ -241,7 +248,7 @@
                   <Image url="@../images/icon/search.gif" />
                </image>
             </ImageView>
-            <TextField layoutX="32.0" layoutY="2.0" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+            <TextField fx:id="shearchExpenId" layoutX="32.0" layoutY="2.0" onAction="#searchExpenField" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
          </children>
       </AnchorPane>
       <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
@@ -376,7 +383,6 @@
          </font>
       </JFXButton>
       <TextField fx:id="expensesId" layoutX="374.0" layoutY="249.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <TextField fx:id="sectionId" layoutX="714.0" layoutY="249.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Button layoutX="694.0" layoutY="515.0" mnemonicParsing="false" onAction="#submitBtn" prefHeight="30.0" prefWidth="100.0" styleClass="submitBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit">
          <font>
             <Font name="Kinnari Bold" size="18.0" />
@@ -400,7 +406,7 @@
             <Insets top="-19.0" />
          </opaqueInsets>
       </Label>
-      <Label layoutX="727.0" layoutY="242.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Section Id">
+      <Label layoutX="730.0" layoutY="358.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Cost">
          <font>
             <Font size="10.0" />
          </font>
@@ -408,7 +414,8 @@
             <Insets top="-19.0" />
          </opaqueInsets>
       </Label>
-      <Label layoutX="730.0" layoutY="358.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Cost">
+      <ComboBox fx:id="sectionId" layoutX="714.0" layoutY="249.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <Label layoutX="727.0" layoutY="242.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Section Id">
          <font>
             <Font size="10.0" />
          </font>

@@ -14,11 +14,14 @@ import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Model.SetIncidentRecord;
+import lk.ijse.gdse69.javafx.Repository.IncidentRepo;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Repository.SetIncidentRecordRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -34,7 +37,7 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
     public TableColumn<String, String> riInmateId;
 
     public TextField incidentId;
-    public TextField sectionId;
+    public ComboBox<String> sectionId;
     public ComboBox<String> incidentType;
     public TextField description;
     public TextField time;
@@ -50,14 +53,89 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
     public Button sectionBtn;
     public Button visitorBtn;
 
+    public TextField searchIncidentId;
+
+    public static String incId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setToolTip();
-        incidentType.getItems().addAll("Assaults", "Contraband","Suicide or Self-Harm","Security Breaches");
+
+        setComboBoxValues();
+        setInmateIds();
+        setIncidentIds();
+        setNextIncidentId();
+
         try {
             totalSection.setText(String.valueOf(SectionRepo.getAllSections().size())+" Section");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void setIncidentIds() {
+        List<String> incidentIds = new ArrayList<>();
+
+        List<Incident> allIncident =IncidentRepo.getAllIncidents();
+        for (Incident incident : allIncident) {
+            incidentIds.add(incident.getIncidentId()+" - "+incident.getIncidentType());
+        }
+        String[] possibleNames = incidentIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(searchIncidentId, possibleNames);
+    }
+
+    private void setNextIncidentId() {
+        try {
+            String lastId = IncidentRepo.getLastId();
+            if(lastId == null){
+                incidentId.setText("ID001");
+            }else{
+                int id = Integer.parseInt(lastId.substring(2));
+                id++;
+                if(id<10){
+                    incidentId.setText("ID00"+id);
+                }else if(id<100){
+                    incidentId.setText("ID0"+id);
+                }else{
+                    incidentId.setText("ID"+id);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        incidentId.setEditable(false);
+    }
+
+    private void setInmateIds() {
+        List<String> inmateIds = new ArrayList<>();
+
+        List<Inmate> allInmate = null;
+        try {
+            allInmate = InmateRepo.getAllInmates();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Inmate inmate : allInmate) {
+            inmateIds.add(inmate.getInmateId()+" - "+inmate.getInmateFirstName()+" "+inmate.getInmateLastName());
+        }
+        String[] possibleNames = inmateIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(inmateId, possibleNames);
+
+    }
+
+    private void setComboBoxValues() {
+        incidentType.getItems().addAll("Assaults", "Contraband","Suicide or Self-Harm","Security Breaches");
+        try {
+            List<Section> allSections = SectionRepo.getAllSections();
+            List<String> sectionIds = new ArrayList<>();
+            for (Section section : allSections) {
+                sectionIds.add(section.getSectionId());
+            }
+            sectionId.getItems().addAll(sectionIds);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -74,34 +152,25 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
     private List<String> inmateIds = new ArrayList<>();
     public void canselBtn(ActionEvent actionEvent) {
         clearFields();
+        setNextIncidentId();
     }
 
     public void submitBtn(ActionEvent actionEvent) {
-
         if (checkEmptyFields()){
-            if (Util.checkValidText(incidentId.getText(),"ID\\d{3}")){
-                if (Util.checkValidText(sectionId.getText(),"S\\d{3}")){
-                    
-                    if (checkSectionId()){}else {return;}
-                    
-                    if (Util.validateTime(time.getText())){
-                        createIncidentOjt();
-                    }else{
-                        new ShowAlert("Invalid Time", "Invalid Time Type","Please Enter Valid Time. EX : XX:XX.", Alert.AlertType.INFORMATION);
-                        return;
-                    }
-                }
-            }else {
-                new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IDXXX.", Alert.AlertType.ERROR);
+            if (Util.validateTime(time.getText())){
+                createIncidentOjt();
+            }else{
+                ShowAlert.showErrorNotify("Invalid Time Format. Please Enter Valid Time EX : XX:XX.");
+                return;
             }
-        }else {
-            new ShowAlert("Empty Fields", "Empty Fields","Please fill All fields.", Alert.AlertType.INFORMATION);
+        }else{
+            ShowAlert.showErrorNotify("Please Fill All Fields.");
         }
     }
 
     private void createIncidentOjt() {
         String id = incidentId.getText();
-        String secId = sectionId.getText();
+        String secId = sectionId.getSelectionModel().getSelectedItem();
         String incType = incidentType.getSelectionModel().getSelectedItem();
         String desc = description.getText();
         String t = time.getText();
@@ -118,87 +187,42 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         if (isAdded) {
             clearFields();
-            new ShowAlert("Success", "Incident Added", "Incident Added Successfully.", Alert.AlertType.INFORMATION);
+            ShowAlert.showSuccessNotify("Incident Added Successfully.");
         }else {
-            new ShowAlert("Failed", "Incident Added", "Incident Added Failed.", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Failed to Add Incident.");
         }
-
-
     }
-
     private void clearFields() {
         incidentId.clear();
-        sectionId.clear();
+        sectionId.getSelectionModel().clearSelection();
         incidentType.getSelectionModel().clearSelection();
         description.clear();
         time.clear();
         inmateId.clear();
         inmateIds.clear();
-    }
-
-    private boolean checkSectionId() {
-        List<Section> sections = new ArrayList<>();
-        try {
-            sections = SectionRepo.getAllSections();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        
-        for (Section section : sections) {
-            if (section.getSectionId().equals(sectionId.getText())){
-                return true;
-            }
-        }
-        return false;
+        setTableValues(inmateIds);
+        setNextIncidentId();
     }
 
     private boolean checkEmptyFields(){
-        return Util.checkEmptyFields(incidentId.getText(),sectionId.getText(),incidentType.getSelectionModel().getSelectedItem(),time.getText());
+        return Util.checkEmptyFields(incidentId.getText(),sectionId.getSelectionModel().getSelectedItem(),incidentType.getSelectionModel().getSelectedItem(),time.getText());
     }
 
     public void onInmateIds(ActionEvent actionEvent) {
-
         String id = this.inmateId.getText();
-
         if (id != null){
-            if (Util.checkValidText(id,"I\\d{3}")){
-                if (checkInmateId()){
-                    inmateIds.add(id);
-                    setTableValues(inmateIds);
-                    inmateId.clear();
-                }
-            }else{
-            new ShowAlert("Invalid Id", "Invalid ID Type","Please Enter Valid Id. EX : IXXX.", Alert.AlertType.ERROR);
-
-            }
+            int index = inmateId.getText().indexOf(" ");
+            String idS = inmateId.getText().substring(0, index); // Extract the substring before the first space
+            System.out.println(idS);
+            inmateIds.add(idS);
+            setTableValues(inmateIds);
+            inmateId.clear();
         }else{
-            new ShowAlert("Empty Field", "Empty Inmate Id Field","Please Enter Inmate Id.", Alert.AlertType.INFORMATION);
+            ShowAlert.showErrorNotify("Please Enter Inmate ID.");
         }
-
-
     }
-
-    private boolean checkInmateId() {
-        List<Inmate> inmates = new ArrayList<>();
-
-        try {
-            inmates = InmateRepo.getAllInmates();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Inmate inmate : inmates) {
-            if (inmate.getInmateId().equals(inmateId.getText())){
-                return true;
-            }
-        }
-        new ShowAlert("Invalid Id", "No Inmate","Please Enter Valid Inmate Id.", Alert.AlertType.ERROR);
-        return false;
-    }
-
 
     private void setTableValues(List<String> inmateIds) {
         riInmateId.setCellValueFactory(cellData -> {
@@ -209,4 +233,15 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
         riInmateId.getTableView().setItems(items);
     }
 
+    public void searchIncidentIdOnAction(ActionEvent actionEvent) throws IOException {
+        incId = searchIncidentId.getText();
+
+        if (incId != null){
+            createStage("/View/IncidentSetting.fxml");
+        }
+    }
+
+    public static String getIncId(){
+        return incId;
+    }
 }

@@ -20,9 +20,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.User;
 import lk.ijse.gdse69.javafx.Repository.UserRepo;
-import lk.ijse.gdse69.javafx.Sound.Sound;
 import lk.ijse.gdse69.javafx.jbcrypt.PasswordHasher;
 import lk.ijse.gdse69.javafx.smtp.Mail;
 
@@ -87,10 +87,6 @@ public class WelcomeController implements Initializable {
 
     public void signInBtn(ActionEvent actionEvent) throws SQLException {
 
-        Sound sound =new Sound();
-        sound.playDoubleClickSound();
-        System.out.println("sign In btn click");
-
         String uId = uNameField.getText();
         String uPass = uPassField.getText();
 
@@ -123,17 +119,15 @@ public class WelcomeController implements Initializable {
                 // Handle the exception as necessary
             }
         }else {
-            System.out.println("Login Failed");
-            sendAlert("Invalid User Name or Password");
-            uNameField.setText("");
-            uPassField.setText("");
+            ShowAlert.showErrorNotify("Invalid User Name or Password");
+            uNameField.clear();
+            uPassField.clear();
         }
     }
     public static Stage getDashBoardStage() {
         return dashBoardStage;
     }
     private void sendAlert(String contentText) {
-        new Sound().playNotifySound();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("New Magazine Prison");
@@ -178,11 +172,11 @@ public class WelcomeController implements Initializable {
 
             }else {
 
-                sendAlert("Email is Invalid. Please Enter Valid Email");
+                ShowAlert.showErrorNotify("Invalid Email. Please Enter Valid Email");
             }
         }else {
 
-            sendAlert("Email is Empty. Please Enter Email");
+            ShowAlert.showErrorNotify("Please Enter Email");
         }
         
     }
@@ -197,7 +191,7 @@ public class WelcomeController implements Initializable {
 
         if (fName.isEmpty() || email.isEmpty() || otp.isEmpty() || pass.isEmpty() || comPass.isEmpty()){
 
-            sendAlert("Empty Fields. Please Enter All Fields");
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }else {
             if (checkPass(pass,comPass)){
                 if (otp.equals(otpMail.toString())){
@@ -217,16 +211,16 @@ public class WelcomeController implements Initializable {
 
                         user = new User(uId,fName,hashPass,email);
                     }else {
-                        sendAlert("User Already Exists. Please Enter Another User Name");
+                        ShowAlert.showErrorNotify("User ID is Already Exist. Please Try Again");
                     }
-
                     try {
 
                         if(userRepo.save(user)){
-                            sendAlert("User Registered Successfully\n Your User ID is : "+uId);
+                            ShowAlert.showSuccessNotify("User Registered Successfully");
+                            sendAlert("Your User ID is : "+uId);
                             clearFields();
                         }else {
-                            sendAlert("User Not Registered. Please Try Again");
+                            ShowAlert.showErrorNotify("Failed to Register User");
                         }
 
                     } catch (SQLException e) {
@@ -234,7 +228,7 @@ public class WelcomeController implements Initializable {
                     }
                 }
             }else {
-                sendAlert("Password is not match. Please Enter Correct Password");
+                ShowAlert.showErrorNotify("Password and Confirm Password are not Matched. Please Try Again");
             }
         }
     }

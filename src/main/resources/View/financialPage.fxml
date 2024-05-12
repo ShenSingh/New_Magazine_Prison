@@ -218,7 +218,7 @@
             </Text>
             <AnchorPane layoutX="21.0" layoutY="159.0" prefHeight="45.0" prefWidth="45.0" styleClass="iconAnchor" stylesheets="@../css/dashBoardStyle.css">
                <children>
-                  <ImageView layoutY="3.0">
+                  <ImageView fitHeight="37.0" fitWidth="37.0" layoutY="4.0">
                      <image>
                         <Image url="@../images/icon/staffExpencesIcon.png" />
                      </image>

@@ -12,7 +12,9 @@ import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ExpencesRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class AddExpensesController extends MainDashBoard implements Initializable {
     public TextField expensesId;
-    public TextField sectionId;
+    public ComboBox<String> sectionId;
     public ComboBox<String> expensesType;
     public TextField cost;
 
@@ -42,11 +44,55 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
     public Button sectionBtn;
     public Button visitorBtn;
 
+
+    public TextField shearchExpenId;
+
+    public static String expenId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         expensesType.getItems().addAll("Food","Water","Staff","Electric","Equipment","Health");
         setToolTip();
+        setNextExpenId();
+        setComboValues();
+
+        setSearchExpenId();
     }
+
+    private void setSearchExpenId() {
+        List<String> expenIds = new ArrayList<>();
+
+        List<Expences> allExpences = ExpencesRepo.getAllExpenses();
+        for (Expences expences : allExpences) {
+            expenIds.add(expences.getExpenceId()+" - "+expences.getType());
+        }
+        String[] possibleNames = expenIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(shearchExpenId, possibleNames);
+    }
+
+    private void setNextExpenId() {
+        try {
+            String lastId = ExpencesRepo.getLastId();
+            if(lastId == null){
+                expensesId.setText("E001");
+            }else{
+                int id = Integer.parseInt(lastId.substring(1));
+                id++;
+                if(id<10){
+                    expensesId.setText("E00"+id);
+                }else if(id<100){
+                    expensesId.setText("E0"+id);
+                }else{
+                    expensesId.setText("E"+id);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        expensesId.setEditable(false);
+    }
+
     private void setToolTip() {
         Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
         Tooltip.install(officerBtn, new Tooltip("Officer Management"));
@@ -57,20 +103,23 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
         Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
     public void canselBtn(ActionEvent actionEvent) {
+        clearFields();
+    }
+
+    private void clearFields() {
+        expensesId.clear();
+        sectionId.getSelectionModel().clearSelection();
+        expensesType.getSelectionModel().clearSelection();
+        cost.clear();
+        setNextExpenId();
     }
 
     public void submitBtn(ActionEvent actionEvent) {
 
         if (checkEmptyFields()){
 
-            if (checkValidExpensesId()){} else{return;}
-
-            if (checkExpensesId()){}else{return;}
-
-            if(checkSectionId()){}else{return;}
-
             String id = expensesId.getText();
-            String secId = sectionId.getText();
+            String secId = sectionId.getSelectionModel().getSelectedItem();
             String type = expensesType.getSelectionModel().getSelectedItem();
             double cost = Double.parseDouble(this.cost.getText());
 
@@ -83,68 +132,52 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
             try {
                 boolean isAdded = ExpencesRepo.save(expences);
                 if(isAdded){
-                    ShowAlert showAlert = new ShowAlert("Success", "Expenses Added", "Expenses Added Successfully", Alert.AlertType.INFORMATION);
+                    clearFields();
+                    ShowAlert.showSuccessNotify("Expenses Added Successfully");
+
                 }else{
-                    ShowAlert showAlert = new ShowAlert("Error", "Expenses Not Added", "Expenses Not Added", Alert.AlertType.ERROR);
+                    ShowAlert.showErrorNotify("Failed to Add Expenses");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }else{
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }
     }
 
-    private boolean checkExpensesId() {
-        List<Expences> expenses = new ArrayList<>();
-
+    private void setComboValues() {
         try {
-            expenses = ExpencesRepo.getAllExpenses();
+            List<Section> allSections = SectionRepo.getAllSections();
+            List<String> sectionIds = new ArrayList<>();
+            for (Section section : allSections) {
+                sectionIds.add(section.getSectionId());
+            }
+            sectionId.getItems().addAll(sectionIds);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        for (Expences expence : expenses) {
-            if(expence.getExpenceId().equals(expensesId.getText())){
-                ShowAlert showAlert = new ShowAlert("Error", "Expenses ID Already Exist", "Expenses ID Already Exist", Alert.AlertType.INFORMATION);
-                return false;
-            }
-        }
-        return true;
     }
 
-    private boolean checkSectionId() {
-        List<Section> sections = new ArrayList<>();
-        try {
-            sections = SectionRepo.getAllSections();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (Section section : sections) {
-            if(section.getSectionId().equals(sectionId.getText())){
-                return true;
-            }
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section ID", "Section ID not found", Alert.AlertType.WARNING);
-        return false;
-    }
-
-
-    private boolean checkValidExpensesId() {
-        String id = expensesId.getText();
-
-        if(id.matches("E\\d{3}")){
-            return true;
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Expenses ID", "Expenses ID should be like EXXX", Alert.AlertType.WARNING);
-        return false;
-    }
 
     public boolean checkEmptyFields(){
 
-        return Util.checkEmptyFields(expensesId.getText(),sectionId.getText(),expensesType.getSelectionModel().getSelectedItem(),cost.getText());
+        return Util.checkEmptyFields(expensesId.getText(),sectionId.getSelectionModel().getSelectedItem(),expensesType.getSelectionModel().getSelectedItem(),cost.getText());
     }
 
+
+    public void searchExpenField(ActionEvent actionEvent) throws IOException {
+        String id = shearchExpenId.getText();
+
+        if(id == null){
+            ShowAlert.showErrorNotify("Please Enter Expenses ID");
+        }else{
+            createStage("/View/ExpensesSetting.fxml");
+        }
+    }
+
+    public String getExpenId(){
+        return expenId;
+    }
 }
