@@ -7,13 +7,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.Visitor;
 import lk.ijse.gdse69.javafx.Model.VisitorRecord;
 import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +35,11 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     public TableColumn<VisitorRecord, String> tvInmateId;
     public TableColumn<VisitorRecord, String> tvDate;
     public TableColumn<VisitorRecord, String> tvTime;
+    public TextField status;
+    public Text sideVisitorName;
+
+    @FXML
+    private ImageView visitorImg;
 
     @FXML
     private TextField searchVisitorField;
@@ -71,6 +82,15 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     @FXML
     private AnchorPane line9;
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
     private boolean isEditingEnabled = false;
     private boolean isIconNamesVisible = false;
 
@@ -81,6 +101,9 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setToolTip();
+        searchVisitorId();
 
         try {
             visitorPageVisitorId();
@@ -95,12 +118,47 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
         vBoxAnchorPane.setVisible(false);
     }
 
+    private void searchVisitorId() {
+        List<String> visitorIds = new ArrayList<>();
+
+        try {
+            List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
+            for (Visitor visitor : allVisitors) {
+                visitorIds.add(visitor.getVisitorID());
+            }
+            String[] possibleNames = visitorIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchVisitorField, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
+    }
+
     private void visitorPageVisitorId() throws SQLException {
-        String id = VisitorPageController.getFlogVisitorId();
+        String id = null;
+        id = VisitorPageController.getFlogVisitorId();
+
+        if (id == null) {
+            id = AddVisitorController.getVisitorIdString();
+        }
+        if (id == null) {
+            return;
+        }
 
         Visitor visitor = VisitorRepo.search(id);
 
         if (visitor != null){
+            sideVisitorName.setText(visitor.getVisitorFirstName() + " " + visitor.getVisitorLastName());
             setTableValues(visitor.getVisitorID());
             searchVisitorField.setText(visitor.getVisitorID());
             visitorId.setText(visitor.getVisitorID());
@@ -112,6 +170,13 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
             address.setText(visitor.getVisitorAddress());
             gender.getSelectionModel().select(visitor.getGender());
             visitorType.getSelectionModel().select(visitor.getVisitorType());
+
+            visitorImg.setFitWidth(100);
+            visitorImg.setFitHeight(100);
+            Circle clip = new Circle(visitorImg.getFitWidth() / 2, visitorImg.getFitHeight() / 2, visitorImg.getFitWidth() / 2);
+            visitorImg.setClip(clip);
+            Image image = Util.showImage(visitor.getVisitorImage());
+            visitorImg.setImage(image);
         }
     }
 
@@ -123,8 +188,6 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     public void searchVisitor(ActionEvent actionEvent) throws SQLException {
 
         if(!searchVisitorField.getText().isEmpty()){
-            // Show Alert
-
             String searchVisitorId = searchVisitorField.getText();
 
             if (VisitorRepo.search(searchVisitorId) != null) {
@@ -237,8 +300,10 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
 
     public void saveBtn(ActionEvent actionEvent) throws SQLException {
 
+        byte[] image = VisitorRepo.search(searchVisitorField.getText()).getVisitorImage();
+
         if (checkEmptyFields()) {
-            Visitor visitor = new Visitor(visitorId.getText(), fName.getText(), lName.getText(), java.sql.Date.valueOf(DOB.getValue()), NIC.getText(), Integer.parseInt(number.getText()), address.getText(), visitorType.getSelectionModel().getSelectedItem(), gender.getSelectionModel().getSelectedItem());
+            Visitor visitor = new Visitor(visitorId.getText(), fName.getText(), lName.getText(), java.sql.Date.valueOf(DOB.getValue()), NIC.getText(), Integer.parseInt(number.getText()), address.getText(), visitorType.getSelectionModel().getSelectedItem(), gender.getSelectionModel().getSelectedItem(),image);
 
             if (VisitorRepo.update(visitor)) {
                 ShowAlert alert = new ShowAlert("Success", "Update Success", "Visitor Profile Updated Successfully", Alert.AlertType.INFORMATION);

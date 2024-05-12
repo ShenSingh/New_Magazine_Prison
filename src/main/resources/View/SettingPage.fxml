@@ -66,7 +66,7 @@
         <AnchorPane layoutX="500.0" layoutY="189.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
         <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
             <children>
-                <TextField fx:id="searchField" layoutX="32.0" layoutY="2.0" onAction="#seachOfficer" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+                <TextField fx:id="searchField" layoutX="32.0" layoutY="2.0" onAction="#seachUser" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="6.0" layoutY="6.0">
                     <image>
                         <Image url="@../images/icon/search.gif" />
@@ -86,7 +86,7 @@
                         <Font name="Gentium Book Basic Bold" size="18.0" />
                     </font>
                 </Text>
-                <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteOfficer" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
+                <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteUser" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
                 <JFXToggleButton layoutX="52.0" layoutY="176.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
                     <font>
                         <Font size="11.0" />

@@ -2,8 +2,11 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -29,21 +32,36 @@ public class ViewIncidentController extends MainDashBoard implements Initializab
     public JFXComboBox<String> viewOptionCombo;
     public Text totalSection;
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewOptionCombo.getItems().addAll("All Incidents");
         viewOptionCombo.setVisible(false);
-
         try {
             totalSection.setText(String.valueOf(SectionRepo.getAllSections().size()) + " Sections");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         setTableValues(IncidentRepo.getAllIncidents());
+        setToolTip();
+    }
 
-
-
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
 
     private void setTableValues(List<Incident> allIncidents) {

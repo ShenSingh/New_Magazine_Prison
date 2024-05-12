@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -87,6 +84,15 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
     @FXML
     JTextField visitorIdField;
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -109,8 +115,19 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
         }
 
         setVisitorCounts();
+        setToolTip();
 
 
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
 
     private void setVisitorCounts() {

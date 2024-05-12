@@ -4,7 +4,7 @@ import os
 def capture_and_save(frame, counter, save_path):
     img_name = os.path.join(save_path, "opencv_frame_{}.png".format(counter))
     cv2.imwrite(img_name, frame)
-    print("Screenshot taken and saved as", img_name)
+    print(img_name)
 
 def main():
     cam = cv2.VideoCapture(0)

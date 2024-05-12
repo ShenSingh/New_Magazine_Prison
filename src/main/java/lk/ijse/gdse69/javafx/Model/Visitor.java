@@ -19,6 +19,7 @@ public class Visitor {
     private String visitorAddress;
     private String visitorType;
     private String gender;
+    private byte[] visitorImage;
 
 
 }

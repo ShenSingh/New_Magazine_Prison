@@ -2,10 +2,8 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
@@ -15,11 +13,13 @@ import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class AddOfficerController extends MainDashBoard {
+public class AddOfficerController extends MainDashBoard  implements Initializable {
 
     public AnchorPane MainAnchorPane;
     @FXML
@@ -67,16 +67,33 @@ public class AddOfficerController extends MainDashBoard {
 
     ShowAlert showAlert;
 
-    public void initialize() {
-        System.out.println("Add Inmate Page initialized");
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setOfficerCount();
-
-        // Initialize the ComboBox with options
         positionComboBox.getItems().addAll("Sergeant", "Lieutenant", "Captain", "Major", "Colonel", "General","Special Unit");
         gender.getItems().addAll(  "Male","Female");
+        setToolTip();
     }
 
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
+    }
     private void setOfficerCount() {
         List<Officer> allOffisers = new ArrayList<>();
 

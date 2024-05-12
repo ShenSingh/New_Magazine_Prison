@@ -4,10 +4,8 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
@@ -15,11 +13,13 @@ import lk.ijse.gdse69.javafx.Model.InmateRecord;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
-public class AddInmateRecordController extends MainDashBoard{
+public class AddInmateRecordController extends MainDashBoard implements Initializable {
 
     public JFXToggleButton editProfile;
     public AnchorPane MainAnchorPane;
@@ -48,11 +48,19 @@ public class AddInmateRecordController extends MainDashBoard{
     @FXML
     private TextField searchInmate; // search Id //////////
 
-
-
-
     @FXML
-    public void initialize() {
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Initialize translate transitions for iconsPane
         slideTransition1 = new TranslateTransition(Duration.seconds(0.3), iconsPane);
         slideTransition1.setToX(450); // Slide distance to hide names initially
@@ -64,6 +72,17 @@ public class AddInmateRecordController extends MainDashBoard{
         incidentRecordAnchor.setVisible(false);
 
         caseStatusComboBox.getItems().addAll("Pending", "Ongoing", "Closed");
+        setToolTip();
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
 
     public void caseStatusField(ActionEvent actionEvent) {

@@ -3,7 +3,10 @@ package lk.ijse.gdse69.javafx.Controllers;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -11,10 +14,12 @@ import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ViewOfficerController extends MainDashBoard{
+public class ViewOfficerController extends MainDashBoard implements Initializable {
 
 @FXML
 private JFXComboBox<String> viewOptionCombo;
@@ -40,7 +45,18 @@ private JFXComboBox<String> viewOptionCombo;
     public Text femaleOfficerCount;
     public Text specialUnitCount;
 
-    public void initialize(){
+
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         viewOptionCombo.getItems().addAll("View All","Male","Female");
         viewOptionCombo.getSelectionModel().select(0);
@@ -52,10 +68,19 @@ private JFXComboBox<String> viewOptionCombo;
             throw new RuntimeException(e);
         }
         getComboBoxOption();
-
-
-
+        setToolTip();
     }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
+    }
+
 
     private void setOfficerCount() {
         List<Officer> allOfficers = null;
@@ -84,6 +109,7 @@ private JFXComboBox<String> viewOptionCombo;
 
         }
     }
+
     private String seUniCount(List<Officer> allOfficers) {
         long specialUnitCount = allOfficers.stream().filter(officer -> officer.getPosition().equals("Special Unit")).count();
         String specUniCount= String.valueOf(specialUnitCount);
@@ -140,6 +166,5 @@ private JFXComboBox<String> viewOptionCombo;
         }
 
     }
-
 
 }

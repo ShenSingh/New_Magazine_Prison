@@ -4,11 +4,9 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
@@ -42,10 +40,19 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
     public TextField time;
     public TextField inmateId;
 
-    private List<String> inmateIds = new ArrayList<>();
+
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setToolTip();
         incidentType.getItems().addAll("Assaults", "Contraband","Suicide or Self-Harm","Security Breaches");
         try {
             totalSection.setText(String.valueOf(SectionRepo.getAllSections().size())+" Section");
@@ -53,6 +60,18 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
             throw new RuntimeException(e);
         }
     }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
+    }
+
+    private List<String> inmateIds = new ArrayList<>();
     public void canselBtn(ActionEvent actionEvent) {
         clearFields();
     }

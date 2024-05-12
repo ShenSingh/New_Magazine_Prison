@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Section;
@@ -30,6 +32,15 @@ public class ViewSectionController extends MainDashBoard implements Initializabl
     @FXML
     private Text totalSectionCount;
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewOptionCombo.setItems(FXCollections.observableArrayList("All", "Jails","Active"));
@@ -39,6 +50,8 @@ public class ViewSectionController extends MainDashBoard implements Initializabl
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        setToolTip();
 
         setTotalCount();
 
@@ -67,6 +80,16 @@ public class ViewSectionController extends MainDashBoard implements Initializabl
             }
         });
 
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
     private void setTotalCount() {
         try {

@@ -12,7 +12,7 @@ public class VisitorRepo {
     public static boolean save(Visitor visitor) throws SQLException {
 
             try {
-                String sql = "INSERT INTO Visitor VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Visitor VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
                 Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement pstm = connection.prepareStatement(sql);
@@ -26,6 +26,7 @@ public class VisitorRepo {
                 pstm.setObject(7, visitor.getVisitorAddress());
                 pstm.setObject(8, visitor.getVisitorType());
                 pstm.setObject(9, visitor.getGender());
+                pstm.setObject(10, visitor.getVisitorImage());
 
                 // Execute the update and return true if successful
                 return pstm.executeUpdate() > 0;
@@ -52,7 +53,7 @@ public class VisitorRepo {
     }
 
     public static boolean update(Visitor visitor) throws SQLException {
-        String sql = "UPDATE Visitor SET visitorFirstName = ?, visitorLastName = ?, visitorDOB = ?, visitorNIC = ?, visitorNumber = ?, visitorAddress = ?, visitorType = ?, gender = ? WHERE visitorID = ?";
+        String sql = "UPDATE Visitor SET visitorFirstName = ?, visitorLastName = ?, visitorDOB = ?, visitorNIC = ?, visitorNumber = ?, visitorAddress = ?, visitorType = ?, gender = ?,imageData = ? WHERE visitorID = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -65,7 +66,8 @@ public class VisitorRepo {
         pstm.setObject(6, visitor.getVisitorAddress());
         pstm.setObject(7, visitor.getVisitorType());
         pstm.setObject(8, visitor.getGender());
-        pstm.setObject(9, visitor.getVisitorID());
+        pstm.setObject(9, visitor.getVisitorImage());
+        pstm.setObject(10, visitor.getVisitorID());
 
         return pstm.executeUpdate() > 0;
     }
@@ -89,8 +91,8 @@ public class VisitorRepo {
             String visitorAddress = resultSet.getString(7);
             String visitorType = resultSet.getString(8);
             String gender = resultSet.getString(9);
-
-            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType,gender);
+            byte[] visitorImage = resultSet.getBytes(10);
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType,gender,visitorImage);
 
             return visitor;
         }
@@ -120,8 +122,8 @@ public class VisitorRepo {
             String visitorAddress = resultSet.getString(7);
             String visitorType = resultSet.getString(8);
             String gender = resultSet.getString(9);
-
-            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender);
+            byte[] visitorImage = resultSet.getBytes(10);
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender,visitorImage);
 
            allVisitors.add(visitor);
         }
@@ -152,8 +154,9 @@ public class VisitorRepo {
             String visitorAddress = resultSet.getString(7);
             String visitorType = resultSet.getString(8);
             String gender = resultSet.getString(9);
+            byte[] visitorImage = resultSet.getBytes(10);
 
-            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender);
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender,visitorImage);
 
             allVisitors.add(visitor);
         }
@@ -183,8 +186,8 @@ public class VisitorRepo {
             String visitorAddress = resultSet.getString(7);
             String visitorType = resultSet.getString(8);
             String gender = resultSet.getString(9);
-
-            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender);
+            byte[] visitorImage = resultSet.getBytes(10);
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender,visitorImage);
 
             allVisitors.add(visitor);
         }
@@ -214,8 +217,8 @@ public class VisitorRepo {
             String visitorAddress = resultSet.getString(7);
             String visitorType = resultSet.getString(8);
             String gender = resultSet.getString(9);
-
-            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender);
+            byte[] visitorImage = resultSet.getBytes(10);
+            Visitor visitor = new Visitor(visitorId, visitorFirstName, visitorLastName, visitorDOB, visitorNIC, visitorNumber, visitorAddress, visitorType, gender,visitorImage);
 
             allVisitors.add(visitor);
         }

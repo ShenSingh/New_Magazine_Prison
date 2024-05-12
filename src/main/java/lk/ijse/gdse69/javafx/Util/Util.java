@@ -1,5 +1,11 @@
 package lk.ijse.gdse69.javafx.Util;
 
+import javafx.scene.image.Image;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,4 +37,25 @@ public class Util {
     }
 
 
+    public static byte[] readImage(File file) {
+        try (FileInputStream fis = new FileInputStream(file);
+             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = fis.read(buf)) != -1) {
+                bos.write(buf, 0, len);
+            }
+            return bos.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
+    public static Image showImage(byte[] imageDate) {
+        // Convert byte array to JavaFX Image
+        Image image = new Image(new ByteArrayInputStream(imageDate));
+        // Set the Image to the ImageView
+        return image;
+
+    }
 }

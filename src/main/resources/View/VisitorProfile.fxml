@@ -116,7 +116,7 @@
         </ImageView>
         <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
             <children>
-                <Text fx:id="sideVisitorName" fill="#66748a" fontSmoothingType="LCD" layoutX="55.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Hall 1" wrappingWidth="109.388671875">
+                <Text fx:id="sideVisitorName" fill="#66748a" fontSmoothingType="LCD" layoutX="55.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="109.388671875">
                     <font>
                         <Font name="Gentium Book Basic Bold" size="18.0" />
                     </font>
@@ -153,7 +153,7 @@
                         <Font size="11.0" />
                     </font>
                 </JFXToggleButton>
-            <ImageView fitHeight="99.0" fitWidth="103.0" layoutX="52.0" layoutY="45.0">
+            <ImageView fx:id="visitorImg" fitHeight="99.0" fitWidth="103.0" layoutX="52.0" layoutY="45.0">
                <image>
                   <Image url="@../images/icon/icons8-crowd-100.png" />
                </image>

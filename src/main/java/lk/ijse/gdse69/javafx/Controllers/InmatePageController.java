@@ -2,8 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,12 +18,14 @@ import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class InmatePageController extends MainDashBoard{
+public class InmatePageController extends MainDashBoard implements Initializable {
     public ImageView sirLankaLogo;
     public AnchorPane MainAnchorPane;
 
@@ -43,10 +49,41 @@ public class InmatePageController extends MainDashBoard{
 
     ViewInmateController viewInmateController = new ViewInmateController();
 
-    public void initialize() throws SQLException {
+
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
         setCellValueFactory();
-        setValues();
-        setGenderCount();
+        try {
+            setValues();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            setGenderCount();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        setToolTip();
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
 
     private void setValues() throws SQLException {
@@ -68,6 +105,7 @@ public class InmatePageController extends MainDashBoard{
 
 
     }
+
     private void setGenderCount() throws SQLException {
 
         maleInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Male").size())+" Inmates");

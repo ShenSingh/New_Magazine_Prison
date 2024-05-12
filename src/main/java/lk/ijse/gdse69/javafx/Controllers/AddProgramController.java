@@ -1,10 +1,9 @@
 package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
@@ -34,6 +33,15 @@ public class AddProgramController extends MainDashBoard implements Initializable
 
     public AnchorPane MainAnchorPane;
 
+    @FXML
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -41,6 +49,17 @@ public class AddProgramController extends MainDashBoard implements Initializable
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        setToolTip();
+    }
+
+    private void setToolTip() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
 
     public void canselBtn(ActionEvent actionEvent) {

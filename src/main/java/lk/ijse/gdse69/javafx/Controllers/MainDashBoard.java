@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class MainDashBoard implements MainDashBoardInterFace{
 
+
     @Override
     public void onInmate() throws IOException {
         this.createStage("/View/InmatePage.fxml");

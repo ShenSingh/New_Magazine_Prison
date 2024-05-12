@@ -2,6 +2,7 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -12,11 +13,14 @@ import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ResourceBundle;
 
-public class DashBoardController  extends MainDashBoard{
+public class DashBoardController  extends MainDashBoard implements Initializable
+{
 
     @FXML
     public ImageView sirLankaLogo;
@@ -30,14 +34,26 @@ public class DashBoardController  extends MainDashBoard{
     public Button sectionBtn;
     public Button visitorBtn;
 
-
     public Text setDayType;
+
     public Text setDate;
     public Text totalInmateCount;
     public Text totalOfficerCount;
     public Text totalVisitorCount;
 
-    public void initialize() throws SQLException {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            setTotalCount();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        setDateAndDay();
+        setToolTip();
+    }
+
+    private void setToolTip() {
         Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
         Tooltip.install(officerBtn, new Tooltip("Officer Management"));
         Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
@@ -45,11 +61,6 @@ public class DashBoardController  extends MainDashBoard{
         Tooltip.install(manyBtn, new Tooltip("Financial Management"));
         Tooltip.install(sectionBtn, new Tooltip("Section Management"));
         Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
-
-        setTotalCount();
-        setDateAndDay();
-
-        System.out.println("DashBoard Page");
     }
 
     private void setDateAndDay() {
