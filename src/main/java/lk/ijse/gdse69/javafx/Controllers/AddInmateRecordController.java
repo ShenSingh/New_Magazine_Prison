@@ -10,13 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
+import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
+import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddInmateRecordController extends MainDashBoard implements Initializable {
@@ -37,7 +40,7 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
 //    ///////////////////////
 
     @FXML
-    private TextField sectionId;
+    private ComboBox<String> sectionId;
     @FXML
     private TextField crime;
     @FXML
@@ -71,8 +74,28 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
         iconsPane.setVisible(false);
         incidentRecordAnchor.setVisible(false);
 
-        caseStatusComboBox.getItems().addAll("Pending", "Ongoing", "Closed");
         setToolTip();
+
+        setComboBoxValues();
+
+    }
+
+    private void setComboBoxValues() {
+        caseStatusComboBox.getItems().addAll("Pending", "Ongoing", "Closed");
+        setSectionIds();
+    }
+
+    private void setSectionIds() {
+        List<Section> sectionIds = null;
+
+        try {
+            sectionIds = SectionRepo.getJailSections();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for(Section section : sectionIds){
+            sectionId.getItems().add(section.getSectionId());
+        }
     }
 
     private void setToolTip() {
@@ -125,6 +148,15 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
     }
 
     public void cancelBtn(ActionEvent actionEvent) {
+        clearFields();
+    }
+
+    private void clearFields() {
+        searchInmate.clear();
+        sectionId.getSelectionModel().clearSelection();
+        crime.clear();
+        releseDate.getEditor().clear();
+        caseStatusComboBox.getSelectionModel().clearSelection();
     }
 
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
@@ -132,7 +164,7 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
         if (!searchInmate.getText().isEmpty()){
             if (checkEmptyField()){
                 String inmateId = searchInmate.getText();
-                String sectionId = this.sectionId.getText();
+                String sectionId = this.sectionId.getSelectionModel().getSelectedItem();
                 String crime = this.crime.getText();
                 Date entryDate = Date.valueOf(LocalDate.now());
                 Date releseDate = Date.valueOf(this.releseDate.getValue());
@@ -140,8 +172,6 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
 
                 InmateRecord inmateRecord = new InmateRecord(inmateId, sectionId, entryDate, releseDate, crime,caseStatus);
 
-
-                System.out.println(inmateRecord.toString());
 
                 if (InmateRecordRepo.save(inmateRecord)){
                     ShowAlert showAlert = new ShowAlert("Success", "Record Added", "Record added successfully", Alert.AlertType.INFORMATION);
@@ -159,7 +189,7 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
     }
 
     private boolean checkEmptyField() {
-        if (sectionId.getText().isEmpty() || crime.getText().isEmpty() || releseDate.getValue() == null || caseStatusComboBox.getValue() == null){
+        if (sectionId.getSelectionModel().getSelectedItem() == null || crime.getText().isEmpty() || releseDate.getValue() == null || caseStatusComboBox.getValue() == null){
             return false;
         }
         return true;
@@ -167,4 +197,5 @@ public class AddInmateRecordController extends MainDashBoard implements Initiali
 
     public void searchInmateField(ActionEvent actionEvent) {
     }
+
 }

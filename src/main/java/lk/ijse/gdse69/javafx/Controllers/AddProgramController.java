@@ -11,6 +11,8 @@ import lk.ijse.gdse69.javafx.Model.Program;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ProgramRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,7 +29,7 @@ public class AddProgramController extends MainDashBoard implements Initializable
     public DatePicker programDate;
     public TextField programId;
     public TextField programName;
-    public TextField sectionId;
+    public ComboBox<String> sectionId;
     public TextField programTime;
     public TextField programDescription;
 
@@ -42,6 +44,9 @@ public class AddProgramController extends MainDashBoard implements Initializable
     public Button sectionBtn;
     public Button visitorBtn;
 
+
+    public TextField searchProgram;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -50,6 +55,63 @@ public class AddProgramController extends MainDashBoard implements Initializable
             throwables.printStackTrace();
         }
         setToolTip();
+        setNextProgramId();
+        setSectionIds();
+        setSearchIds();
+
+        totalSectionCount.setText(sectionId.getItems().size()+" Sections");
+    }
+
+    private void setSearchIds() {
+        List<String> programIds = new ArrayList<>();
+
+        try {
+            List<Program> allPograms = ProgramRepo.getAllPrograms();
+            for (Program program : allPograms) {
+                programIds.add(program.getProgramId()+" - "+program.getProgramName());
+            }
+            String[] possibleNames = programIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchProgram, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setSectionIds() {
+        List<Section> sections = new ArrayList<>();
+        try {
+            sections = SectionRepo.getAllSections();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Section section : sections) {
+            sectionId.getItems().add(section.getSectionId());
+        }
+    }
+
+    private void setNextProgramId() {
+        List<Program> programs = new ArrayList<>();
+        try {
+            programs = ProgramRepo.getAllPrograms();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if (programs.size() == 0) {
+            programId.setText("P001");
+        } else {
+            String lastId = programs.get(programs.size() - 1).getProgramId();
+            String id = lastId.substring(1);
+            int newId = Integer.parseInt(id) + 1;
+            if (newId < 10) {
+                programId.setText("P00" + newId);
+            } else if (newId < 100) {
+                programId.setText("P0" + newId);
+            } else {
+                programId.setText("P" + newId);
+            }
+        }
+        programId.setEditable(false);
     }
 
     private void setToolTip() {
@@ -70,26 +132,22 @@ public class AddProgramController extends MainDashBoard implements Initializable
     private void clearFields() {
         programId.clear();
         programName.clear();
-        sectionId.clear();
+        sectionId.getSelectionModel().clearSelection();
         programDate.setValue(null);
         programTime.clear();
         programDescription.clear();
+        setNextProgramId();
     }
 
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
 
         if (checkEmptyFields()) {
 
-
-
-            if (checkSectionId()){}else {return;}
-            if (programIdValidation()){}else {return;}
-            if (checkProgramId()){}else {return;}
             if (checkTimeValidation()){}else {return;}
 
             String programId = this.programId.getText();
             String programName = this.programName.getText();
-            String sectionId = this.sectionId.getText();
+            String sectionId = this.sectionId.getSelectionModel().getSelectedItem();
             LocalDate programDate = this.programDate.getValue();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm");
@@ -103,14 +161,13 @@ public class AddProgramController extends MainDashBoard implements Initializable
 
             if (isAdded) {
                 clearFields();
-                ShowAlert showAlert = new ShowAlert("Success", "Program Added", "Program Added Successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Program Added Successfully");
             } else {
-                clearFields();
-                ShowAlert showAlert = new ShowAlert("Error", "Program Not Added", "Program Not Added", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Program Not Added");
             }
 
         } else {
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }
     }
 
@@ -120,64 +177,17 @@ public class AddProgramController extends MainDashBoard implements Initializable
         if (time.matches("^(?:[01]\\d|2[0-3]).(?:[0-5]\\d)$")){
             return true;
         }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Time", "Invalid Program Time Ex : XX.XX", Alert.AlertType.WARNING);
+        ShowAlert.showErrorNotify("Invalid Time Format. Ex : 12.00");
         return false;
     }
-
-    private boolean programIdValidation() {
-        String id = programId.getText().trim();
-        if (id.matches("P\\d{3}")) {
-            return true;
-        } else {
-            ShowAlert showAlert = new ShowAlert("Error", "Invalid Program Id", "Invalid Program Id Ex : PXXX", Alert.AlertType.WARNING);
-            return false;
-        }
-    }
-
-    private boolean checkProgramId() {
-        List<Program> programs =new ArrayList<>();
-
-        try {
-            programs = ProgramRepo.getAllPrograms();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        for (Program program : programs) {
-            if (program.getProgramId().equals(programId.getText())) {
-                ShowAlert showAlert = new ShowAlert("Error", "Program Id Already Exist", "Program Id Already Exist", Alert.AlertType.WARNING);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean checkSectionId() {
-        List<Section> sections =new ArrayList<>();
-
-        try {
-            sections = SectionRepo.getAllSections();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        for (Section section : sections) {
-            if (section.getSectionId().equals(sectionId.getText())) {
-                return true;
-            }
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Alert.AlertType.ERROR);
-        return false;
-    }
-
     private boolean checkEmptyFields() {
 
-        if (programId.getText().isEmpty() || programName.getText().isEmpty() || sectionId.getText().isEmpty() || programDate.getValue() == null || programTime.getText().isEmpty() || programDescription.getText().isEmpty()) {
-            System.out.println("Empty Fields");
-            return false;
-        } else {
-            System.out.println("Not Empty Fields");
+        if(Util.checkEmptyFields(programId.getText(),programName.getText(),sectionId.getSelectionModel().getSelectedItem(),String.valueOf(programDate.getValue()),programTime.getText(),programDescription.getText())){
             return true;
         }
+        return false;
+    }
+
+    public void searchProgramField(ActionEvent actionEvent) {
     }
 }

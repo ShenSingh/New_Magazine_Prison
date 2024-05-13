@@ -12,6 +12,7 @@ import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 public class AddOfficerController extends MainDashBoard  implements Initializable {
 
     public AnchorPane MainAnchorPane;
+    public TextField searchId;
     @FXML
     private TextField officerId;
     @FXML
@@ -50,7 +52,7 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
     private DatePicker DOB;
 
     @FXML
-    private TextField sectionId;
+    private ComboBox<String> sectionId;
 
 
     @FXML
@@ -65,9 +67,6 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
     @FXML
     private Text specialUnitCount;
 
-    ShowAlert showAlert;
-
-
     @FXML
     public Button inmateBtn;
     public Button officerBtn;
@@ -80,9 +79,66 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setOfficerCount();
+        setToolTip();
+        try {
+            setComboBoxValues();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        setNextOfficerId();
+        setSearchOfficerIds();
+    }
+
+    private void setSearchOfficerIds() {
+        List<String> offcerIds = new ArrayList<>();
+
+        try {
+            List<Officer> allOfficers = OfficerRepo.getAllOfficers();
+            for (Officer officer : allOfficers) {
+                offcerIds.add(officer.getOfficerId()+" - "+officer.getOfficerFirstName()+" "+officer.getOfficerLastName());
+            }
+            String[] possibleNames = offcerIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setNextOfficerId() {
+        try {
+            List<Officer> allOfficer = OfficerRepo.getAllOfficers();
+            if (allOfficer.size() == 0){
+                officerId.setText("O001");
+            }
+            else {
+                int lastOfficerId = Integer.parseInt(allOfficer.get(allOfficer.size()-1).getOfficerId().substring(1));
+                lastOfficerId++;
+                if (lastOfficerId < 10){
+                    officerId.setText("O00"+lastOfficerId);
+                }
+                else if (lastOfficerId < 100){
+                    officerId.setText("O0"+lastOfficerId);
+                }
+                else {
+                    officerId.setText("O"+lastOfficerId);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        officerId.setEditable(false);
+    }
+
+    private void setComboBoxValues() throws SQLException {
         positionComboBox.getItems().addAll("Sergeant", "Lieutenant", "Captain", "Major", "Colonel", "General","Special Unit");
         gender.getItems().addAll(  "Male","Female");
-        setToolTip();
+
+        List<Section> jailSections = SectionRepo.getAllSections();
+
+        for (Section section : jailSections){
+            sectionId.getItems().add(section.getSectionId());
+        }
     }
 
     private void setToolTip() {
@@ -123,115 +179,60 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
         return specUniCount;
     }
 
-    public void positionField(ActionEvent actionEvent){
-        String selectedOption = positionComboBox.getSelectionModel().getSelectedItem();
 
-        if (selectedOption != null) {
-            System.out.println("Selected case status: " + selectedOption);
-
-            // You can perform additional actions based on the selected case status
-            // For example, update other UI elements or save the selected value
-        }
-    }
 
 
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
 
-        if (checkEmptyFields()){
-            if (checkValideOfficerid()){}else {return;}
-            if (checkOfficerId()){}else {return;}
-            if(checkSectionId()){}else {return;}
-            if (checkValidName(this.fName.getText())){}else {return;}
-            if (checkValidName(this.lName.getText())){}else {return;}
 
-            if (Double.valueOf(this.salery.getText())  > 0){}else {
-                showAlert = new ShowAlert("Error", "Officer Salary is Invalid", "Officer Salary is Invalid. Ex : xxxx.xx", Alert.AlertType.ERROR);
+        if (checkEmptyFields()){
+            if(Util.checkValidText(fName.getText(),"^[A-Za-z\\s'-]+$")){}else{
+                ShowAlert.showErrorNotify("Invalid First Name. Ex : John");
                 return;
             }
-            if (checkValidEmail()){}else {return;}
+            if(Util.checkValidText(lName.getText(),"^[A-Za-z\\s'-]+$")){}else{
+                ShowAlert.showErrorNotify("Invalid Last Name. Ex : Doe");
+                return;
+            }
+            if (Util.checkValidText(NIC.getText(),"^[0-9]{9}[V]$")){}else {
+                ShowAlert.showErrorNotify("Invalid NIC. Ex : 123456789V");
+                return;
+            }
 
-            Officer officer = new Officer(officerId.getText(),fName.getText(),lName.getText(),java.sql.Date.valueOf(DOB.getValue()),NIC.getText(),gender.getSelectionModel().getSelectedItem(),address.getText(),email.getText(),number.getText(),positionComboBox.getSelectionModel().getSelectedItem(),sectionId.getText(),Double.parseDouble(salery.getText()));
+
+            if (Double.valueOf(this.salery.getText())  > 0){}else {
+                ShowAlert.showErrorNotify("Invalid Salery. Ex : XXXXX.XX");
+                return;
+            }
 
 
+            if(Util.checkValidText(number.getText(),"^[0-9]{10}$")){}else {
+                ShowAlert.showErrorNotify("Invalid Phone Number. Ex : 0712345678");
+                return;
+            }
+
+            if(Util.checkValidText(email.getText(),"^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){}else {
+                ShowAlert.showErrorNotify("Invalid Email. Ex :XXXXX@gmail.com.");
+                return;
+            }
+
+            if (DOB.getValue().isBefore(java.time.LocalDate.now())){}else {
+                ShowAlert.showErrorNotify("Invalid Date of Birth");
+                return;
+            }
+
+            Officer officer = new Officer(officerId.getText(),fName.getText(),lName.getText(),java.sql.Date.valueOf(DOB.getValue()),NIC.getText(),gender.getSelectionModel().getSelectedItem(),address.getText(),email.getText(),number.getText(),positionComboBox.getSelectionModel().getSelectedItem(),sectionId.getSelectionModel().getSelectedItem(),Double.parseDouble(salery.getText()));
 
             if (OfficerRepo.save(officer)) {
 
-                showAlert = new ShowAlert("Success", "Officer Added", "Officer added successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Officer Added Successfully");
                 clearFields();
             } else {
-                showAlert = new ShowAlert("Error", "Officer Not Added", "Officer not added successfully", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Failed to Add Officer");
             }
-
         }else {
-            System.out.println("Empty Fields");
-
-            clearFields();
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }
-    }
-
-    private boolean checkSectionId() {
-        List<Section> sections = new ArrayList<>();
-
-        try {
-            sections = SectionRepo.getAllSections();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Section section : sections){
-            if (section.getSectionId().equals(this.sectionId.getText())){
-                return true;
-            }
-        }
-        showAlert = new ShowAlert("Error", "Section Id Not Found", "Section Id Not Found", Alert.AlertType.WARNING);
-        return false;
-    }
-
-    private boolean checkValidName(String text) {
-
-        if (text.matches( "^[A-Za-z\\s'-]+$")){
-            return true;
-        }
-        showAlert = new ShowAlert("Error", "Inmate Name Invalid", "Invalid Inmate first Name or Last Name", Alert.AlertType.ERROR);
-        return false;
-    }
-
-    private boolean checkValidEmail() {
-        String email = this.email.getText().trim();
-
-        if (email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
-            return true;
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Email", "Invalid Officer Email Ex : xxxxx@gmail.com", Alert.AlertType.WARNING);
-        return false;
-    }
-
-    private boolean checkValideOfficerid() {
-        String id = this.officerId.getText().trim();
-
-        if (id.matches("O\\d{3}")){
-            return true;
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Officer Id", "Invalid Officer Id Ex : OXXX", Alert.AlertType.WARNING);
-        return false;
-    }
-
-    private boolean checkOfficerId() {
-        List<Officer> officers = new ArrayList<>();
-
-        try {
-            officers = OfficerRepo.getAllOfficers();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Officer officer : officers){
-            if (officer.getOfficerId().equals(this.officerId.getText())){
-                ShowAlert showAlert = new ShowAlert("Error", "Officer Id Already Exist", "Officer Id Already Exist", Alert.AlertType.ERROR);
-                return false;
-            }
-        }
-        return true;
     }
 
     private void clearFields() {
@@ -246,7 +247,8 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
         number.clear();
         salery.clear();
         positionComboBox.getSelectionModel().clearSelection();
-        sectionId.clear();
+        sectionId.getSelectionModel().clearSelection();
+        setNextOfficerId();
 
     }
 
@@ -255,17 +257,10 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
     }
 
     public boolean checkEmptyFields() {
-//        if (officerId.getText().isEmpty() || NIC.getText().isEmpty() || fName.getText().isEmpty() ||
-//                lName.getText().isEmpty() || gender.getSelectionModel().getSelectedItem().isEmpty() || address.getText().isEmpty() ||
-//                DOB.getValue() == null || email.getText().isEmpty() || number.getText().isEmpty() || salery.getText().isEmpty() || positionComboBox.getSelectionModel().getSelectedItem().isEmpty() || sectionId.getText().isEmpty()) {
-//
-//            return false;
-//
-//        }
-//        return true;
-
-        return Util.checkEmptyFields(officerId.getText(), NIC.getText(), fName.getText(), lName.getText(),
-                gender.getSelectionModel().getSelectedItem(), address.getText(), email.getText(), number.getText(), salery.getText(),DOB.getValue().toString(),positionComboBox.getSelectionModel().getSelectedItem(),sectionId.getText());
+        return Util.checkEmptyFields(officerId.getText(),NIC.getText(), fName.getText(), lName.getText(),
+                gender.getSelectionModel().getSelectedItem(), address.getText(), email.getText(), number.getText(), salery.getText(), String.valueOf(DOB.getValue()),positionComboBox.getSelectionModel().getSelectedItem(),sectionId.getSelectionModel().getSelectedItem());
     }
 
+    public void searchIdField(ActionEvent actionEvent) {
+    }
 }
