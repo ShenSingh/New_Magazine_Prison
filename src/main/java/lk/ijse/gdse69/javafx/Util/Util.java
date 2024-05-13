@@ -36,7 +36,6 @@ public class Util {
         return matcher.matches();
     }
 
-
     public static byte[] readImage(File file) {
         try (FileInputStream fis = new FileInputStream(file);
              ByteArrayOutputStream bos = new ByteArrayOutputStream()) {

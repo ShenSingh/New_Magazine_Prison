@@ -8,14 +8,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.Program;
+import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.ProgramRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProgramProfileController extends MainDashBoard implements Initializable {
@@ -23,7 +27,7 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
 
     public TextField programId;
     public TextField programName;
-    public TextField sectionId;
+    public ComboBox<String> sectionId;
     public TextField programTime;
     public DatePicker programDate;
     public TextField description;
@@ -31,6 +35,14 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     public Text fullProgramName;
 
     public TextField searchField;
+
+
+    public Text OPsectionId;
+    public Text OPsectionName;
+    public Text OPlocation;
+    public Text OPcapacity;
+    public Text OPsecurityLevel;
+    public Text OPstatus;
 
     private boolean isEdit = false;
 
@@ -47,6 +59,33 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setToolTip();
+        setSearchIds();
+
+        try {
+            for (Section section : SectionRepo.getAllSections()) {
+                sectionId.getItems().add(section.getSectionId());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        programId.setEditable(false);
+    }
+
+    private void setSearchIds() {
+        List<String> programIds = new ArrayList<>();
+
+        try {
+            List<Program> allPograms = ProgramRepo.getAllPrograms();
+            for (Program program : allPograms) {
+                programIds.add(program.getProgramId()+" - "+program.getProgramName());
+            }
+            String[] possibleNames = programIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchField, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -60,17 +99,19 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     }
 
     public void saveBtn(ActionEvent actionEvent) throws SQLException {
-        String id =searchField.getText();
+        String id =searchField.getText().split(" - ")[0];
 
         if (!id.isEmpty()){
 
-            if (checkEmptyFields()) {
 
-                if (SectionRepo.search(sectionId.getText()) != null) {
+            if (checkEmptyFields()) {
+            if (checkTimeValidation()){}else {return;}
+
+
                     //search program
                     String programId = this.programId.getText();
                     String programName = this.programName.getText();
-                    String sectionId = this.sectionId.getText();
+                    String sectionId = this.sectionId.getSelectionModel().getSelectedItem();
                     LocalDate programDate = this.programDate.getValue();
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm");
@@ -84,20 +125,25 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
                     boolean isUpdated = ProgramRepo.update(program);
 
                     if (isUpdated) {
-                        ShowAlert showAlert = new ShowAlert("Success", "Program Updated", "Program Update Successfully", Alert.AlertType.INFORMATION);
-                        clearFields();
+                        ShowAlert.showSuccessNotify("Program Updated Successfully");
+
                     } else {
-                        ShowAlert showAlert = new ShowAlert("Error", "Program Not Updated", "Program Not Update Successfully", Alert.AlertType.ERROR);
+                        ShowAlert.showErrorNotify("Program Not Updated");
                     }
-                } else {
-
-                    ShowAlert showAlert = new ShowAlert("Error", "Section Not Found", "Section Not Found", Alert.AlertType.ERROR);
-                }
-
             } else {
-                ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Please Fill All Fields");
             }
         }
+    }
+
+    private boolean checkTimeValidation() {
+        String time = this.programTime.getText().trim();
+
+        if (time.matches("^(?:[01]\\d|2[0-3]).(?:[0-5]\\d)$")){
+            return true;
+        }
+        ShowAlert.showErrorNotify("Invalid Time Format. Ex : 12.00");
+        return false;
     }
 
     public void cancelBtn(ActionEvent actionEvent) {
@@ -107,25 +153,37 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     private void clearFields() {
         programId.clear();
         programName.clear();
-        sectionId.clear();
+        sectionId.getSelectionModel().clearSelection();
         programTime.clear();
         programDate.setValue(null);
         description.clear();
+        searchField.clear();
+        clearSection();
+    }
+
+    private void clearSection() {
+        OPsectionId.setText("");
+        OPsectionName.setText("");
+        OPlocation.setText("");
+        OPcapacity.setText("");
+        OPsecurityLevel.setText("");
+        OPstatus.setText("");
     }
 
     public void seachProgram(ActionEvent actionEvent) throws SQLException {
 
-        String id =searchField.getText();
+        String id =searchField.getText().split(" - ")[0];
 
         if (!id.isEmpty()){
 
             Program program = ProgramRepo.search(id);
 
             if (program != null){
+                setSection(program.getSectionId());
                 fullProgramName.setText(program.getProgramName());
                 programId.setText(program.getProgramId());
                 programName.setText(program.getProgramName());
-                sectionId.setText(program.getSectionId());
+                sectionId.getSelectionModel().select(program.getSectionId());
 
                 LocalTime programTimes = program.getProgramTime(); // Assuming programTime is a LocalTime object
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm");
@@ -135,14 +193,30 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
 
                 description.setText(program.getDescription());
             }else {
-                ShowAlert showAlert= new ShowAlert("Error","Program Not Found","Program Not Found", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Program Not Found");
             }
         }else {
-            ShowAlert showAlert= new ShowAlert("Error","Empty Fields","Please Enter Program Id", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Enter Program Id");
         }
     }
+
+    private void setSection(String sectionId) {
+        try {
+            Section section = SectionRepo.search(sectionId);
+
+            OPsectionId.setText(section.getSectionId());
+            OPsectionName.setText(section.getSectionName());
+            OPlocation.setText(section.getLocation());
+            OPcapacity.setText(String.valueOf(section.getCapacity()));
+            OPsecurityLevel.setText(section.getSecurityLevel());
+            OPstatus.setText(section.getStatus());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private boolean checkEmptyFields() {
-        if (programId.getText().isEmpty() || programName.getText().isEmpty() || sectionId.getText().isEmpty() || programTime.getText().isEmpty() || programDate.getValue() == null || description.getText().isEmpty()) {
+        if (programId.getText().isEmpty() || programName.getText().isEmpty() || sectionId.getSelectionModel().getSelectedItem() == null || programTime.getText().isEmpty() || programDate.getValue() == null || description.getText().isEmpty()) {
             return false;
         }
         return true;
@@ -151,28 +225,26 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     public void editProfileTogal(ActionEvent actionEvent) {
         isEdit = !isEdit;
 
-        programId.setEditable(isEdit);
         programName.setEditable(isEdit);
         sectionId.setEditable(isEdit);
         programTime.setEditable(isEdit);
         programDate.setEditable(isEdit);
         description.setEditable(isEdit);
-
     }
 
     public void deleteProgram(ActionEvent actionEvent) throws SQLException {
-        String id=searchField.getText();
+        String id=searchField.getText().split(" - ")[0];;
 
         if (!id.isEmpty()) {
             boolean isDeleted = ProgramRepo.delete(id);
 
             if (isDeleted) {
-                ShowAlert showAlert = new ShowAlert("Success", "Program Deleted", "Program Deleted Successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Program Deleted Successfully");
                 clearFields();
+                setSearchIds();
             } else {
-                ShowAlert showAlert = new ShowAlert("Error", "Program Not Deleted", "Program Not Deleted Successfully", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Program Not Deleted");
             }
         }
     }
-
 }

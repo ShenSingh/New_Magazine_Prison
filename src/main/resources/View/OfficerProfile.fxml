@@ -89,7 +89,6 @@
             <AnchorPane layoutX="447.0" layoutY="538.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
             <TextField fx:id="email" layoutX="527.0" layoutY="387.0" styleClass="searchTextField" />
             <TextField fx:id="number" layoutX="526.0" layoutY="420.0" styleClass="searchTextField" />
-            <TextField fx:id="sectionId" layoutX="528.0" layoutY="483.0" styleClass="searchTextField" />
             <TextField fx:id="salary" layoutX="526.0" layoutY="515.0" styleClass="searchTextField" />
             <JFXButton layoutX="794.0" layoutY="563.0" onAction="#saveBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Save">
                <font>
@@ -104,6 +103,7 @@
             <DatePicker fx:id="DOB" layoutX="515.0" layoutY="244.0" styleClass="searchTextField" />
             <ComboBox fx:id="gender" layoutX="517.0" layoutY="316.0" prefWidth="150.0" styleClass="searchTextField" />
             <ComboBox fx:id="position" layoutX="501.0" layoutY="452.0" prefWidth="150.0" styleClass="searchTextField" />
+            <ComboBox fx:id="sectionId" layoutX="501.0" layoutY="484.0" prefWidth="150.0" styleClass="searchTextField" />
             </children></AnchorPane>
         <AnchorPane layoutX="500.0" layoutY="189.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
         <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">

@@ -10,11 +10,15 @@ import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class OfficerProfile extends MainDashBoard implements Initializable {
@@ -40,7 +44,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     @FXML
     private ComboBox<String> position;
     @FXML
-    private TextField sectionId;
+    private ComboBox<String> sectionId;
     @FXML
     private TextField salary;
 
@@ -78,6 +82,24 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setToolTip();
         setValuesComboBoxes();
+        setSearchIds();
+        this.officerId.setEditable(false);
+    }
+
+    private void setSearchIds() {
+        List<String> offcerIds = new ArrayList<>();
+
+        try {
+            List<Officer> allOfficers = OfficerRepo.getAllOfficers();
+            for (Officer officer : allOfficers) {
+                offcerIds.add(officer.getOfficerId()+" - "+officer.getOfficerFirstName()+" "+officer.getOfficerLastName());
+            }
+            String[] possibleNames = offcerIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchField, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -93,11 +115,23 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     private void setValuesComboBoxes() {
         gender.getItems().addAll("Male","Female");
         position.getItems().addAll("Sergeant", "Lieutenant", "Captain", "Major", "Colonel", "General","Special Unit");
+
+        try {
+            for (Section section : SectionRepo.getAllSections()) {
+                sectionId.getItems().add(section.getSectionId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteOfficer(ActionEvent actionEvent) {
 
-        // Display confirmation alert
+        if (searchField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter officer ID");
+            return;
+        }
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Officer");
         alert.setHeaderText("Delete officer");
@@ -119,13 +153,20 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     }
 
     private void goDeleteOfficer() {
-        String officerId = this.officerId.getText();
+
+        String id = searchField.getText().split(" - ")[0];
+
+        if (id.isEmpty()){
+            ShowAlert.showErrorNotify("Please enter officer ID");
+            return;
+        }
         try {
-            boolean isDeleted = OfficerRepo.delete(officerId);
+            boolean isDeleted = OfficerRepo.delete(id);
             if (isDeleted) {
-                ShowAlert alert1 = new ShowAlert("Success", "Officer Deleted", "Officer deleted successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Officer deleted successfully");
+                clearField();
             } else {
-                ShowAlert alert1 = new ShowAlert("Error", "Officer not deleted", "Officer not deleted successfully", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Failed to delete officer");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,7 +198,13 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     }
 
     public void seachOfficer(ActionEvent actionEvent) throws SQLException {
-        String searchOfficerId = searchField.getText();
+
+        if (searchField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter officer ID");
+            return;
+        }
+
+        String searchOfficerId = searchField.getText().split(" - ")[0];;
         Officer officer = OfficerRepo.search(searchOfficerId);
 
         if (officer != null) {
@@ -173,11 +220,10 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
             this.email.setText(officer.getOfficerEmail());
             this.number.setText(officer.getOfficerNumber());
             this.position.getSelectionModel().select(officer.getPosition());
-            this.sectionId.setText(officer.getSectionId());
+            this.sectionId.getSelectionModel().select(officer.getSectionId());
             this.salary.setText(String.valueOf(officer.getSalary()));
         }else {
-            System.out.println("Officer not found");
-            ShowAlert alert = new ShowAlert("Error", "Officer not found", "Please enter a valid officer ID", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Officer not found");
         }
     }
 
@@ -199,6 +245,12 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
     }
     public void saveBtn(ActionEvent actionEvent) {
 
+        if (!Util.checkEmptyFields(officerId.getText(),fName.getText(),lName.getText(),DOB.getEditor().getText(),NIC.getText(),gender.getSelectionModel().getSelectedItem(),address.getText(),email.getText(),number.getText(),position.getSelectionModel().getSelectedItem(),sectionId.getSelectionModel().getSelectedItem(),salary.getText())){
+            ShowAlert.showErrorNotify("Please fill all fields..");
+            return;
+        }
+
+        if (checkInput()){}else {return;}
 
         String officerId = this.officerId.getText();
         String fName = this.fName.getText();
@@ -210,7 +262,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         String email = this.email.getText();
         String number = this.number.getText();
         String position = this.position.getSelectionModel().getSelectedItem();
-        String sectionId = this.sectionId.getText();
+        String sectionId = this.sectionId.getSelectionModel().getSelectedItem();
         String salary = this.salary.getText();
 
         Officer officer = new Officer(officerId, fName, lName, DOB, NIC,gender, address, email, number, position, sectionId, Double.parseDouble(salary));
@@ -218,14 +270,44 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         try {
             boolean isUpdated = OfficerRepo.update(officer);
             if (isUpdated) {
-                ShowAlert alert = new ShowAlert("Success", "Officer Updated", "Officer updated successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Officer updated successfully");
                 setNewValues(officer);
             } else {
-                ShowAlert alert = new ShowAlert("Error", "Officer not updated", "Officer not updated successfully", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Failed to update officer");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkInput() {
+
+        if(Util.checkValidText(fName.getText()," \"^[A-z|\\\\s]{3,}$\"") && Util.checkValidText(lName.getText()," \"^[A-z|\\\\s]{3,}$\"")){
+            ShowAlert.showErrorNotify("Invalid Name. Please enter a valid name");
+            return false;
+        }
+        if (Util.checkValidText(NIC.getText(),"\"^[0-9]{9}[V|v]$\"")){
+            ShowAlert.showErrorNotify("Invalid NIC. Please enter a valid NIC 123456789V");
+            return false;
+        }
+        if (Util.checkValidText(address.getText(),"\"^[A-z|0-9|\\\\s|,|.|/]{3,}$\"")){
+            ShowAlert.showErrorNotify("Invalid Address. Please enter a valid address");
+            return false;
+        }
+        if (Util.checkValidText(email.getText(),"\"^[A-z|0-9|@|.]{3,}$\"")){
+            ShowAlert.showErrorNotify("Invalid Email. Please enter a valid email");
+            return false;
+        }
+        if (Util.checkValidText(number.getText(),"\"^[0-9]{10}$\"")){
+            ShowAlert.showErrorNotify("Invalid Number. Please enter a valid number");
+            return false;
+        }
+        if(Util.checkValidText(salary.getText(),"\"^[0-9]{3,}$\"")){
+            ShowAlert.showErrorNotify("Invalid Salary. Please enter a valid salary");
+            return false;
+        }
+        return true;
+
     }
 
     private void setNewValues(Officer officer) {
@@ -239,7 +321,7 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         this.email.setText(officer.getOfficerEmail());
         this.number.setText(officer.getOfficerNumber());
         this.position.getSelectionModel().select(officer.getPosition());
-        this.sectionId.setText(officer.getSectionId());
+        this.sectionId.getSelectionModel().select(officer.getSectionId());
         this.salary.setText(String.valueOf(officer.getSalary()));
     }
 
@@ -258,9 +340,17 @@ public class OfficerProfile extends MainDashBoard implements Initializable {
         email.clear();
         number.clear();
         position.getSelectionModel().clearSelection();
-        sectionId.clear();
+        sectionId.getSelectionModel().clearSelection();
         salary.clear();
+        searchField.clear();
+        clearSection();
     }
-
-
+    private void clearSection() {
+        OPsectionId.setText("");
+        OPsectionName.setText("");
+        OPlocation.setText("");
+        OPcapacity.setText("");
+        OPsecurityLevel.setText("");
+        OPstatus.setText("");
+    }
 }
