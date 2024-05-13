@@ -80,8 +80,8 @@ public class InmateRepo {
             String address = resultSet.getString(7);
             String status = resultSet.getString(8);
             byte[] imageData = resultSet.getBytes(9);
-            Inmate inmate = new Inmate(id,firstName,lastName,dob, nic,gender,address,status,imageData);
-        return inmate;
+            Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, imageData);
+            return inmate;
         }
         return null;
     }
@@ -106,7 +106,7 @@ public class InmateRepo {
                 String status = resultSet.getString(8);
                 byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id,firstName,lastName,dob,nic,gender,address,status,imageData);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, imageData);
 
                 inmates.add(inmate);
             }
@@ -136,7 +136,7 @@ public class InmateRepo {
                 String status = resultSet.getString(8);
                 byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, imageData);
 
                 inmates.add(inmate);
             }
@@ -169,7 +169,7 @@ public class InmateRepo {
                 String status = resultSet.getString(8);
                 byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, imageData);
                 inmates.add(inmate);
             }
         } catch (SQLException e) {
@@ -199,12 +199,93 @@ public class InmateRepo {
                 String status = resultSet.getString(8);
                 byte[] imageData = resultSet.getBytes(9);
 
-                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status,imageData);
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, imageData);
                 inmates.add(inmate);
             }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmates;
+    }
+
+    public static List<Inmate> getActiveCaseInmate() {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT i.inmateId, " +
+                    "i.inmateFirstName, " +
+                    "i.inmateLastName, " +
+                    "i.inmateDOB, " +
+                    "i.inmateNIC, " +
+                    "i.gender, " +
+                    "i.inmateAddress, " +
+                    "i.status " +
+                    "FROM Inmate i " +
+                    "JOIN InmateRecord ir ON " +
+                    "i.inmateId = ir.inmateId WHERE i.status = 'Active' " +
+                    "AND ir.caseStatus = 'Ongoing'";
+
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, byte[].class.cast(null));
+                inmates.add(inmate);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inmates;
+    }
+
+    public static List<Inmate> getReleaseSoonInmates() {
+        List<Inmate> inmates = new ArrayList<>();
+
+        try {
+            String query = "SELECT i.inmateId, " +
+                    "i.inmateFirstName, " +
+                    "i.inmateLastName, " +
+                    "i.inmateDOB, " +
+                    "i.inmateNIC, " +
+                    "i.gender, " +
+                    "i.inmateAddress, " +
+                    "i.status " +
+                    "FROM Inmate i " +
+                    "JOIN InmateRecord ir ON " +
+                    "i.inmateId = ir.inmateId WHERE " +
+                    "(YEAR(ir.releaseDate) = YEAR(CURDATE()) AND " +
+                    "MONTH(ir.releaseDate) = MONTH(CURDATE()))";
+
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                LocalDate dob = LocalDate.parse(resultSet.getString(4));
+                String nic = resultSet.getString(5);
+                String gender = resultSet.getString(6);
+                String address = resultSet.getString(7);
+                String status = resultSet.getString(8);
+
+                Inmate inmate = new Inmate(id, firstName, lastName, dob, nic, gender, address, status, byte[].class.cast(null));
+                inmates.add(inmate);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return inmates;
     }
 }

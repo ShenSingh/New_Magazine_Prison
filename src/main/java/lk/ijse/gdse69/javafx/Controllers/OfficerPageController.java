@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,13 +55,40 @@ public class OfficerPageController extends MainDashBoard implements Initializabl
     public Button sectionBtn;
     public Button visitorBtn;
 
+
+    public TextField searchId;
+    public Text sergeantCount;
+    public Text lieutenantCount;
+    public Text captainCount;
+
+    private static String id;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        setSearchIds();
         setTableValues();
         setOfficerCount();
         setToolTip();
     }
+
+    private void setSearchIds() {
+        List<String> offcerIds = new ArrayList<>();
+
+        try {
+            List<Officer> allOfficers = OfficerRepo.getAllOfficers();
+            for (Officer officer : allOfficers) {
+                offcerIds.add(officer.getOfficerId()+" - "+officer.getOfficerFirstName()+" "+officer.getOfficerLastName());
+            }
+            String[] possibleNames = offcerIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void setToolTip() {
         Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
@@ -92,16 +122,23 @@ public class OfficerPageController extends MainDashBoard implements Initializabl
             String femaleC= totalfemale + " Officers";
             femaleOfficerCount.setText(femaleC);
 
-            specialUnitCount.setText(seUniCount(allOfficers));
+
+            long sergeantCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Sergeant")).count();
+            this.sergeantCount.setText(String.valueOf(sergeantCounts) + " Officers");
+
+            long lieutenantCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Lieutenant")).count();
+            this.lieutenantCount.setText(String.valueOf(lieutenantCounts) + " Officers");
+
+            long captCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Captain")).count();
+            this.captainCount.setText(String.valueOf(captCounts) + " Officers");
+
+            long specialUnitCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Special Unit")).count();
+            this.specialUnitCount.setText(String.valueOf(specialUnitCounts) + " Officers");
+
 
         }
     }
-    private String seUniCount(List<Officer> allOfficers) {
-        long specialUnitCount = allOfficers.stream().filter(officer -> officer.getPosition().equals("Special Unit")).count();
-        String specUniCount= String.valueOf(specialUnitCount);
-        String count= specUniCount + " Officers";
-        return count;
-    }
+
 
     private void setTableValues() {
         List<Officer> allOfficers = null;
@@ -168,5 +205,14 @@ public class OfficerPageController extends MainDashBoard implements Initializabl
         }
         return list;
 
+    }
+
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        id = searchId.getText().split(" ")[0];
+        createStage("/View/OfficerDetails.fxml");
+    }
+
+    public static String getId() {
+        return id;
     }
 }

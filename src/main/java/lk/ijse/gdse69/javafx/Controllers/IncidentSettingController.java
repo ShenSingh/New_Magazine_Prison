@@ -10,11 +10,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.Incident;
-import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.IncidentRelatedInmateRepo;
 import lk.ijse.gdse69.javafx.Repository.IncidentRepo;
-import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,7 +36,6 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
     public DatePicker incidentDate;
     public TextField incidentTime;
     public TextField description;
-    public TextField inmateIds;
 
     private boolean isEdit = false;
 
@@ -54,6 +52,22 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
     public void initialize(URL url, ResourceBundle resourceBundle) {
             incidentType.getItems().addAll("Assaults", "Contraband","Suicide or Self-Harm","Security Breaches");
         setToolTip();
+        incidentId.setEditable(false);
+        sectionId.setEditable(false);
+        
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> incidentIds = new ArrayList<>();
+
+        List<Incident> allIncident =IncidentRepo.getAllIncidents();
+        for (Incident incident : allIncident) {
+            incidentIds.add(incident.getIncidentId()+" - "+incident.getIncidentType());
+        }
+        String[] possibleNames = incidentIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(searchField, possibleNames);
     }
 
     private void setToolTip() {
@@ -68,21 +82,8 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
 
     public void saveBtn(ActionEvent actionEvent) {
         if (Util.checkEmptyFields(incidentId.getText(),sectionId.getText(),incidentTime.getText(),description.getText()) && incidentDate.getValue() != null){
-            if (Util.checkValidText(incidentId.getText(), "ID\\d{3}")){}else {
-                new ShowAlert("Error", "Invalid Id","Please Enter Valid Incident Id EX: IDXXX.", Alert.AlertType.ERROR);
-                return;
-            }
-            if (Util.checkValidText(sectionId.getText(), "S\\d{3}")){}else {
-                new ShowAlert("Error", "Invalid Id","Please Enter Valid Section Id EX: SXXX.", Alert.AlertType.ERROR);
-                return;
-            }
-            if(checkSectionId(sectionId.getText())){}else{
-                new ShowAlert("Error", "Not Found","Section Id Is Not Found.", Alert.AlertType.ERROR);
-                return;
-            }
-
             if (Util.validateTime(incidentTime.getText())){}else {
-                new ShowAlert("Error", "Invalid Time","Please Enter Valid Time EX: XX:XX.", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Invalid Time Format. EX : XX:XX");
                 return;
             }
 
@@ -98,32 +99,15 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
             try {
                 boolean isUpdate = IncidentRepo.update(incident);
                 if (isUpdate){
-                    new ShowAlert("Success","Incident Updated","Incident Update Successfully", Alert.AlertType.INFORMATION);
-                    clearFields();
+                    ShowAlert.showSuccessNotify("Incident Updated Successfully.");
+                    setSearchIds();
                 }else {
-                    new ShowAlert("Failed","Incident Updated","Incident Updated Failed", Alert.AlertType.ERROR);
+                    ShowAlert.showErrorNotify("Failed to Update Incident.");
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    private boolean checkSectionId(String text) {
-        List<Section> sections = new ArrayList<>();
-
-        try {
-            sections = SectionRepo.getAllSections();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Section section : sections) {
-            if (section.getSectionId().equals(text)){
-                return true;
-            }
-        }
-        return false;
     }
 
     public void cancelBtn(ActionEvent actionEvent) {
@@ -137,46 +121,36 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
         incidentTime.clear();
         description.clear();
         incidentType.getSelectionModel().clearSelection();
-        inmateIds.clear();
     }
 
     public void deleteIncident(ActionEvent actionEvent) throws SQLException {
-        String id = searchField.getText();
+        String id = searchField.getText().split(" - ")[0];;
 
         if (id != null){
-            if (Util.checkValidText(id,"ID\\d{3}")){
                 boolean isDeleted = IncidentRepo.delete(id);
                 if (isDeleted) {
-                    new ShowAlert("Success","Incident Delete","Incident Deleted Successfully", Alert.AlertType.INFORMATION);
+                    ShowAlert.showSuccessNotify("Incident Deleted Successfully.");
                     clearFields();
+                    searchField.clear();
                 }else {
-                    new ShowAlert("Failed","Incident Delete","Incident Delete Failed", Alert.AlertType.ERROR);
+                 ShowAlert.showErrorNotify("Failed to Delete Incident.");
                 }
-            }else{
-                new ShowAlert("Invalid ID","Incident ID","Please Enter a Valid Incident ID", Alert.AlertType.ERROR);
-            }
         }else{
-            new ShowAlert("Empty Field","Search Field","Please Enter a Incident ID", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Enter a Incident ID.");
         }
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
         isEdit = !isEdit;
 
-        incidentId.setEditable(isEdit);
-        sectionId.setEditable(isEdit);
         incidentDate.setEditable(isEdit);
         incidentTime.setEditable(isEdit);
         description.setEditable(isEdit);
         incidentType.setDisable(!isEdit);
-        inmateIds.setEditable(isEdit);
     }
-
-    public void onInmateIds(ActionEvent actionEvent) {
-    }
-
+    
     public void searchIncident(ActionEvent actionEvent) {
-        String id = searchField.getText();
+        String id = searchField.getText().split(" - ")[0];;
 
         if (!id.isEmpty()){
             if (Util.checkValidText(id,"ID\\d{3}")){
@@ -187,7 +161,7 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
                 }
             }
         }else {
-            new ShowAlert("Empty Field","Search Field","Please Enter a Incident ID", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Enter a Incident ID.");
         }
     }
 
@@ -208,26 +182,22 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
             incidentType.setValue(incident.getIncidentType());
 
             setInmateIds(IncidentRelatedInmateRepo.getInmateIds(incident.getIncidentId()));
-
-
-
+            
         }else {
-            new ShowAlert("Failed","Incident Search","Incident Not Found", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Incident Not Found.");
         }
 
     }
 
-    private void setInmateIds(List<String> inmateIds) {
-        if (inmateIds != null) { // Check if inmateIds is not null
+    private void setInmateIds(List<String> inmateIds) {  // table data set //
+        if (inmateIds != null) {
             riInmateId.setCellValueFactory(cellData -> {
-                String value = String.valueOf(cellData.getValue()); // Each cell represents a String value
+                String value = String.valueOf(cellData.getValue());
                 return new ReadOnlyStringWrapper(value);
             });
             ObservableList<String> items = FXCollections.observableArrayList(inmateIds);
             riInmateId.getTableView().setItems(items);
-        } else {
-            // Handle the case where inmateIds is null
-            System.out.println("Error: inmateIds is null");
         }
+
     }
 }

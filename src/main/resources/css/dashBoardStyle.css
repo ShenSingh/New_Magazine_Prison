@@ -247,3 +247,19 @@
     -fx-opacity: 1.0;
     -fx-background-radius: 20px;
 }
+/*pie Chart - inmate*/
+
+.pieChartInmate{
+    -fx-background-color: transpanent;
+}
+.pieChartInmate:hover{
+
+}
+/*.pieChartInmate .chart-pie {*/
+/*    -fx-pie-background: #ffffff; !* Pie background color *!*/
+/*    -fx-border-color: #cccccc; !* Border color *!*/
+/*    -fx-border-width: 2px; !* Border width *!*/
+/*}*/
+.pieChartInmate .chart-pie .chart-pie-area {
+    -fx-fill: #3597cb; /* Change slice color to orange */
+}

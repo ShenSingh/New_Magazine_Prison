@@ -23,7 +23,7 @@
             <Image url="@../images/icon/inmate.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
+      <AnchorPane fx:id="searchId" layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
          <children>
             <ComboBox fx:id="incidentType" layoutX="548.0" layoutY="268.0" prefHeight="24.0" prefWidth="171.0" styleClass="searchTextField" />
          </children>
@@ -37,7 +37,7 @@
             </Text>
             <ImageView layoutX="55.0" layoutY="57.0">
                <image>
-                  <Image url="@../images/icon/icons8-incident-100%20(1).png" />
+                  <Image url="@../images/icon/icons8-incident-100 (1).png" />
                </image>
             </ImageView>
          </children>
@@ -49,7 +49,7 @@
                   <Font name="DejaVu Serif Bold" size="21.0" />
                </font>
             </Text>
-            <TableView layoutX="35.0" layoutY="79.0" prefHeight="507.0" prefWidth="150.0">
+            <TableView layoutX="35.0" layoutY="79.0" prefHeight="507.0" prefWidth="150.0" styleClass="tableView">
               <columns>
                 <TableColumn fx:id="riInmateId" prefWidth="149.0" text="Inmate Id" />
               </columns>
@@ -264,12 +264,5 @@
             <Font size="11.0" />
          </font>
       </JFXToggleButton>
-      <Text fill="#66748a" fontSmoothingType="LCD" layoutX="321.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Inmates">
-         <font>
-            <Font name="Gentium Book Basic Bold" size="18.0" />
-         </font>
-      </Text>
-      <AnchorPane layoutX="548.0" layoutY="537.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-      <TextField fx:id="inmateIds" layoutX="600.0" layoutY="514.0" onAction="#onInmateIds" styleClass="searchTextField" />
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -16,11 +17,13 @@ import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -45,9 +48,10 @@ public class InmatePageController extends MainDashBoard implements Initializable
     public Text maleInmateCount;
 
     public PieChart freeSpase;
+    public TextField searchId;
 
 
-    ViewInmateController viewInmateController = new ViewInmateController();
+
 
 
     @FXML
@@ -58,6 +62,11 @@ public class InmatePageController extends MainDashBoard implements Initializable
     public Button manyBtn;
     public Button sectionBtn;
     public Button visitorBtn;
+
+
+    private  static String id;
+    public Text activeCaseCount;
+    public Text releaseSoonCount;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,6 +83,24 @@ public class InmatePageController extends MainDashBoard implements Initializable
             throw new RuntimeException(e);
         }
         setToolTip();
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> inmateIds = new ArrayList<>();
+
+        try {
+            List<Inmate> allInmates = InmateRepo.getAllInmates();
+            for (Inmate inmate : allInmates) {
+                inmateIds.add(inmate.getInmateId()+" - "+inmate.getInmateFirstName()+" "+inmate.getInmateLastName());
+            }
+            String[] possibleNames = inmateIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void setToolTip() {
@@ -102,6 +129,10 @@ public class InmatePageController extends MainDashBoard implements Initializable
         this.freeSpase.getData().add(new PieChart.Data("Free Spase",freeSpaseCount));
         this.freeSpase.getData().add(new PieChart.Data("Occupied Spase",totalInmates));
 
+        freeSpase.setLabelLineLength(10);
+        freeSpase.setLegendVisible(true);
+        freeSpase.setLabelsVisible(true);
+
 
 
     }
@@ -113,7 +144,8 @@ public class InmatePageController extends MainDashBoard implements Initializable
         tGenderInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Transgender").size())+" Inmates");
         activeInmateCount.setText(String.valueOf(InmateRepo.getActiveInmates().size())+" Inmates");
         totalInmateCount.setText(String.valueOf(InmateRepo.getAllInmates().size())+" Inmates");
-
+        activeCaseCount.setText(String.valueOf(InmateRepo.getActiveCaseInmate().size())+" Inmates");
+        releaseSoonCount.setText(String.valueOf(InmateRepo.getReleaseSoonInmates().size())+" Inmates");
     }
 
     private void setCellValueFactory() {
@@ -138,13 +170,25 @@ public class InmatePageController extends MainDashBoard implements Initializable
     public void activeInmateBtn(ActionEvent actionEvent) throws IOException {
         List<Inmate> inmates = InmateRepo.getActiveInmates();
         tvAddress.getTableView().setItems(FXCollections.observableArrayList(inmates));
-
-
     }
 
     public void activeCaseBtn(ActionEvent actionEvent) {
+        List<Inmate> inmates =InmateRepo.getActiveCaseInmate();
+        tvAddress.getTableView().setItems(FXCollections.observableArrayList(inmates));
     }
 
     public void releseSoonBtn(ActionEvent actionEvent) {
+        List<Inmate> inmates =InmateRepo.getReleaseSoonInmates();
+        tvAddress.getTableView().setItems(FXCollections.observableArrayList(inmates));
+    }
+
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        id = searchId.getText().split(" - ")[0];
+        // TODO: call the inmate profile page
+        createStage("/View/InmateProfile.fxml");
+    }
+
+    public static String getId(){ // search bar eke id eka ganna
+        return id;
     }
 }

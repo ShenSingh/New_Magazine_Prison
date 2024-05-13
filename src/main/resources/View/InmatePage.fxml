@@ -205,7 +205,7 @@
                   <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
                </font>
             </Text>
-            <PieChart fx:id="freeSpase" layoutX="10.0" layoutY="85.0" prefHeight="125.0" prefWidth="140.0" />
+            <PieChart fx:id="freeSpase" layoutX="10.0" layoutY="85.0" prefHeight="125.0" prefWidth="140.0" styleClass="pieChartInmate" stylesheets="@../css/dashBoardStyle.css" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
@@ -215,7 +215,7 @@
                   <Image url="@../images/icon/search.gif" />
                </image>
             </ImageView>
-            <TextField layoutX="32.0" layoutY="2.0" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
+            <TextField fx:id="searchId" layoutX="32.0" layoutY="2.0" onAction="#searchIdField" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="330.0" layoutY="162.0" prefHeight="125.0" prefWidth="185.0" styleClass="contAnchor" stylesheets="@../css/dashBoardStyle.css">
@@ -240,7 +240,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#activeInmateBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button layoutX="9.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#activeInmateBtn" prefHeight="104.0" prefWidth="176.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -359,7 +359,7 @@
                   <Font name="Noto Sans Regular" size="17.0" />
                </font>
             </Text>
-            <Text fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="230 inmates" wrappingWidth="112.00003051757812">
+            <Text fx:id="activeCaseCount" fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="230 inmates" wrappingWidth="112.00003051757812">
                <font>
                   <Font size="10.0" />
                </font>
@@ -374,7 +374,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#activeCaseBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button layoutX="9.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#activeCaseBtn" prefHeight="104.0" prefWidth="176.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -388,12 +388,12 @@
       </AnchorPane>
       <AnchorPane layoutX="804.0" layoutY="163.0" prefHeight="125.0" prefWidth="185.0" styleClass="contAnchor" stylesheets="@../css/dashBoardStyle.css">
          <children>
-            <Text layoutX="62.0" layoutY="65.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="Relese Soon" wrappingWidth="112.00003051757812">
+            <Text layoutX="62.0" layoutY="65.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="Release Soon" wrappingWidth="112.00003051757812">
                <font>
                   <Font name="Noto Sans Regular" size="17.0" />
                </font>
             </Text>
-            <Text fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="120 inmates" wrappingWidth="112.00003051757812">
+            <Text fx:id="releaseSoonCount" fill="#000000c2" layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="contAnchorText" text="120 inmates" wrappingWidth="112.00003051757812">
                <font>
                   <Font size="10.0" />
                </font>
@@ -408,7 +408,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#releseSoonBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button layoutX="15.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#releseSoonBtn" prefHeight="104.0" prefWidth="170.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

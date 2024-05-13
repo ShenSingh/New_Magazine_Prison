@@ -6,12 +6,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.Repository.ExpencesRepo;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -34,6 +39,9 @@ public class FinancialPageController extends MainDashBoard implements Initializa
     public Button manyBtn;
     public Button sectionBtn;
     public Button visitorBtn;
+    public TextField searchExpen;
+
+    private static String expenceId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +67,19 @@ public class FinancialPageController extends MainDashBoard implements Initializa
         }
         setToolTip();
         setValuesLineChart();
+        searchExpenId();
+    }
+
+    private void searchExpenId() {
+        List<String> expenIds = new ArrayList<>();
+
+        List<Expences> allExpens = ExpencesRepo.getAllExpenses();
+        for (Expences expences : allExpens) {
+            expenIds.add(expences.getExpenceId()+" - "+expences.getType());
+        }
+        String[] possibleNames = expenIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(searchExpen, possibleNames);
     }
 
     private void setValuesLineChart() {
@@ -99,4 +120,8 @@ public class FinancialPageController extends MainDashBoard implements Initializa
     public void equipmentBtn(ActionEvent actionEvent) {
     }
 
+    public void searchExpenField(ActionEvent actionEvent) {
+        expenceId = searchExpen.getText().split(" - ")[0];
+        System.out.println(expenceId);
+    }
 }
