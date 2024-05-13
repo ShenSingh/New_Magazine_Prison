@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class FinancialPageController extends MainDashBoard implements Initializable {
     public AnchorPane MainAnchorPane;
-    public LineChart expencesLineChart;
+    public LineChart<String, Number> expencesLineChart;
 
     public Text iyHelthExpen;
     public Text lyEquipmentExpen;
@@ -57,7 +58,23 @@ public class FinancialPageController extends MainDashBoard implements Initializa
             }
         }
         setToolTip();
+        setValuesLineChart();
     }
+
+    private void setValuesLineChart() {
+        try {
+            Map<String, XYChart.Series<String, Number>> expensesData = ExpencesRepo.getExpensesDataForLineChart();
+
+            expencesLineChart.getData().clear();
+
+            for (Map.Entry<String, XYChart.Series<String, Number>> entry : expensesData.entrySet()) {
+                expencesLineChart.getData().add(entry.getValue());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void setToolTip() {
         Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));

@@ -1,4 +1,4 @@
-package lk.ijse.gdse69.javafx.Controllers;
+ package lk.ijse.gdse69.javafx.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +10,7 @@ import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 public class AddSectionController extends MainDashBoard implements Initializable {
 
     public AnchorPane MainAnchorPane;
+    public TextField searchSection;
     @FXML
     private TextField sectionId;
     @FXML
@@ -53,6 +55,50 @@ public class AddSectionController extends MainDashBoard implements Initializable
 
         setTotalCount();
         setToolTip();
+        setNextSectionId();
+        setSearchSectionId();
+
+    }
+
+    private void setSearchSectionId() {
+        List<String> sectionIds = new ArrayList<>();
+
+        try {
+            List<Section> allSections = SectionRepo.getAllSections();
+            for (Section section : allSections) {
+                sectionIds.add(section.getSectionId()+" - "+section.getSectionName());
+            }
+            String[] possibleNames = sectionIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchSection, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setNextSectionId() {
+        try {
+            List<Section> allSections = SectionRepo.getAllSections();
+            if (allSections.size() == 0){
+                sectionId.setText("S001");
+            }
+            else {
+                int lastSectionId = Integer.parseInt(allSections.get(allSections.size()-1).getSectionId().substring(1));
+                lastSectionId++;
+                if (lastSectionId < 10){
+                    sectionId.setText("S00"+lastSectionId);
+                }
+                else if (lastSectionId < 100){
+                    sectionId.setText("S0"+lastSectionId);
+                }
+                else {
+                    sectionId.setText("S"+lastSectionId);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        sectionId.setEditable(false);
 
     }
 
@@ -74,7 +120,6 @@ public class AddSectionController extends MainDashBoard implements Initializable
             throw new RuntimeException(e);
         }
     }
-
     public void canselBtn(ActionEvent actionEvent) {
         clearField();
     }
@@ -84,7 +129,10 @@ public class AddSectionController extends MainDashBoard implements Initializable
 
         if (checkEmpty()) {
 
-            if(checkValidSectionId()){}else {return;}
+            if (!Util.checkInt(capacity.getText())){
+                ShowAlert.showErrorNotify("Invalid Capacity. Please enter a valid capacity");
+                return;
+            }
 
             String sectionId = this.sectionId.getText();
             String sectionName = this.sectionName.getText();
@@ -93,72 +141,21 @@ public class AddSectionController extends MainDashBoard implements Initializable
             String securityLevel = securityLevelCombo.getSelectionModel().getSelectedItem();
             String status = statusCombo.getSelectionModel().getSelectedItem();
 
-            boolean isValid=checkSectionId(sectionId);
-
-            if (isValid){
-                Section section = new Section(sectionId, sectionName, location, Integer.parseInt(capacity), securityLevel, status);
-
-                if (SectionRepo.save(section)) {
-                    System.out.println("Section added successfully");
-                    ShowAlert showAlert = new ShowAlert("Success", "Section Added", "Section added successfully", Alert.AlertType.INFORMATION);
-                    clearField();
-                } else {
-                    System.out.println("Failed to add section");
-                    ShowAlert showAlert = new ShowAlert("Error", "Failed to add section", "Failed to add section", Alert.AlertType.ERROR);
-                    clearField();
-                }
-            }else{
-                System.out.println("Section Id already exist");
-                ShowAlert showAlert = new ShowAlert("Error", "Section Id already exist", "Section Id already exist", Alert.AlertType.WARNING);
+            Section section = new Section(sectionId, sectionName, location, Integer.parseInt(capacity), securityLevel, status);
+            if (SectionRepo.save(section)) {
+                ShowAlert.showSuccessNotify("Section Added Successfully");
                 clearField();
+                setTotalCount();
+            } else {
+                ShowAlert.showErrorNotify("Failed to add Section");
             }
-
-
         } else {
-            System.out.println("Empty fields found");
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please fill all the fields");
         }
-    }
-
-    private boolean checkValidSectionId() {
-        String secId = this.sectionId.getText().trim();
-
-        if (secId.matches("S\\d{3}")){
-            return true;
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Invalid Section Id", "Invalid Section Id Ex : SXXX", Alert.AlertType.WARNING);
-        return false;
-    }
-
-    private boolean checkSectionId(String sectionId) {
-
-        List<Section> allSection = new ArrayList<>();
-
-        try {
-            allSection = SectionRepo.getAllSections();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for(Section section:allSection){
-            if(!section.getSectionId().equals(sectionId)){
-                return true;
-            }
-        }
-        ShowAlert showAlert = new ShowAlert("Error", "Section Id Already Exist", "Section Id Already Exist", Alert.AlertType.WARNING);
-        return false;
     }
 
     private boolean checkEmpty() {
-
-//        if (sectionId.getText().isEmpty() || sectionName.getText().isEmpty() || location.getText().isEmpty() || capacity.getText().isEmpty() || securityLevelCombo.getSelectionModel().isEmpty() || statusCombo.getSelectionModel().isEmpty()){
-//
-//            return false;
-//        }
-//        return true;
-
         return Util.checkEmptyFields(sectionId.getText(),sectionName.getText(),location.getText(),capacity.getText(),securityLevelCombo.getSelectionModel().getSelectedItem(),statusCombo.getSelectionModel().getSelectedItem());
-
     }
 
     private void clearField(){
@@ -168,6 +165,9 @@ public class AddSectionController extends MainDashBoard implements Initializable
         capacity.clear();
         securityLevelCombo.getSelectionModel().clearSelection();
         statusCombo.getSelectionModel().clearSelection();
+        setNextSectionId();
     }
 
+    public void searchSectionField(ActionEvent actionEvent) {
+    }
 }

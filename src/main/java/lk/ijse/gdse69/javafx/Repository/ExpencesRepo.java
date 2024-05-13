@@ -1,9 +1,13 @@
 package lk.ijse.gdse69.javafx.Repository;
 
+import javafx.scene.chart.XYChart;
 import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.db.DbConnection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -195,5 +199,62 @@ public class ExpencesRepo {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Map<String, XYChart.Series<String, Number>> getExpensesDataForLineChart() throws SQLException {
+        Map<String, XYChart.Series<String, Number>> seriesMap = new HashMap<>();
+        try (Connection connection = DbConnection.getInstance().getConnection()) {
+            String query = "SELECT type, month, SUM(cost) AS total_cost FROM Expences GROUP BY type, month";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String expenseType = resultSet.getString("type");
+                String month = resultSet.getString("month");
+                double totalCost = resultSet.getDouble("total_cost");
+
+                if (!seriesMap.containsKey(expenseType)) {
+                    seriesMap.put(expenseType, new XYChart.Series<>());
+                }
+                seriesMap.get(expenseType).getData().add(new XYChart.Data<>(month, totalCost));
+            }
+        }
+        return seriesMap;
+    }
+
+
+
+    private static int convertMonthToNumber(String month) {
+        // Implement your logic to convert month string to corresponding number (e.g., "Jan" to 1)
+        // You can use a switch statement or a map to achieve this
+        // For simplicity, let's assume the months are represented as Jan = 1, Feb = 2, ..., Dec = 12
+        switch (month) {
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 0; // Invalid month
+        }
     }
 }

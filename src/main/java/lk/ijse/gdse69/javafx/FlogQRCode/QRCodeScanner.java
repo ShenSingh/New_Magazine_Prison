@@ -30,7 +30,7 @@ public class QRCodeScanner {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-        frame.setSize(640, 480);
+        frame.setSize(630, 480);
 
         // Start capturing images from the webcam
         webcam.open();
@@ -48,13 +48,11 @@ public class QRCodeScanner {
                         System.out.println("QR Code Content: " + result.getText());
                         totalResult = result.getText();
                         webcam.close();
-                        // Perform actions with the QR code content here
                         frame.setVisible(false);
                         return totalResult;
-                        // For example, open a URL, display information, etc.
                     }
                 } catch (NotFoundException e) {
-                    // QR code not found in the image
+
                 }
             }
         }

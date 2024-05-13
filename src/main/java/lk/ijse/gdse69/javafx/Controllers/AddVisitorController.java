@@ -9,14 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.FlogQRCode.QRCodeGenerator;
-import lk.ijse.gdse69.javafx.Model.Inmate;
-import lk.ijse.gdse69.javafx.Model.SetFirstVisitorRecord;
-import lk.ijse.gdse69.javafx.Model.Visitor;
-import lk.ijse.gdse69.javafx.Model.VisitorRecord;
-import lk.ijse.gdse69.javafx.Repository.InmateRepo;
-import lk.ijse.gdse69.javafx.Repository.SetFirstVisitorRecordRepo;
-import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
-import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
+import lk.ijse.gdse69.javafx.Model.*;
+import lk.ijse.gdse69.javafx.Repository.*;
 import lk.ijse.gdse69.javafx.Util.Util;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -98,15 +92,39 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             throw new RuntimeException(e);
         }
         setValuesComboBox();
-        String nextVisitorId = null;
+        setNextVisitorId();
+
+        
+    }
+
+    private void setNextVisitorId() {
         try {
-            nextVisitorId = getNextVisitorId(VisitorRepo.getAllVisitors());
+            List<Visitor> allVisitor = VisitorRepo.getAllVisitors();
+            if (allVisitor.size() == 0){
+                visitorId.setText("V001");
+            }
+            else {
+                int lastVisitorId = Integer.parseInt(allVisitor.get(allVisitor.size()-1).getVisitorID().substring(1));
+                lastVisitorId++;
+                if (lastVisitorId < 10){
+                    visitorId.setText("V00"+lastVisitorId);
+                }
+                else if (lastVisitorId < 100){
+                    visitorId.setText("V0"+lastVisitorId);
+                }
+                else {
+                    visitorId.setText("V"+lastVisitorId);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        visitorId.setText(nextVisitorId);
         visitorId.setEditable(false);
-        
+    }
+
+    private void setValuesComboBox() {
+        gender.getItems().addAll("Male", "Female");
+        visitorType.getItems().addAll("Immediate Family", "Legal Representative", "Officials", "Others");
     }
 
     private void setToolTip() {
@@ -125,7 +143,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         try {
             List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
             for (Visitor visitor : allVisitors) {
-                visitorIds.add(visitor.getVisitorID());
+                visitorIds.add(visitor.getVisitorID()+" - "+visitor.getVisitorFirstName()+" "+visitor.getVisitorLastName());
             }
             String[] possibleNames = visitorIds.toArray(new String[0]);
 
@@ -135,23 +153,6 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         }
     }
 
-    private String getNextVisitorId(List<Visitor> allVisitors) {
-        String maxId = "V000"; // Initialize with a minimum ID
-        for (Visitor visitor : allVisitors) {
-            String currentId = visitor.getVisitorID();
-            // Compare and update maxId if currentId is greater
-            if (currentId.compareTo(maxId) > 0) {
-                maxId = currentId;
-            }
-        }
-        // Increment the ID
-        int idNumber = Integer.parseInt(maxId.substring(1)) + 1;
-        return "V" + String.format("%03d", idNumber);
-    }
-    private void setValuesComboBox() {
-        gender.getItems().addAll("Male", "Female");
-        visitorType.getItems().addAll("Immediate Family", "Legal Representative", "Officials", "Others");
-    }
     public void searchInmateIdBtn(ActionEvent actionEvent) throws SQLException {
         String newInmateId = inmateId.getText();
 
@@ -162,10 +163,10 @@ public class AddVisitorController extends MainDashBoard implements Initializable
                 inmateNIC.setText(inmate.getInmateNIC());
             } else {
                 inmateId.clear();
-                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Inmate Not Found");
             }
         }else{
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Enter Inmate ID");
         }
     }
     public void canselBtn(ActionEvent actionEvent) {
@@ -174,9 +175,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
     public void createQrBtn(ActionEvent actionEvent) {
         if (checkEmptyFields()) {
             String newVisitorId = visitorId.getText();
-            if (checkValidVisitorId(newVisitorId)){} else {return;}
+
             if (checkValidVisitorName()){} else {return;}
-            if (checkValidId(newVisitorId)){
+
 
                 String filePath = "src/main/resources/QRCodeStore/"+newVisitorId+".png";
                 boolean isGenerated = QRCodeGenerator.generateQRCode(newVisitorId);
@@ -192,15 +193,10 @@ public class AddVisitorController extends MainDashBoard implements Initializable
                     visitorRecordId.setText(nextVisitorRecordId);
                     visitorRecordId.setEditable(false);
                 } else {
-                    System.out.println("Error Generating QR Code");
-                    ShowAlert alert=new ShowAlert("Error","Error Generating QR Code","Error Generating QR Code", Alert.AlertType.ERROR);
+                    ShowAlert.showErrorNotify("Error Generating QR Code");
                 }
-            }else {
-                ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Already Exists", Alert.AlertType.WARNING);
-            }
         } else {
-            System.out.println("Empty Fields");
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }
     }
     public void captureImage() throws IOException {
@@ -252,36 +248,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         if (newFName.matches("[a-zA-Z]+") && newLName.matches("[a-zA-Z]+")){
             return true;
         } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid Name","Name Should Be Letters", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Invalid Name. Name should contain only letters");
             return false;
         }
-    }
-    private boolean checkValidVisitorId(String newVisitorId) {
-        if (newVisitorId.matches("V\\d{3}")){
-            return true;
-        } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor ID Should Be VXXX", Alert.AlertType.WARNING);
-            return false;
-        }
-    }
-    private boolean checkValidId(String newVisitorId) {
-        List<Visitor> allVisitors=new ArrayList<>();
-        try {
-            allVisitors = VisitorRepo.getAllVisitors();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        if (allVisitors.size() == 0){
-            return true;
-        }
-        if (allVisitors != null){
-            for (Visitor visitor : allVisitors){
-                if (!newVisitorId.equals(visitor.getVisitorID())){
-                    return true;
-                }
-            }
-        }
-        return false;
     }
     public static void showQRCodeDialog(String filePath) {
         Alert qrCodeAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -297,36 +266,26 @@ public class AddVisitorController extends MainDashBoard implements Initializable
     }
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
         if (createVisitorObject() != null && checkRecordEmptyFields()) {
-            if (checkValidationRecordId()){} else {return;}
 
             createVisitorRecordObject();
 
             SetFirstVisitorRecord setFirstVisitorRecord = new SetFirstVisitorRecord(createVisitorObject(),createVisitorRecordObject());
             boolean isSaved =SetFirstVisitorRecordRepo.save(setFirstVisitorRecord);
             if (isSaved){
-                System.out.println("Saved successfully");
-                ShowAlert alert=new ShowAlert("Success","Saved","Visitor Record Saved", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Visitor Record Saved Successfully");
                 clearFields();
                 this.inmateId.clear();
                 this.visitorRecordId.clear();
                 this.inmateName.clear();
                 this.inmateNIC.clear();
             } else {
-                ShowAlert alert=new ShowAlert("Error","Not Saved","Visitor Record Not Saved", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Error Saving Visitor Record");
             }
         } else {
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
+        ShowAlert.showErrorNotify("Please Fill All Fields");
         }
     }
-    private boolean checkValidationRecordId() {
-        String newRecordId = visitorRecordId.getText();
-        if (newRecordId.matches("VR\\d{3}")){
-            return true;
-        } else {
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Should Be VRXXX", Alert.AlertType.WARNING);
-            return false;
-        }
-    }
+
     private boolean checkRecordEmptyFields() {
         return Util.checkEmptyFields(visitorRecordId.getText(), inmateId.getText(), inmateName.getText(), inmateNIC.getText());
     }
@@ -340,38 +299,15 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         String formattedTime = localTime.format(formatter);
         Time newTime = Time.valueOf(formattedTime);
 
-        if (checkValidRecordId(newRecordId)){
         VisitorRecord newVisitorRecord = new VisitorRecord(newRecordId,newVisitorId,newInmateId,newDate,newTime);
         return newVisitorRecord;
-        }else{
-            ShowAlert alert=new ShowAlert("Error","Invalid ID","Visitor Record ID Already Exists", Alert.AlertType.WARNING);
-        }
-        return null;
-    }
-    private boolean checkValidRecordId(String newRecordId) {
-        List<VisitorRecord> allVisitorRecords=new ArrayList<>();
 
-        try {
-            allVisitorRecords = VisitorRecordRepo.getAllVisitorRecords();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        if (allVisitorRecords.size() == 0){
-            return true;
-        }
-        if (allVisitorRecords != null){
-            for (VisitorRecord visitorRecord : allVisitorRecords){
-                if (!newRecordId.equals(visitorRecord.getVisitorRecordId())){
-                    return true;
-                }
-            }
-        }
-        return false;
     }
+
     private Visitor createVisitorObject() {
         if (checkEmptyFields()){
             if (imageDate == null){
-                ShowAlert alert=new ShowAlert("Error","Image Not Set","Please Capture Image", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Please Capture Image");
                 return null;
             }
             String newVisitorId = visitorId.getText();
@@ -391,7 +327,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             Visitor newVisitor = new Visitor(newVisitorId,newFName,newLName,newDOB,newNIC,newNumber,newAddress,newVisitorType,newGender,imageDate);
             return newVisitor;
         }else{
-            ShowAlert alert=new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Fill All Fields");
             return null;
         }
     }
@@ -408,6 +344,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         address.clear();
         gender.getSelectionModel().clearSelection();
         visitorType.getSelectionModel().clearSelection();
+        setNextVisitorId();
     }
     public void takePhotoBtn(ActionEvent actionEvent) {
         try {
