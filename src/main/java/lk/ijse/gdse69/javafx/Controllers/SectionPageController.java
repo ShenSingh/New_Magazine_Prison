@@ -6,12 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +31,8 @@ public class SectionPageController extends MainDashBoard implements Initializabl
     public TableColumn<Section, String> TVcapacity;
     public TableColumn<Section, String> TVsecurityLevel;
     public TableColumn<Section, String> TVstatus;
+    public AnchorPane MainAnchorPane;
+    public TextField searchId;
     @FXML
     private Text totalSection;
     @FXML
@@ -35,6 +41,8 @@ public class SectionPageController extends MainDashBoard implements Initializabl
     private Text jailSectionCount;
     @FXML
     private Text highSecuritySecCount;
+
+    private static String id;
 
 
     @FXML
@@ -57,6 +65,23 @@ public class SectionPageController extends MainDashBoard implements Initializabl
             throw new RuntimeException(e);
         }
         setToolTip();
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> sectionIds = new ArrayList<>();
+
+        try {
+            List<Section> allSections = SectionRepo.getAllSections();
+            for (Section section : allSections) {
+                sectionIds.add(section.getSectionId()+" - "+section.getSectionName());
+            }
+            String[] possibleNames = sectionIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -138,5 +163,13 @@ public class SectionPageController extends MainDashBoard implements Initializabl
 
     public void highSecuritySection(ActionEvent actionEvent) throws SQLException {
         setTableValues(SectionRepo.getSectionByHighSecurity());
+    }
+
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        id = searchId.getText().split(" - ")[0];
+        createStage("/View/SectionProfile.fxml");
+    }
+    public static String getId(){
+        return id;
     }
 }
