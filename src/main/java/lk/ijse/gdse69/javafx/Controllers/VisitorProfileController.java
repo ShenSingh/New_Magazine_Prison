@@ -103,28 +103,28 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setToolTip();
-        searchVisitorId();
 
         try {
             visitorPageVisitorId();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        //
+        setSearchIds();
         setComboBoxValues();
 
         slideTransition = new TranslateTransition(Duration.seconds(0.3), vBoxAnchorPane);
         slideTransition.setToX(450);
         vBoxAnchorPane.setVisible(false);
+        visitorId.setEditable(false);
     }
 
-    private void searchVisitorId() {
+    private void setSearchIds() {
         List<String> visitorIds = new ArrayList<>();
 
         try {
             List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
             for (Visitor visitor : allVisitors) {
-                visitorIds.add(visitor.getVisitorID());
+                visitorIds.add(visitor.getVisitorID()+" - "+visitor.getVisitorFirstName()+" "+visitor.getVisitorLastName());
             }
             String[] possibleNames = visitorIds.toArray(new String[0]);
 
@@ -133,6 +133,7 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
             throw new RuntimeException(e);
         }
     }
+
 
     private void setToolTip() {
         Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
@@ -182,7 +183,7 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     public void searchVisitor(ActionEvent actionEvent) throws SQLException {
 
         if(!searchVisitorField.getText().isEmpty()){
-            String searchVisitorId = searchVisitorField.getText();
+            String searchVisitorId = searchVisitorField.getText().split(" - ")[0];;
 
             if (VisitorRepo.search(searchVisitorId) != null) {
                 Visitor visitor = VisitorRepo.search(searchVisitorId);
@@ -199,7 +200,7 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
                 visitorType.getSelectionModel().select(visitor.getVisitorType());
             }
         }else {
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Enter Search Visitor Id", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Empty Field. Please Enter Visitor ID");
         }
     }
 
@@ -222,15 +223,15 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
 
     public void deleteVisitor(ActionEvent actionEvent) throws SQLException {
         if (!searchVisitorField.getText().isEmpty()) {
-            String visitorId = searchVisitorField.getText();
+            String visitorId = searchVisitorField.getText().split(" - ")[0];;
 
             if (VisitorRepo.delete(visitorId)) {
-                ShowAlert alert = new ShowAlert("Success", "Delete Success", "Visitor Deleted Successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Visitor Deleted Successfully");
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Delete Failed", "Visitor Delete Failed", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Visitor Delete Failed");
             }
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Enter Visitor ID to Delete", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Empty Field. Please Enter Visitor ID");
         }
     }
 
@@ -275,7 +276,6 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     public void editProfileTogal(ActionEvent actionEvent) {
         isEditingEnabled = !isEditingEnabled;
 
-        visitorId.setEditable(isEditingEnabled);
         fName.setEditable(isEditingEnabled);
         lName.setEditable(isEditingEnabled);
         DOB.setDisable(!isEditingEnabled);
@@ -297,16 +297,35 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
         byte[] image = VisitorRepo.search(searchVisitorField.getText()).getVisitorImage();
 
         if (checkEmptyFields()) {
+
+            if(validInput()){}else{return;}
+
             Visitor visitor = new Visitor(visitorId.getText(), fName.getText(), lName.getText(), java.sql.Date.valueOf(DOB.getValue()), NIC.getText(), Integer.parseInt(number.getText()), address.getText(), visitorType.getSelectionModel().getSelectedItem(), gender.getSelectionModel().getSelectedItem(),image);
 
             if (VisitorRepo.update(visitor)) {
-                ShowAlert alert = new ShowAlert("Success", "Update Success", "Visitor Profile Updated Successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Visitor Updated Successfully");
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Update Failed", "Visitor Profile Update Failed", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Visitor Update Failed");
             }
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Empty Fields", "Please Fill All Fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Empty Fields. Please Fill All Fields");
         }
+    }
+
+    private boolean validInput() {
+        if (!fName.getText().matches("[a-zA-Z]+") && !lName.getText().matches("[a-zA-Z]+") ) {
+            ShowAlert.showErrorNotify("Invalid Name. please Use Letters Only");
+            return false;
+        }
+        if (!NIC.getText().matches("[0-9]{9}[vVxX]")) {
+            ShowAlert.showErrorNotify("Invalid NIC Number EX: 123456789V");
+            return false;
+        }
+        if (!number.getText().matches("[0-9]{10}")) {
+            ShowAlert.showErrorNotify("Invalid Phone Number EX: 0712345678");
+            return false;
+        }
+        return true;
     }
 
     private boolean checkEmptyFields() {
@@ -333,5 +352,6 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
         address.clear();
         gender.getSelectionModel().clearSelection();
         visitorType.getSelectionModel().clearSelection();
+        searchVisitorField.clear();
     }
 }
