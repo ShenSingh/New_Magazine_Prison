@@ -7,14 +7,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Visitor;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,6 +35,14 @@ public class ViewVisitorController extends MainDashBoard implements Initializabl
     public TableColumn<Visitor, String> tvAddress;
     public TableColumn<Visitor, String> tvNumber;
     public TableColumn<Visitor, String> tvType;
+    public AnchorPane MainAnchorPane;
+
+    public TextField searchId;
+
+    public Text familyCount;
+    public Text legalRepresentativeCount;
+    public Text officialsCount;
+    public Text otherCount;
 
     @FXML
     private JFXComboBox<String> viewVisitorOption;
@@ -91,6 +104,35 @@ public class ViewVisitorController extends MainDashBoard implements Initializabl
         });
 
         setToolTip();
+        settotalCount();
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> visitorIds = new ArrayList<>();
+
+        try {
+            List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
+            for (Visitor visitor : allVisitors) {
+                visitorIds.add(visitor.getVisitorID()+" - "+visitor.getVisitorFirstName()+" "+visitor.getVisitorLastName());
+            }
+            String[] possibleNames = visitorIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void settotalCount() {
+        try {
+            familyCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Family").size())+" Visitors");
+            legalRepresentativeCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Legal Representative").size())+" Visitors");
+            officialsCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Officials").size())+" Visitors");
+            otherCount.setText(String.valueOf(VisitorRepo.getVisitorByVisitorType("Other").size())+" Visitors");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -119,13 +161,9 @@ public class ViewVisitorController extends MainDashBoard implements Initializabl
         }
     }
 
-
-    public void submitRecordBtn(ActionEvent actionEvent) {
-    }
-
-    public void scanQrBtn(ActionEvent actionEvent) {
-    }
-
-    public void searchInmateIdBtn(ActionEvent actionEvent) {
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setVisitorId(id);
+        createStage("/View/VisitorProfile.fxml");
     }
 }

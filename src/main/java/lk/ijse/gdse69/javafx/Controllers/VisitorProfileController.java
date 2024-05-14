@@ -145,15 +145,9 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
     }
 
     private void visitorPageVisitorId() throws SQLException {
-        String id = null;
-        id = VisitorPageController.getFlogVisitorId();
 
-        if (id == null) {
-            id = AddVisitorController.getVisitorIdString();
-        }
-        if (id == null) {
-            return;
-        }
+        String id = SearchId.getVisitorId();
+        if(id != null){}else{return;}
 
         Visitor visitor = VisitorRepo.search(id);
 

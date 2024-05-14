@@ -14,6 +14,7 @@ import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -188,6 +189,9 @@ public class AddProgramController extends MainDashBoard implements Initializable
         return false;
     }
 
-    public void searchProgramField(ActionEvent actionEvent) {
+    public void searchProgramField(ActionEvent actionEvent) throws IOException {
+        String searchId = searchProgram.getText().split(" - ")[0];
+        SearchId.setProgramId(searchId);
+        createStage("/View/ProgramProfile.fxml");
     }
 }

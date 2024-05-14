@@ -189,7 +189,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#familyBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button fx:id="familyBtn" layoutX="21.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#familyBtn" prefHeight="110.0" prefWidth="150.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -323,7 +323,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#legalRepBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button fx:id="legalBtn" layoutX="21.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#legalRepBtn" prefHeight="110.0" prefWidth="150.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -357,7 +357,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="131.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#visitOffficerBtn" prefHeight="50.0" prefWidth="40.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
+            <Button fx:id="officialsBtn" layoutX="14.0" layoutY="5.0" minWidth="40.0" mnemonicParsing="false" onAction="#visitOffficerBtn" prefHeight="110.0" prefWidth="157.0" styleClass="contAnchorViewBtn" stylesheets="@../css/dashBoardStyle.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

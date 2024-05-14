@@ -21,8 +21,8 @@ import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -48,9 +48,12 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
     public TableColumn<Visitor, String> tvNumber;
     public TableColumn<Visitor,String> tvType;
     public AnchorPane MainAnchorPane;
-    
-    public ComboBox<String> visitorIdCombo;
+
     public TextField visitorIdFieldTxt;
+
+    public Button familyBtn;
+    public Button legalBtn;
+    public Button officialsBtn;
 
     @FXML
     private Text totalVisitorCount;
@@ -76,13 +79,8 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
     @FXML
     private TextField demoId;
 
-    @FXML
-    JComboBox<String> visitorIdComboBox = new JComboBox<>();
 
     public static String flogVisitorId;
-
-    @FXML
-    JTextField visitorIdField;
 
     @FXML
     public Button inmateBtn;
@@ -116,8 +114,51 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
 
         setVisitorCounts();
         setToolTip();
+        setNextVisitorRId();
+        setSearchIds();
 
 
+    }
+
+    private void setSearchIds() {
+        List<String> visitorIds = new ArrayList<>();
+
+        try {
+            List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
+            for (Visitor visitor : allVisitors) {
+                visitorIds.add(visitor.getVisitorID()+" - "+visitor.getVisitorFirstName()+" "+visitor.getVisitorLastName());
+            }
+            String[] possibleNames = visitorIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(visitorIdFieldTxt, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setNextVisitorRId() {
+        try {
+            List<VisitorRecord> allRecords = VisitorRecordRepo.getAllVisitorRecords();
+            if (allRecords.size() == 0){
+                visitorRecordId.setText("VR001");
+            }
+            else {
+                int lastRecordId = Integer.parseInt(allRecords.get(allRecords.size()-1).getVisitorRecordId().substring(2));
+                lastRecordId++;
+                if (lastRecordId < 10){
+                    visitorRecordId.setText("VR00"+lastRecordId);
+                }
+                else if (lastRecordId < 100){
+                    visitorRecordId.setText("VR0"+lastRecordId);
+                }
+                else {
+                    visitorRecordId.setText("VR"+lastRecordId);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        visitorRecordId.setEditable(false);
     }
 
     private void setToolTip() {
@@ -192,9 +233,15 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
                     boolean isAdded = VisitorRecordRepo.save(visitorRecord);
 
                     if (isAdded){
-                        new ShowAlert("Success","Record Added","Record Added Successfully", Alert.AlertType.INFORMATION);
+                        ShowAlert.showSuccessNotify("Record Added Successfully");
+                        setNextVisitorRId();
+                        visitorId.clear();
+                        visitorName.clear();
+                        visitorNIC.clear();
+                        inmateId.clear();
+                        inmateName.clear();
                     }else {
-                        new ShowAlert("Error","Record Not Added","Record Not Added", Alert.AlertType.ERROR);
+                        ShowAlert.showErrorNotify("Record Not Added");
                     }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -202,7 +249,7 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
             }
 
         }else {
-            new ShowAlert("Error","Empty Fields","Please Fill All Fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Fill All Fields");
         }
     }
 
@@ -230,8 +277,8 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
                 visitorNIC.setEditable(false);
             } else {
                 visitorId.clear();
-                System.out.println("Visitor Not Found");
-                ShowAlert alert=new ShowAlert("Error","Visitor Not Found","Visitor Not Found", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Visitor Not Found");
+
             }
         }
     }
@@ -247,13 +294,11 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
                 inmateName.setEditable(false);
                 inmateId.setEditable(false);
             } else {
+                ShowAlert.showErrorNotify("Inmate Not Found");
                 inmateId.clear();
-                System.out.println("Inmate Not Found");
-                ShowAlert alert=new ShowAlert("Error","Inmate Not Found","Inmate Not Found", Alert.AlertType.ERROR);
             }
         }else{
-            System.out.println("inmateId Field Empty");
-            ShowAlert alert=new ShowAlert("Error","Empty Field","Please Fill Inmate Id Field", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please Enter Inmate ID");
         }
     }
 
@@ -295,10 +340,8 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
 
     public void searchVisitorVPBtn(ActionEvent actionEvent) throws IOException {
 
-        if (Util.checkValidText(this.visitorIdFieldTxt.getText(),"V\\d{3}")){
-            this.flogVisitorId=visitorIdFieldTxt.getText();
-            createStage("/View/VisitorProfile.fxml");
-        }
+        String visitorId = visitorIdFieldTxt.getText().split(" - ")[0];
+        SearchId.setVisitorId(visitorId);
+        createStage("/View/VisitorProfile.fxml");
     }
-    public static String getFlogVisitorId(){return flogVisitorId;}
 }

@@ -77,7 +77,6 @@ public class AddVisitorController extends MainDashBoard implements Initializable
     public Button sectionBtn;
     public Button visitorBtn;
 
-    static String visitorIdString;
 
     private byte[] imageDate;
     @Override
@@ -353,13 +352,10 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             throw new RuntimeException(e);
         }
     }
-    public static String getVisitorIdString() {
-        return visitorIdString;
-    }
 
     public void searchVisitorIdOnAction(ActionEvent actionEvent) throws IOException {
-        //
-        visitorIdString = this.searchVisitorId.getText();
+        String id = searchVisitorId.getText().split(" - ")[0];
+        SearchId.setVisitorId(id);
         createStage("/View/VisitorProfile.fxml");
     }
 }
