@@ -104,7 +104,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-                <AnchorPane fx:id="programAnchor" layoutX="250.0" prefHeight="606.0" prefWidth="946.0" styleClass="miniAnchor">
+                <AnchorPane fx:id="programAnchor" layoutX="264.0" prefHeight="606.0" prefWidth="946.0" styleClass="miniAnchor">
                     <children>
                         <Text fontSmoothingType="LCD" layoutX="7.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programs" wrappingWidth="233.0">
                             <font>
@@ -203,6 +203,11 @@
             <ImageView layoutX="50.0" layoutY="45.0">
                <image>
                   <Image url="@../images/icon/icons8-police-station-100.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="43.0" layoutY="474.0">
+               <image>
+                  <Image url="@../images/icon/inmateSecIcon.png" />
                </image>
             </ImageView>
             </children>

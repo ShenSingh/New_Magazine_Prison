@@ -2,10 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -13,9 +15,12 @@ import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.Repository.IncidentRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -41,6 +46,8 @@ public class ViewIncidentController extends MainDashBoard implements Initializab
     public Button sectionBtn;
     public Button visitorBtn;
 
+    public TextField searchId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewOptionCombo.getItems().addAll("All Incidents");
@@ -52,6 +59,19 @@ public class ViewIncidentController extends MainDashBoard implements Initializab
         }
         setTableValues(IncidentRepo.getAllIncidents());
         setToolTip();
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> incidentIds = new ArrayList<>();
+
+        List<Incident> allIncident =IncidentRepo.getAllIncidents();
+        for (Incident incident : allIncident) {
+            incidentIds.add(incident.getIncidentId()+" - "+incident.getIncidentType());
+        }
+        String[] possibleNames = incidentIds.toArray(new String[0]);
+
+        TextFields.bindAutoCompletion(searchId, possibleNames);
     }
 
     private void setToolTip() {
@@ -76,5 +96,12 @@ public class ViewIncidentController extends MainDashBoard implements Initializab
 
             tvDate.getTableView().setItems(FXCollections.observableArrayList(allIncidents));
         }
+    }
+
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setIncidentId(id);
+
+        createStage("/View/IncidentSetting.fxml");
     }
 }

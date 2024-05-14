@@ -2,11 +2,13 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +17,9 @@ import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Section;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,7 +45,7 @@ public class ViewInmateController extends MainDashBoard implements Initializable
     public TableColumn<Inmate, String> tvAddress;
     public TableColumn<Inmate, String> tvStatus;
 
-    public ProgressIndicator freeSpaseCycle;
+
 
 
     @FXML
@@ -52,19 +56,23 @@ public class ViewInmateController extends MainDashBoard implements Initializable
     public Button manyBtn;
     public Button sectionBtn;
     public Button visitorBtn;
+    public TextField searchId;
+
+    public PieChart freeSpase;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        viewOptionCombo.setItems(FXCollections.observableArrayList("All", "City", "Male","Female"));
-
-        setProgressValue();
-
+        viewOptionCombo.setItems(FXCollections.observableArrayList("All", "Male", "Female"));
         try {
             setTableDate(InmateRepo.getAllInmates());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        setGenderCount();
+        try {
+            setGenderCount();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         viewOptionCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("All")){
@@ -73,9 +81,6 @@ public class ViewInmateController extends MainDashBoard implements Initializable
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            }
-            else if (newValue.equals("City")){
-
             }
             else if (newValue.equals("Male")) {
                 setTableDate("Male");
@@ -86,6 +91,51 @@ public class ViewInmateController extends MainDashBoard implements Initializable
         });
 
         setToolTip();
+        setSearchIds();
+        try {
+            setPieChartValues();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setPieChartValues() throws SQLException {
+        List<Section> allSections = SectionRepo.getJailSections();
+
+        int totalSpase=0;
+
+        for (Section section : allSections) {
+            totalSpase+=section.getCapacity();
+        }
+
+        int totalInmates = InmateRepo.getAllInmates().size();
+
+        int freeSpaseCount = totalSpase-totalInmates;
+
+        this.freeSpase.getData().add(new PieChart.Data("Free Spase",freeSpaseCount));
+        this.freeSpase.getData().add(new PieChart.Data("Occupied Spase",totalInmates));
+
+        freeSpase.setLabelLineLength(10);
+        freeSpase.setLegendVisible(true);
+        freeSpase.setLabelsVisible(true);
+
+    }
+
+    private void setSearchIds() {
+        List<String> inmateIds = new ArrayList<>();
+
+        try {
+            List<Inmate> allInmates = InmateRepo.getAllInmates();
+            for (Inmate inmate : allInmates) {
+                inmateIds.add(inmate.getInmateId()+" - "+inmate.getInmateFirstName()+" "+inmate.getInmateLastName());
+            }
+            String[] possibleNames = inmateIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void setToolTip() {
@@ -97,43 +147,6 @@ public class ViewInmateController extends MainDashBoard implements Initializable
         Tooltip.install(sectionBtn, new Tooltip("Section Management"));
         Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
     }
-
-    public double setProgressValue() {
-        freeSpaseCycle=new ProgressIndicator();
-        List<Section> jailSections = new ArrayList<>();
-        int totalCapacity = 0;
-        int totalInmates = 0;
-
-        try {
-            jailSections = SectionRepo.getJailSections();
-            for (Section jailSection : jailSections) {
-                // Check for null capacity and handle appropriately
-                if (jailSection.getCapacity() != null) {
-                    totalCapacity += jailSection.getCapacity();
-                }else {
-                    System.out.println("===========Capacity is null");
-                }
-            }
-            System.out.println("Total Capacity======: " + totalCapacity);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            totalInmates = InmateRepo.getAllInmates().size();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Avoid division by zero
-        double percentageUsed = totalCapacity != 0 ? ((double) totalInmates / totalCapacity) * 100 : 0.0;
-        System.out.println("Percentage Used======: " + percentageUsed);
-        freeSpaseCycle.setProgress(percentageUsed);
-        freeSpaseCycle.setPrefSize(100, 100);
-
-        return percentageUsed;
-    }
-
 
     private void setTableDate(String InGender) {
 
@@ -157,35 +170,18 @@ public class ViewInmateController extends MainDashBoard implements Initializable
         tvAddress.getTableView().setItems(FXCollections.observableArrayList(inmates));
     }
 
-    private void setGenderCount() {
-        int totalCount= 0;
-        int maleCount= 0;
-        int femaleCount= 0;
-        int athorInmateCount= 0;
-        try {
-            List<Inmate>  inmates =InmateRepo.getAllInmates();
-
-            totalCount = inmates.size();
-            for (Inmate inmate : inmates) {
-                if (inmate.getGender().equals("Male")){
-                    maleCount++;
-                }
-                else if(inmate.getGender().equals("Female")){
-                    femaleCount++;
-                }
-                else{
-                    athorInmateCount++;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        this.totalInmateCount.setText(String.valueOf(totalCount)+" Inmates");
-        this.maleInmateCount.setText(String.valueOf(maleCount)+" Inmates");
-        this.femaleInmateCount.setText(String.valueOf(femaleCount)+" Inmates");
-        this.athorInmateCount.setText(String.valueOf(athorInmateCount)+" Inmates");
+    private void setGenderCount() throws SQLException {
+        maleInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Male").size())+" Inmates");
+        femaleInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Female").size())+" Inmates");
+        athorInmateCount.setText(String.valueOf(InmateRepo.getInmatesByGender("Transgender").size())+" Inmates");
+        totalInmateCount.setText(String.valueOf(InmateRepo.getAllInmates().size())+" Inmates");
 
 
+    }
 
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setInmateId(id);
+        createStage("/View/InmateProfile.fxml");
     }
 }

@@ -103,4 +103,35 @@ public class ProgramRepo {
         }
         return programs;
     }
+
+    public static List<Program> getProgramBySection(String secId) {
+        List<Program> programs = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Program WHERE sectionId = ?";
+
+            Connection connection = DbConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(query);
+            pstm.setObject(1, secId);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                String sectionId = resultSet.getString(3);
+                LocalDate date = resultSet.getDate(4).toLocalDate();
+                LocalTime time = resultSet.getTime(5).toLocalTime();
+                String description = resultSet.getString(6);
+
+                Program program = new Program(id, name, sectionId, date, time, description);
+
+                programs.add(program);
+
+            }
+            return programs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+    }
+        return null;
+    }
 }

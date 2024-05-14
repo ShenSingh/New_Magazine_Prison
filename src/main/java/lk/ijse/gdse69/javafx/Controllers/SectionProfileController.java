@@ -14,11 +14,10 @@ import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.Officer;
+import lk.ijse.gdse69.javafx.Model.Program;
 import lk.ijse.gdse69.javafx.Model.Section;
-import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
-import lk.ijse.gdse69.javafx.Repository.InmateRepo;
-import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
-import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import lk.ijse.gdse69.javafx.Repository.*;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.net.URL;
@@ -77,6 +76,13 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     public TableColumn<Inmate, String> tiAddress;
     public TableColumn<Inmate, String> tiStatus;
 
+    public TableColumn<Program, String> tpProgramId;
+    public TableColumn<Program, String> tpName;
+    public TableColumn<Program, String> tpSecId;
+    public TableColumn<Program, String> tpDate;
+    public TableColumn<Program, String> tpTime;
+    public TableColumn<Program, String> tpDescription;
+
 
     @FXML
     private TextField shearchSectionField;
@@ -119,6 +125,24 @@ public class SectionProfileController extends MainDashBoard implements Initializ
         setTransition();
         setComboBoxValues();
         setToolTip();
+        setSearchIds();
+        sectionId.setEditable(false);
+    }
+
+    private void setSearchIds() {
+        List<String> sectionIds = new ArrayList<>();
+
+        try {
+            List<Section> allSections = SectionRepo.getAllSections();
+            for (Section section : allSections) {
+                sectionIds.add(section.getSectionId()+" - "+section.getSectionName());
+            }
+            String[] possibleNames = sectionIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(shearchSectionField, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -228,10 +252,10 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     }
 
     public void searchSection(ActionEvent actionEvent) throws SQLException {
-        String secId = shearchSectionField.getText();
+        String secId = shearchSectionField.getText().split(" - ")[0];
 
         if (secId.isEmpty()){
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Empty Field. Please enter section id");
             return;
         }
 
@@ -247,7 +271,7 @@ public class SectionProfileController extends MainDashBoard implements Initializ
             securityLevel.getSelectionModel().select(section.getSecurityLevel());
             status.getSelectionModel().select(section.getStatus());
         }else {
-            ShowAlert alert = new ShowAlert("Error", "Section Not Found", "Section not found", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Section not found");
         }
     }
 
@@ -272,8 +296,24 @@ public class SectionProfileController extends MainDashBoard implements Initializ
         }
         setInmateTableValues(inmatesBySec);
 
-        //TODO: set Inmate table values
-        //TODO: set Program table values
+
+
+
+        List<Program> programs = ProgramRepo.getProgramBySection(secId);
+
+        setProgramTableValues(programs);
+
+    }
+
+    private void setProgramTableValues(List<Program> programs) {
+        tpProgramId.setCellValueFactory(new PropertyValueFactory<>("programId"));
+        tpName.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        tpSecId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
+        tpDate.setCellValueFactory(new PropertyValueFactory<>("programDate"));
+        tpTime.setCellValueFactory(new PropertyValueFactory<>("programTime"));
+        tpDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        tpProgramId.getTableView().setItems(FXCollections.observableArrayList(programs));
     }
 
     private void setInmateTableValues(List<Inmate> inmatesBySec) {
@@ -312,27 +352,25 @@ public class SectionProfileController extends MainDashBoard implements Initializ
     public void deleteSection(ActionEvent actionEvent) throws SQLException {
 
         if (!shearchSectionField.getText().isEmpty()){
-            String sectionId = shearchSectionField.getText();
+            String sectionId = shearchSectionField.getText().split(" - ")[0];
 
             if (SectionRepo.delete(sectionId)){
                 clearFields();
-                ShowAlert alert = new ShowAlert("Success", "Section Deleted", "Section deleted successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Section deleted successfully");
             }else {
-                ShowAlert alert = new ShowAlert("Error", "Failed to delete", "Failed to delete section", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Failed to delete section");
             }
         }else{
-            ShowAlert alert = new ShowAlert("Error", "Empty Field", "Please enter section id", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Empty field. Please enter section id");
         }
     }
 
     public void editProfileTogal(ActionEvent actionEvent) {
         isEditableEnable = !isEditableEnable;
 
-        sectionId.setEditable(isEditableEnable);
         secName.setEditable(isEditableEnable);
         secLocation.setEditable(isEditableEnable);
         capacity.setEditable(isEditableEnable);
-
         securityLevel.setDisable(!isEditableEnable);
         status.setDisable(!isEditableEnable);
     }
@@ -349,19 +387,15 @@ public class SectionProfileController extends MainDashBoard implements Initializ
 
             Section section = new Section(secId, secName, secLocation, Integer.parseInt(capacity), securityLevel, status);
 
-            System.out.println(section);
 
             if (SectionRepo.update(section)) {
-                System.out.println("Section updated successfully");
-                ShowAlert showAlert = new ShowAlert("Success", "Section Updated", "Section updated successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Section updated successfully");
             } else {
-                System.out.println("Failed to update section");
-                ShowAlert showAlert = new ShowAlert("Error", "Failed to update section", "Failed to update section", Alert.AlertType.WARNING);
+                ShowAlert.showErrorNotify("Failed to update section");
             }
 
         } else {
-            System.out.println("Empty fields found");
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Empty field. Please fill all fields");
         }
     }
 
@@ -384,7 +418,6 @@ public class SectionProfileController extends MainDashBoard implements Initializ
         capacity.clear();
         securityLevel.getSelectionModel().clearSelection();
         status.getSelectionModel().clearSelection();
+        shearchSectionField.clear();
     }
-
-
 }

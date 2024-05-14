@@ -64,12 +64,11 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
     }
 
     private void nonPageSearchId() {
-        String id = AddExpensesController.getExpenId();
+        String id = SearchId.getExpensesId();
 
         if (id != null){
             setSearchValues(id);
         }
-
     }
 
     private void setSearchFieldIds() {

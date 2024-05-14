@@ -177,7 +177,5 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
         }
     }
 
-    public static String getExpenId(){
-        return expenId;
-    }
+
 }

@@ -64,7 +64,6 @@ public class InmatePageController extends MainDashBoard implements Initializable
     public Button visitorBtn;
 
 
-    private  static String id;
     public Text activeCaseCount;
     public Text releaseSoonCount;
 
@@ -183,12 +182,10 @@ public class InmatePageController extends MainDashBoard implements Initializable
     }
 
     public void searchIdField(ActionEvent actionEvent) throws IOException {
-        id = searchId.getText().split(" - ")[0];
-        // TODO: call the inmate profile page
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setInmateId(id);
         createStage("/View/InmateProfile.fxml");
     }
 
-    public static String getId(){ // search bar eke id eka ganna
-        return id;
-    }
+
 }
