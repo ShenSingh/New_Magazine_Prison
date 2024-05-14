@@ -2,18 +2,25 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Program;
 import lk.ijse.gdse69.javafx.Repository.ProgramRepo;
+import lk.ijse.gdse69.javafx.Repository.SectionRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,6 +45,9 @@ public class ViewProgramController extends MainDashBoard implements Initializabl
     public Button sectionBtn;
     public Button visitorBtn;
 
+    public TextField searchId;
+    public Text totalSectionCount;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewOptionCombo.getItems().addAll("All Programs", "Today Programs","This Month Programs");
@@ -49,7 +59,30 @@ public class ViewProgramController extends MainDashBoard implements Initializabl
             throw new RuntimeException(e);
         }
         setToolTip();
+        setSearchIds();
 
+        try {
+            totalSectionCount.setText(String.valueOf(SectionRepo.getAllSections().size())+" Sections");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void setSearchIds() {
+        List<String> programIds = new ArrayList<>();
+
+        try {
+            List<Program> allPograms = ProgramRepo.getAllPrograms();
+            for (Program program : allPograms) {
+                programIds.add(program.getProgramId()+" - "+program.getProgramName());
+            }
+            String[] possibleNames = programIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -73,5 +106,11 @@ public class ViewProgramController extends MainDashBoard implements Initializabl
 
         Tdescription.getTableView().setItems(FXCollections.observableArrayList(allPrograms));
 
+    }
+
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setProgramId(id);
+        createStage("/View/ProgramProfile.fxml");
     }
 }

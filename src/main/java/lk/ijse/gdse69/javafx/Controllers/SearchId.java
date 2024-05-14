@@ -27,4 +27,8 @@ public class SearchId {
     @Getter
     private static String incidentId;
 
+    @Setter
+    @Getter
+    private static String programId;
+
 }

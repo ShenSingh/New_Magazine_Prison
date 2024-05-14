@@ -2,10 +2,12 @@ package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -13,15 +15,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Officer;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ViewOfficerController extends MainDashBoard implements Initializable {
 
-@FXML
+    public TextField searchId;
+    @FXML
 private JFXComboBox<String> viewOptionCombo;
 
     public ImageView sirLankaLogo;
@@ -69,6 +75,23 @@ private JFXComboBox<String> viewOptionCombo;
         }
         getComboBoxOption();
         setToolTip();
+        setSearchIds();
+    }
+
+    private void setSearchIds() {
+        List<String> offcerIds = new ArrayList<>();
+
+        try {
+            List<Officer> allOfficers = OfficerRepo.getAllOfficers();
+            for (Officer officer : allOfficers) {
+                offcerIds.add(officer.getOfficerId()+" - "+officer.getOfficerFirstName()+" "+officer.getOfficerLastName());
+            }
+            String[] possibleNames = offcerIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchId, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setToolTip() {
@@ -167,4 +190,9 @@ private JFXComboBox<String> viewOptionCombo;
 
     }
 
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setOfficerId(id);
+        createStage("/View/OfficerProfile.fxml");
+    }
 }

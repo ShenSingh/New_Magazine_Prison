@@ -14,6 +14,7 @@ import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -261,6 +262,9 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
                 gender.getSelectionModel().getSelectedItem(), address.getText(), email.getText(), number.getText(), salery.getText(), String.valueOf(DOB.getValue()),positionComboBox.getSelectionModel().getSelectedItem(),sectionId.getSelectionModel().getSelectedItem());
     }
 
-    public void searchIdField(ActionEvent actionEvent) {
+    public void searchIdField(ActionEvent actionEvent) throws IOException {
+        String id = searchId.getText().split(" - ")[0];
+        SearchId.setOfficerId(id);
+        createStage("/View/OfficerProfile.fxml");
     }
 }
