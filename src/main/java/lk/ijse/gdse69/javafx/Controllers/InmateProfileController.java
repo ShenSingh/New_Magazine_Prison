@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -13,20 +14,27 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
+import lk.ijse.gdse69.javafx.Model.Incident;
 import lk.ijse.gdse69.javafx.Model.Inmate;
 import lk.ijse.gdse69.javafx.Model.InmateRecord;
+import lk.ijse.gdse69.javafx.Repository.IncidentRelatedInmateRepo;
+import lk.ijse.gdse69.javafx.Repository.IncidentRepo;
 import lk.ijse.gdse69.javafx.Repository.InmateRecordRepo;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class InmateProfileController extends  MainDashBoard{
-
+public class InmateProfileController extends  MainDashBoard implements Initializable {
     public TextField searchInmate;  // search Id //////////
+
     public TableColumn<InmateRecord, String> IPInmateId;
     public TableColumn<InmateRecord, String> IPSectionId;
     public TableColumn<InmateRecord, String> IPEntryDate;
@@ -84,12 +92,19 @@ public class InmateProfileController extends  MainDashBoard{
 
     private boolean isEditingEnabled = false;
 
+
     @FXML
-    public void initialize() {
+    public Button inmateBtn;
+    public Button officerBtn;
+    public Button dashBoardBtn;
+    public Button settingBtn;
+    public Button manyBtn;
+    public Button sectionBtn;
+    public Button visitorBtn;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setValuesComboBoxes();
-
-
 
         // Initialize translate transitions for iconsPane
         slideTransition1 = new TranslateTransition(Duration.seconds(0.3), iconsPane);
@@ -100,8 +115,40 @@ public class InmateProfileController extends  MainDashBoard{
         slideTransition2.setToX(450); // Slide distance to hide names initially
         iconsPane.setVisible(false);
         incidentRecordAnchor.setVisible(false);
+
+        inmateId.setEditable(false);
+
+        searchInmateNonPage();
+        setSearchIds();
+
+        setToolTips();
     }
 
+    private void setToolTips() {
+        Tooltip.install(inmateBtn, new Tooltip("Inmate Management"));
+        Tooltip.install(officerBtn, new Tooltip("Officer Management"));
+        Tooltip.install(dashBoardBtn, new Tooltip("DashBoard"));
+        Tooltip.install(settingBtn, new Tooltip("Setting"));
+        Tooltip.install(manyBtn, new Tooltip("Financial Management"));
+        Tooltip.install(sectionBtn, new Tooltip("Section Management"));
+        Tooltip.install(visitorBtn, new Tooltip("Visitor Management"));
+    }
+
+    private void setSearchIds() {
+        List<String> inmateIds = new ArrayList<>();
+
+        try {
+            List<Inmate> allInmates = InmateRepo.getAllInmates();
+            for (Inmate inmate : allInmates) {
+                inmateIds.add(inmate.getInmateId()+" - "+inmate.getInmateFirstName()+" "+inmate.getInmateLastName());
+            }
+            String[] possibleNames = inmateIds.toArray(new String[0]);
+
+            TextFields.bindAutoCompletion(searchInmate, possibleNames);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     private void setValuesComboBoxes() {
@@ -164,7 +211,6 @@ public class InmateProfileController extends  MainDashBoard{
     public void editProfileTogal(ActionEvent actionEvent) {
         isEditingEnabled = !isEditingEnabled;
 
-        inmateId.setEditable(isEditingEnabled);
         fName.setEditable(isEditingEnabled);
         lName.setEditable(isEditingEnabled);
         NIC.setEditable(isEditingEnabled);
@@ -180,10 +226,10 @@ public class InmateProfileController extends  MainDashBoard{
     }
 
     public void searchInmateField(ActionEvent actionEvent) {
-        String inmateId = searchInmate.getText();
+        String inmateId = searchInmate.getText().split(" - ")[0];
 
         if (inmateId.isEmpty()){
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Please enter the inmate id");
             return;
         }
 
@@ -195,7 +241,7 @@ public class InmateProfileController extends  MainDashBoard{
                 this.fullName.setText(fullName);
 
 
-                getTableValues(inmateId);
+                getTableValues(InmateRecordRepo.getRecords(inmate.getInmateId()));
                 this.inmateId.setText(inmate.getInmateId());
                 this.fName.setText(inmate.getInmateFirstName());
                 this.lName.setText(inmate.getInmateLastName());
@@ -214,18 +260,18 @@ public class InmateProfileController extends  MainDashBoard{
                 inmateImg.setImage(image);
 
             }else{
-                new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
+                ShowAlert.showErrorNotify("Inmate not found");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public void searchInmateNonPage(ActionEvent actionEvent) {
+    public void searchInmateNonPage() {
 
         String inmateId = null;
 
-        inmateId = AddInmateController.getInmateIdForSearch();
+        inmateId = SearchId.getInmateId();
 
         if (inmateId == null){
             return;
@@ -239,7 +285,9 @@ public class InmateProfileController extends  MainDashBoard{
                 this.fullName.setText(fullName);
 
 
-                getTableValues(inmateId);
+                getTableValues(InmateRecordRepo.getRecords(inmate.getInmateId()));
+                getIncidentValues(inmate.getInmateId());
+
                 this.inmateId.setText(inmate.getInmateId());
                 this.fName.setText(inmate.getInmateFirstName());
                 this.lName.setText(inmate.getInmateLastName());
@@ -258,19 +306,34 @@ public class InmateProfileController extends  MainDashBoard{
                 inmateImg.setImage(image);
 
             }else{
-                new ShowAlert("Error", "Inmate Not Found", "Inmate not found", Alert.AlertType.WARNING);
+                ShowAlert.showErrorNotify("Inmate not found");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    private void getTableValues(String inmateId){
-        List<InmateRecord> inmateRecords = InmateRecordRepo.getRecords(inmateId);
-        //List<IncidentRepo> incidentRepos = IncidentRepo.getIncidents(inmateId);
-
-        for (InmateRecord inmateRecord : inmateRecords){
+    private void getIncidentValues(String inmateId) {
+        List<String> incidentIds = IncidentRelatedInmateRepo.getIdByInmateId(inmateId);
+        List<Incident> incidents = new ArrayList<>();
+        for (String incidentId : incidentIds){
+            try {
+                incidents.add(IncidentRepo.search(incidentId));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        setIncidentTableValues(incidents);
+    }
+
+    private void setIncidentTableValues(List<Incident> incidents) {
+        //TODO: set values to table
+
+    }
+
+    private void getTableValues(List<InmateRecord> inmateRecords){
+
         IPInmateId.setCellValueFactory(new PropertyValueFactory<>("inmateId"));
         IPSectionId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
         IPEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
@@ -286,19 +349,44 @@ public class InmateProfileController extends  MainDashBoard{
     }
 
     public void inDeleteInmate(ActionEvent actionEvent) {
-        String inmateId = searchInmate.getText();
+        if (searchInmate.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Inmate ID");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Delete Inmate");
+        alert.setContentText("Are you sure you want to delete this Inmate?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            goDeleteInmate();
+
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+    }
+    private void goDeleteInmate(){
+        String inmateId = searchInmate.getText().split(" - ")[0];;
 
         if (inmateId.isEmpty()){
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Field", "Please enter the inmate id", Alert.AlertType.WARNING);
+            ShowAlert.showErrorNotify("Please enter the inmate id");
             return;
         }
         try {
             if (InmateRepo.delete(inmateId)){
-                ShowAlert showAlert = new ShowAlert("Success", "Inmate Deleted", "Inmate deleted successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Inmate Deleted Successfully");
                 clearFields();
                 this.fullName.setText("");
             }else {
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Deleted", "Inmate not deleted successfully", Alert.AlertType.ERROR);
+                ShowAlert.showErrorNotify("Inmate not deleted");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -323,16 +411,14 @@ public class InmateProfileController extends  MainDashBoard{
             Inmate inmate = new Inmate(inmateId, fName, lName,DOB, NIC, Gender, address, status,imageData);
 
             if (InmateRepo.update(inmate)){
-                ShowAlert showAlert = new ShowAlert("Success", "Inmate Updated", "Inmate updated successfully", Alert.AlertType.INFORMATION);
+                ShowAlert.showSuccessNotify("Inmate Updated Successfully");
 
             }else {
-                ShowAlert showAlert = new ShowAlert("Error", "Inmate Not Updated", "Inmate not updated successfully", Alert.AlertType.ERROR);
+             ShowAlert.showErrorNotify("Inmate not updated");
 
             }
-
-
         }else{
-            ShowAlert showAlert = new ShowAlert("Error", "Empty Fields", "Please fill all the fields", Alert.AlertType.ERROR);
+            ShowAlert.showErrorNotify("Empty Fields. Please fill all the fields");
         }
     }
 
@@ -358,5 +444,6 @@ public class InmateProfileController extends  MainDashBoard{
         gender.getSelectionModel().clearSelection();
         address.clear();
         status.getSelectionModel().clearSelection();
+        searchInmate.clear();
     }
 }

@@ -233,8 +233,37 @@ public class ProgramProfileController extends MainDashBoard implements Initializ
     }
 
     public void deleteProgram(ActionEvent actionEvent) throws SQLException {
-        String id=searchField.getText().split(" - ")[0];;
+        if (searchField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Program ID");
+            return;
+        }
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Imformation");
+        alert.setHeaderText("Delete Program");
+        alert.setContentText("Are you sure you want to delete this Program ?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            try {
+                goDeleteProgram();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+    }
+    private void goDeleteProgram() throws SQLException {
+
+        String id=searchField.getText().split(" - ")[0];;
         if (!id.isEmpty()) {
             boolean isDeleted = ProgramRepo.delete(id);
 

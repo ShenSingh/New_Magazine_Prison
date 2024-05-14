@@ -221,7 +221,36 @@ public class VisitorProfileController extends MainDashBoard implements Initializ
         tvTime.getTableView().setItems(FXCollections.observableArrayList(visitorRecords));
     }
 
-    public void deleteVisitor(ActionEvent actionEvent) throws SQLException {
+    public void deleteVisitor(ActionEvent actionEvent){
+        if (searchVisitorField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Visitor ID");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Delete Visitor");
+        alert.setContentText("Are you sure you want to delete this Visitor?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            try {
+                goDeleteVisitor();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+    }
+    private void goDeleteVisitor() throws SQLException {
         if (!searchVisitorField.getText().isEmpty()) {
             String visitorId = searchVisitorField.getText().split(" - ")[0];;
 

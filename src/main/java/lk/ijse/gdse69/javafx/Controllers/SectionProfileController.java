@@ -351,6 +351,37 @@ public class SectionProfileController extends MainDashBoard implements Initializ
 
     public void deleteSection(ActionEvent actionEvent) throws SQLException {
 
+        if (shearchSectionField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Section ID");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Imformation");
+        alert.setHeaderText("Delete Section");
+        alert.setContentText("Are you sure you want to delete this Section?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            try {
+                goDeleteSecction();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+
+    }
+
+    private void goDeleteSecction() throws SQLException {
         if (!shearchSectionField.getText().isEmpty()){
             String sectionId = shearchSectionField.getText().split(" - ")[0];
 

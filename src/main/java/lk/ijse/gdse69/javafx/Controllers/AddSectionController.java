@@ -12,6 +12,7 @@ import lk.ijse.gdse69.javafx.Repository.SectionRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -168,6 +169,9 @@ public class AddSectionController extends MainDashBoard implements Initializable
         setNextSectionId();
     }
 
-    public void searchSectionField(ActionEvent actionEvent) {
+    public void searchSectionField(ActionEvent actionEvent) throws IOException {
+        String id = searchSection.getText().split(" - ")[0];
+        SearchId.setVisitorId(id);
+        createStage("/View/SectionProfile.fxml");
     }
 }

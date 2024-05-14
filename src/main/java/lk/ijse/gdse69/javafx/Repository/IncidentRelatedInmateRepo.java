@@ -69,4 +69,25 @@ public class IncidentRelatedInmateRepo {
             return null;
         }
     }
+
+    public static List<String> getIdByInmateId(String inmateId) {
+        List<String> incidentIds = new ArrayList<>();
+
+        String query = "SELECT incidentId FROM IncidentRelatedInmate WHERE inmateId = ?";
+
+        try (Connection connection = DbConnection.getInstance().getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query)) {
+            pstm.setObject(1, inmateId);
+
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+                incidentIds.add(rst.getString(1));
+            }
+            System.out.println(incidentIds);
+            return incidentIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
