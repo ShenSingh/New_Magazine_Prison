@@ -124,22 +124,32 @@ public class IncidentSettingController extends MainDashBoard implements Initiali
     }
 
     public void deleteIncident(ActionEvent actionEvent) throws SQLException {
-        String id = searchField.getText().split(" - ")[0];;
-
-        if (id != null){
-                boolean isDeleted = IncidentRepo.delete(id);
-                if (isDeleted) {
-                    ShowAlert.showSuccessNotify("Incident Deleted Successfully.");
-                    clearFields();
-                    searchField.clear();
-                }else {
-                 ShowAlert.showErrorNotify("Failed to Delete Incident.");
-                }
-        }else{
-            ShowAlert.showErrorNotify("Please Enter a Incident ID.");
+        if (searchField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Incident ID");
+            return;
         }
-    }
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Comfirmation Delete");
+        alert.setHeaderText("Delete Incident");
+        alert.setContentText("Are you sure you want to delete this Incident?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            goDeleteIncident();
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+    }
+    private void goDeleteIncident(){
+
+    }
     public void editProfileTogal(ActionEvent actionEvent) {
         isEdit = !isEdit;
 

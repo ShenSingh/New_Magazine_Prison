@@ -183,6 +183,31 @@ public class ExpensesSettingController extends MainDashBoard implements Initiali
 
 
     public void deleteExpenses(ActionEvent actionEvent) {
+        if (searchField.getText().isEmpty()){
+            ShowAlert.showErrorNotify("Please enter Expences ID");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Comfirmation Delete");
+        alert.setHeaderText("Delete Expences");
+        alert.setContentText("Are you sure you want to delete this Expences?");
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        okButton.setOnAction(e -> {
+            goDeleteExpences();
+
+            alert.close();
+        });
+        cancelButton.setOnAction(e -> {
+            alert.close();
+        });
+
+        alert.showAndWait();
+    }
+    private void goDeleteExpences(){
         String id = searchField.getText();
 
         String idS = createSetId(id);

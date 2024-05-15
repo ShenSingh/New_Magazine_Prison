@@ -263,3 +263,66 @@
 .pieChartInmate .chart-pie .chart-pie-area {
     -fx-fill: #3597cb; /* Change slice color to orange */
 }
+
+
+/*  user Page*/
+
+.miniAnchorSettingPage{
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);
+}
+.upBackGroundImage{
+    -fx-border-radius: 10%;
+    -fx-background-radius: 10%;
+    -fx-background-color: black;
+}
+.imageStage{
+    -fx-background-color: white;
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+}
+.demoReg{
+    -fx-background-color: white;
+    -fx-background-radius: 100px;
+}
+.profilePicEditBtn{
+    -fx-background-color: transparent;
+    -fx-border-color: #3597cb;
+    -fx-border-radius: 10px;
+}
+.centerAnchor{
+    -fx-background-color: transparent;
+    -fx-border-color: #3597cb;
+    -fx-border-radius: 10px;
+}
+.centerDemoReg{
+    -fx-background-color: #3597cb;
+    -fx-background-radius: 100px;
+}
+.UserTextField{
+
+        -fx-background-color: white;
+        -fx-border-color: #2F95CB;
+        -fx-border-radius: 5px;
+        -fx-border-width: 1px 1px 1px 1px;
+        /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);*/
+
+}
+.UserFieldLabel{
+    -fx-text-fill: #2F95CB;
+    -fx-background-color: white;
+}
+.UserSaveBtn, .UserSendOPTBtn{
+    -fx-background-color: #2F95CB;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+.UserSaveBtn:hover{
+    -fx-background-color: transpanent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #2F95CB;
+    -fx-border-color: #2F95CB;
+}

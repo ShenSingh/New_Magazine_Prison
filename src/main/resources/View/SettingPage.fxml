@@ -1,104 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="MainAnchorPane" prefHeight="631.0" prefWidth="1255.0" styleClass="mainAnchorPane" stylesheets="@../css/dashBoardStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse69.javafx.Controllers.SettingPageController">
     <children>
-        <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane">
-            <children>
-                <TextField fx:id="officerId" layoutX="517.0" layoutY="143.0" styleClass="searchTextField" />
-                <TextField fx:id="fName" layoutX="518.0" layoutY="195.0" styleClass="searchTextField" />
-                <TextField fx:id="lName" layoutX="519.0" layoutY="257.0" styleClass="searchTextField" />
-                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
-                    <font>
-                        <Font name="Gentium Book Basic Bold" size="18.0" />
-                    </font>
-                </Text>
-                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                    <font>
-                        <Font name="Gentium Book Basic Bold" size="18.0" />
-                    </font>
-                </Text>
-                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Id">
-                    <font>
-                        <Font name="Gentium Book Basic Bold" size="18.0" />
-                    </font>
-                </Text>
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password">
-               <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="447.0" layoutY="442.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="273.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comform Password">
-               <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="448.0" layoutY="501.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-            <TextField fx:id="sectionId" layoutX="528.0" layoutY="415.0" styleClass="searchTextField" />
-            <TextField fx:id="salary" layoutX="526.0" layoutY="467.0" styleClass="searchTextField" />
-            <JFXButton layoutX="794.0" layoutY="563.0" onAction="#saveBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Save">
-               <font>
-                  <Font name="FreeSans Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="623.0" layoutY="563.0" onAction="#cancelBtn" styleClass="saveCanBtn" stylesheets="@../css/dashBoardStyle.css" text="Cancel">
-               <font>
-                  <Font name="FreeSans Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <Text fontSmoothingType="LCD" layoutX="264.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile details" wrappingWidth="233.0">
-               <font>
-                  <Font name="DejaVu Sans Mono Bold" size="18.0" />
-               </font>
-            </Text>
-            </children></AnchorPane>
-        <AnchorPane layoutX="500.0" layoutY="189.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-        <AnchorPane layoutX="316.0" layoutY="53.0" prefHeight="30.0" prefWidth="670.0" styleClass="searchLabel">
-            <children>
-                <TextField fx:id="searchField" layoutX="32.0" layoutY="2.0" onAction="#seachUser" prefHeight="26.0" prefWidth="599.0" promptText="Search Id" styleClass="searchTextField" />
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="6.0" layoutY="6.0">
-                    <image>
-                        <Image url="@../images/icon/search.gif" />
-                    </image>
-                </ImageView>
-            </children>
-        </AnchorPane>
+        <AnchorPane layoutX="53.0" layoutY="23.0" prefHeight="608.0" prefWidth="1211.0" styleClass="whiteAnchorPane" />
         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="103.0">
             <image>
                 <Image url="@../images/icon/inmate.png" />
             </image>
         </ImageView>
-        <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
-            <children>
-                <Text fill="#66748a" fontSmoothingType="LCD" layoutX="44.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamal kumara">
-                    <font>
-                        <Font name="Gentium Book Basic Bold" size="18.0" />
-                    </font>
-                </Text>
-                <JFXButton layoutX="44.0" layoutY="548.0" onAction="#deleteUser" prefHeight="24.0" prefWidth="118.0" styleClass="inmateDeleteBtn" text="Delete" />
-                <JFXToggleButton layoutX="52.0" layoutY="176.0" onAction="#editProfileTogal" prefHeight="24.0" prefWidth="103.0" size="2.0" styleClass="editProfileBtn" text="Edit Profile">
-                    <font>
-                        <Font size="11.0" />
-                    </font>
-                </JFXToggleButton>
-            <ImageView fitHeight="98.0" fitWidth="113.0" layoutX="49.0" layoutY="50.0">
-               <image>
-                  <Image url="@../images/icon/profileIcon.png" />
-               </image>
-            </ImageView>
-            </children>
-        </AnchorPane>
+        <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="1211.0" styleClass="miniAnchor" />
         <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
             <cursor>
                 <Cursor fx:constant="HAND" />
@@ -229,61 +153,194 @@
                 <Font name="Kinnari" size="21.0" />
             </font>
         </Text>
-        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Settings" wrappingWidth="233.0">
-            <font>
-                <Font name="Noto Mono" size="24.0" />
-            </font>
-        </Text>
-        <Text fontSmoothingType="LCD" layoutX="321.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile details" wrappingWidth="233.0">
-            <font>
-                <Font name="DejaVu Sans Mono Bold" size="18.0" />
-            </font>
-        </Text>
-        <AnchorPane layoutX="500.0" layoutY="241.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-        <AnchorPane layoutX="500.0" layoutY="304.0" prefHeight="2.0" prefWidth="300.0" styleClass="uNameLine" stylesheets="@../css/WelcomeStyle.css" />
-      <AnchorPane layoutX="1043.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+      <AnchorPane layoutX="62.0" layoutY="34.0" prefHeight="586.0" prefWidth="318.0" styleClass="miniAnchorSettingPage">
          <children>
-            <Text fontSmoothingType="LCD" layoutX="19.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Ditails" wrappingWidth="178.0">
+            <ImageView fitHeight="152.0" fitWidth="319.0" layoutX="-1.0" layoutY="16.0" styleClass="upBackGroundImage">
+               <image>
+                  <Image url="@../images/backgroundImg/userPageBackGroundImg.jpg" />
+               </image>
+            </ImageView>
+            <Region layoutX="30.0" layoutY="133.0" prefHeight="85.0" prefWidth="85.0" styleClass="demoReg" />
+            <ImageView fx:id="mainProfilePic" fitHeight="80.0" fitWidth="77.0" layoutX="34.0" layoutY="138.0">
+               <image>
+                  <Image url="@../images/icon/dashUser.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="fullName" layoutX="37.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="John Delo">
                <font>
-                  <Font name="Noto Mono" size="18.0" />
+                  <Font name="FreeSerif" size="18.0" />
                </font>
             </Text>
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="64.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Id">
+         </children>
+      </AnchorPane>
+      <JFXButton layoutX="169.0" layoutY="585.0" onAction="#userDeleteBtn" prefHeight="24.0" prefWidth="85.0" styleClass="inmateDeleteBtn" text="Delete">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="392.0" layoutY="34.0" prefHeight="586.0" prefWidth="865.0" styleClass="miniAnchorSettingPage">
+         <children>
+            <Line endX="710.0" layoutX="146.0" layoutY="42.0" startX="-138.0" stroke="#1265ebb0" />
+            <Text layoutX="23.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Profile">
                <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
+                  <Font name="FreeSerif" size="21.0" />
                </font>
             </Text>
-            <Text fx:id="OPsectionId" fill="#2f116b" layoutX="89.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="S001" wrappingWidth="96.7294921875" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="51.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Section Name">
+            <AnchorPane layoutX="28.0" layoutY="107.0" prefHeight="227.0" prefWidth="808.0" styleClass="miniAnchorSettingPage" />
+            <AnchorPane layoutX="29.0" layoutY="348.0" prefHeight="227.0" prefWidth="808.0" styleClass="miniAnchorSettingPage">
+               <children>
+                  <Text layoutX="9.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Details">
+                     <font>
+                        <Font name="FreeSerif" size="21.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <Text layoutX="44.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Details">
                <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
+                  <Font name="FreeSerif" size="21.0" />
                </font>
             </Text>
-            <Text fx:id="OPsectionName" fill="#2f116b" layoutX="89.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Jeail-1" wrappingWidth="96.7294921875" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="71.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+            <AnchorPane layoutX="183.0" layoutY="117.0" prefHeight="206.0" prefWidth="644.0" styleClass="centerAnchor" />
+            <TextField fx:id="userId" layoutX="346.0" layoutY="141.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="360.0" layoutY="134.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="User Id">
                <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <AnchorPane layoutX="190.0" layoutY="123.0" prefHeight="194.0" prefWidth="133.0" styleClass="miniAnchorSettingPage">
+               <children>
+                  <Region layoutX="30.0" layoutY="42.0" prefHeight="69.0" prefWidth="69.0" styleClass="centerDemoReg" />
+                  <ImageView fx:id="secondProfilePic" fitHeight="62.0" fitWidth="63.0" layoutX="33.0" layoutY="46.0">
+                     <image>
+                        <Image url="@../images/icon/dashUser.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton layoutX="42.0" layoutY="121.0" minHeight="5.0" onAction="#changeProfilePicBtn" prefHeight="20.0" prefWidth="48.0" styleClass="profilePicEditBtn" text="Edit" textFill="#0059f2">
+                     <font>
+                        <Font name="System Bold" size="8.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="phone" layoutX="346.0" layoutY="201.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="360.0" layoutY="194.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Phone">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="dob" layoutX="588.0" layoutY="201.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="602.0" layoutY="194.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="DOB">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="address1" layoutX="347.0" layoutY="259.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="361.0" layoutY="252.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Address 1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="address2" layoutX="589.0" layoutY="259.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="603.0" layoutY="252.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Address 2">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <AnchorPane layoutX="183.0" layoutY="359.0" prefHeight="206.0" prefWidth="644.0" styleClass="centerAnchor">
+               <children>
+                  <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="194.0" prefWidth="284.0" styleClass="miniAnchorSettingPage">
+                     <children>
+                        <JFXButton layoutX="104.0" layoutY="157.0" minHeight="5.0" onAction="#editSecDitails" prefHeight="20.0" prefWidth="48.0" styleClass="profilePicEditBtn" text="Edit" textFill="#0059f2">
+                           <font>
+                              <Font name="System Bold" size="8.0" />
+                           </font>
+                        </JFXButton>
+                        <TextField fx:id="email" layoutX="28.0" layoutY="37.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+                        <Label layoutX="42.0" layoutY="30.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Email">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets top="-19.0" />
+                           </opaqueInsets>
+                        </Label>
+                        <TextField fx:id="password" layoutX="28.0" layoutY="98.0" prefHeight="27.0" prefWidth="217.0" promptText="*******" styleClass="UserTextField" />
+                        <Label layoutX="39.0" layoutY="90.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Password">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets top="-19.0" />
+                           </opaqueInsets>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <JFXButton fx:id="saveChangeBtn" layoutX="442.0" layoutY="167.0" onAction="#saveChangesBtn" prefHeight="24.0" prefWidth="85.0" styleClass="UserSaveBtn" text="Save">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="OTP" layoutX="557.0" layoutY="405.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="571.0" layoutY="398.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="OTP">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="comPassword" layoutX="557.0" layoutY="464.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="571.0" layoutY="457.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Comform Password">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="userName" layoutX="589.0" layoutY="141.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="603.0" layoutY="134.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="User Name">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="-19.0" />
+               </opaqueInsets>
+            </Label>
+            <JFXButton fx:id="sendOTPBtn" layoutX="726.0" layoutY="406.0" onAction="#sendOTP" prefHeight="26.0" prefWidth="48.0" styleClass="UserSendOPTBtn" text="send">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </JFXButton>
+            <Text fx:id="topDate" layoutX="748.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2024 / 10 / 17">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="OPlocation" fill="#2f116b" layoutX="92.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Bild-2" wrappingWidth="96.7294921875" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="72.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
+            <JFXButton layoutX="500.0" layoutY="142.0" onAction="#changeuserId" prefHeight="26.0" prefWidth="63.0" styleClass="UserSendOPTBtn" text="change">
                <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
+                  <Font name="System Bold" size="10.0" />
                </font>
-            </Text>
-            <Text fx:id="OPcapacity" fill="#2f116b" layoutX="96.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="200" wrappingWidth="96.7294921875" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="53.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Level">
-               <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="OPsecurityLevel" fill="#2f116b" layoutX="96.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Low" wrappingWidth="73.623046875" />
-            <Text fill="#66748a" fontSmoothingType="LCD" layoutX="83.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
-               <font>
-                  <Font name="Gentium Book Basic Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="OPstatus" fill="#2f116b" layoutX="95.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="categoryText" text="Active" wrappingWidth="73.623046875" />
-         </children></AnchorPane>
+            </JFXButton>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

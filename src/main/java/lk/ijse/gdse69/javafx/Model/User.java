@@ -1,59 +1,23 @@
 package lk.ijse.gdse69.javafx.Model;
 
+
+import lombok.*;
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+
 public class User {
     private String uId;
     private String uName;
-    private String uPassword;
     private String uEmail;
+    private String uPassword;
+    private String addressLine1;
+    private String addressLine2;
+    private String phone;
+    private String gender;
+    private String dob;
+    private byte[] imageData;
 
-    public User() {
-    }
-    public User(String uId, String uName, String uPassword, String uEmail) {
-        this.uId = uId;
-        this.uName = uName;
-        this.uPassword = uPassword;
-        this.uEmail = uEmail;
-    }
-
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
-    }
-
-    public String getuName() {
-        return uName;
-    }
-
-    public void setuName(String uName) {
-        this.uName = uName;
-    }
-
-    public String getuPassword() {
-        return uPassword;
-    }
-
-    public void setuPassword(String uPassword) {
-        this.uPassword = uPassword;
-    }
-
-    public String getuEmail() {
-        return uEmail;
-    }
-
-    public void setuEmail(String uEmail) {
-        this.uEmail = uEmail;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uId='" + uId + '\'' +
-                "uName='" + uName + '\'' +
-                ", uPassword='" + uPassword + '\'' +
-                ", uEmail='" + uEmail + '\'' +
-                '}';
-    }
 }

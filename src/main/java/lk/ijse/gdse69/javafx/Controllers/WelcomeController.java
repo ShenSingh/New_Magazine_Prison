@@ -23,6 +23,7 @@ import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.User;
 import lk.ijse.gdse69.javafx.Repository.UserRepo;
+import lk.ijse.gdse69.javafx.Util.Util;
 import lk.ijse.gdse69.javafx.jbcrypt.PasswordHasher;
 import lk.ijse.gdse69.javafx.smtp.Mail;
 
@@ -80,6 +81,8 @@ public class WelcomeController implements Initializable {
     public Text secondLoginTextMain1;
     private Integer otpMail;
 
+    private static String FlogUId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flogHide(false);
@@ -90,7 +93,8 @@ public class WelcomeController implements Initializable {
         String uId = uNameField.getText();
         String uPass = uPassField.getText();
 
-        if(/*UserRepo.valid(uId,uPass)*/ true){
+        if(UserRepo.valid(uId,uPass)){
+            FlogUId = uId;
             System.out.println("Login Success");
             Stage stage = (Stage) sAnchor.getScene().getWindow();
             dashBoardStage = new Stage();
@@ -209,7 +213,10 @@ public class WelcomeController implements Initializable {
                         String hashPass =  passHash(pass);
                         System.out.println("Hash Pass >> "+hashPass);
 
-                        user = new User(uId,fName,hashPass,email);
+                        File file = new File("src/main/resources/images/icon/dashUser.png");
+                        byte[] imageData = Util.readImage(file);
+
+                        user = new User(uId,fName,email,hashPass,null,null,null,null,null,imageData);
                     }else {
                         ShowAlert.showErrorNotify("User ID is Already Exist. Please Try Again");
                     }
@@ -323,5 +330,8 @@ public class WelcomeController implements Initializable {
 
         secondLoginTextMain.setVisible(true);
         secondLoginText.setVisible(true);
+    }
+    public static String getFlogUId() {
+        return FlogUId;
     }
 }

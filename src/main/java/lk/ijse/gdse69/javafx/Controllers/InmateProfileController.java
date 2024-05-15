@@ -43,6 +43,16 @@ public class InmateProfileController extends  MainDashBoard implements Initializ
     public TableColumn<InmateRecord, String> IPCrime;
     public AnchorPane MainAnchorPane;
     public ImageView inmateImg;
+
+
+    public TableColumn<Incident, String> iiIncidentId;
+    public TableColumn<Incident, String> iiSectionId;
+    public TableColumn<Incident, String> iiType;
+    public TableColumn<Incident, String> iiDate;
+    public TableColumn<Incident, String> iiTime;
+    public TableColumn<Incident, String> iiDescription;
+
+
     @FXML
     private AnchorPane iconsPane;
     @FXML
@@ -318,7 +328,11 @@ public class InmateProfileController extends  MainDashBoard implements Initializ
         List<Incident> incidents = new ArrayList<>();
         for (String incidentId : incidentIds){
             try {
-                incidents.add(IncidentRepo.search(incidentId));
+                if (IncidentRepo.search(incidentId) != null){
+                    incidents.add(IncidentRepo.search(incidentId));
+                }
+
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -328,7 +342,19 @@ public class InmateProfileController extends  MainDashBoard implements Initializ
     }
 
     private void setIncidentTableValues(List<Incident> incidents) {
-        //TODO: set values to table
+
+        if (incidents == null){
+            return;
+        }
+
+        iiIncidentId.setCellValueFactory(new PropertyValueFactory<>("incidentId"));
+        iiSectionId.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
+        iiType.setCellValueFactory(new PropertyValueFactory<>("incidentType"));
+        iiDate.setCellValueFactory(new PropertyValueFactory<>("incidentDate"));
+        iiTime.setCellValueFactory(new PropertyValueFactory<>("incidentTime"));
+        iiDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        iiIncidentId.getTableView().setItems(FXCollections.observableArrayList(incidents));
 
     }
 

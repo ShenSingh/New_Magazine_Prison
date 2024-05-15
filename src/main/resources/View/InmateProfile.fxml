@@ -88,7 +88,7 @@
                   <Font name="Gentium Book Basic Bold" size="18.0" />
                </font>
             </Text>
-            <AnchorPane fx:id="incidentRecordAnchor" layoutX="550.0" layoutY="1.0" prefHeight="606.0" prefWidth="564.0" styleClass="miniAnchor">
+            <AnchorPane fx:id="incidentRecordAnchor" layoutX="551.0" layoutY="1.0" prefHeight="606.0" prefWidth="664.0" styleClass="miniAnchor">
                <children>
                   <Text fontSmoothingType="LCD" layoutX="7.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incident Record" wrappingWidth="233.0">
                      <font>
@@ -97,11 +97,12 @@
                   </Text>
                   <TableView layoutX="48.0" layoutY="135.0" prefHeight="369.0" prefWidth="599.0">
                      <columns>
-                        <TableColumn prefWidth="101.0" text="sd" />
-                        <TableColumn prefWidth="149.0" text="sd" />
-                        <TableColumn prefWidth="140.0" text="sd" />
-                        <TableColumn prefWidth="126.0" text="Crimesdf" />
-                        <TableColumn prefWidth="113.0" text="sd" />
+                        <TableColumn fx:id="iiIncidentId" prefWidth="79.0" text="Id" />
+                        <TableColumn fx:id="iiSectionId" prefWidth="88.0" text="Section Id" />
+                        <TableColumn fx:id="iiType" prefWidth="109.0" text="Type" />
+                        <TableColumn fx:id="iiDate" prefWidth="100.0" text="Date" />
+                        <TableColumn fx:id="iiTime" prefWidth="100.0" text="Time" />
+                        <TableColumn fx:id="iiDescription" prefWidth="122.0" text="Description" />
                      </columns>
                   </TableView>
                </children>
@@ -126,7 +127,7 @@
             <Image url="@../images/icon/inmate.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+      <AnchorPane layoutX="53.0" layoutY="25.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
          <children>
             <ImageView fx:id="inmateImg" fitHeight="99.0" fitWidth="103.0" layoutX="50.0" layoutY="44.0">
                <image>
