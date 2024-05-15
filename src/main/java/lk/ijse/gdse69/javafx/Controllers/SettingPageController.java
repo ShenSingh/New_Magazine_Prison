@@ -11,6 +11,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.Model.User;
@@ -78,6 +79,7 @@ public class SettingPageController extends MainDashBoard implements Initializabl
     private static String passwordValue;
     private static String comPasswordValue;
     private static byte[] imageDataValue;
+    public Text topDate;
 
     private Integer otpMail;
 
@@ -94,10 +96,18 @@ public class SettingPageController extends MainDashBoard implements Initializabl
         comPassword.setEditable(false);
         password.setEditable(false);
         email.setEditable(false);
-        sendOTPBtn.isDisable();
-        saveChangeBtn.isDisable();
+        sendOTPBtn.setDisable(true);
+        saveChangeBtn.setDisable(true);
 
+        setDate();
+    }
 
+    private void setDate() {
+
+        LocalDate date = LocalDate.now();
+        String dateString = String.valueOf(date);
+
+        topDate.setText(dateString);
     }
 
     private void setUserData() throws SQLException {
@@ -132,8 +142,7 @@ public class SettingPageController extends MainDashBoard implements Initializabl
             }else {
                 address2.setText("");
             }
-            mainProfilePic.setImage(Util.showImage(user.getImageData()));
-            secondProfilePic.setImage(Util.showImage(user.getImageData()));
+            setImage(user.getImageData());
 
             userIdValue = user.getUId();
             userNameValue = user.getUName();
@@ -310,6 +319,13 @@ public class SettingPageController extends MainDashBoard implements Initializabl
 
     private void setImage(byte[] imageDataValue) {
         Image image = Util.showImage(imageDataValue);
+
+        Circle clip = new Circle(mainProfilePic.getFitWidth() / 2, mainProfilePic.getFitHeight() / 2, mainProfilePic.getFitWidth() / 2);
+        mainProfilePic.setClip(clip);
+
+        Circle clip2 = new Circle(secondProfilePic.getFitWidth() / 2, secondProfilePic.getFitHeight() / 2, secondProfilePic.getFitWidth() / 2);
+        secondProfilePic.setClip(clip2);
+
         mainProfilePic.setImage(image);
         secondProfilePic.setImage(image);
     }

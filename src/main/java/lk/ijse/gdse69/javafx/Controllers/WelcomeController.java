@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
+import lk.ijse.gdse69.javafx.Animation.FlogAnimation;
 import lk.ijse.gdse69.javafx.Model.User;
 import lk.ijse.gdse69.javafx.Repository.UserRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
@@ -86,6 +87,7 @@ public class WelcomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flogHide(false);
+       //FlogAnimation animation = new FlogAnimation(secondLoginText,"Enter your personal details and start analyze with us");
     }
 
     public void signInBtn(ActionEvent actionEvent) throws SQLException {
@@ -278,6 +280,10 @@ public class WelcomeController implements Initializable {
     }
     public void signInSignupBtn(ActionEvent actionEvent) {
 
+        FlogAnimation animation;
+
+       animation = new FlogAnimation(secondLoginText1,"Create new account and Sign In your System");
+
         secondLoginTextMain.setVisible(false);
         secondLoginText.setVisible(false);
         signInSignupBtn.setVisible(false);
@@ -292,6 +298,7 @@ public class WelcomeController implements Initializable {
 
     }
     public void signUpSignInBtn(ActionEvent actionEvent) {
+        FlogAnimation animation = new FlogAnimation(secondLoginText,"Enter your personal details and start analyze with us");
 
         TranslateTransition tt = new TranslateTransition(Duration.millis(800), sAnchor);
         tt.setByX(-500);
