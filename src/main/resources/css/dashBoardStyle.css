@@ -205,26 +205,22 @@
 .tableView {
     -fx-background-color: rgba(53, 151, 203, 0.53);
 }
-.tableView.column-header-background {
-    -fx-background-color: #2F95CB;
-}
 .tableView.column-header {
     -fx-text: white;
 }
-.tableView.table-row-cell:odd {
-    -fx-background-color: #e0e0e0;
-}
+/*.tableView.table-row-cell:odd {*/
+/*    -fx-background-color: #e0e0e0;*/
+/*}*/
 .tableView.table-row-cell:selected {
     -fx-background-color: #6495ED;
     -fx-text-fill: white;
 }
 
+
 .tableViewOfficerView {
     -fx-background-color: rgba(53, 151, 203, 0.53);
 }
-.tableViewOfficerView.column-header-background {
-    -fx-background-color: transparent;
-}
+
 .tableViewOfficerView.column-header {
     -fx-text-fill: white;
 }
@@ -307,7 +303,6 @@
         -fx-border-color: #2F95CB;
         -fx-border-radius: 5px;
         -fx-border-width: 1px 1px 1px 1px;
-        /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);*/
 
 }
 .UserFieldLabel{
@@ -325,4 +320,14 @@
     -fx-border-radius: 5px;
     -fx-text-fill: #2F95CB;
     -fx-border-color: #2F95CB;
+}
+.reportVBox{
+    -fx-background-color: transpanent;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.uReportMainAnchor{
+    -fx-background-color: transpanent;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
 }

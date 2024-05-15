@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -298,8 +300,8 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <TextField fx:id="OTP" layoutX="557.0" layoutY="405.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
-            <Label layoutX="571.0" layoutY="398.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="OTP">
+            <TextField fx:id="OTP" layoutX="576.0" layoutY="405.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="590.0" layoutY="398.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="OTP">
                <font>
                   <Font size="10.0" />
                </font>
@@ -307,8 +309,8 @@
                   <Insets top="-19.0" />
                </opaqueInsets>
             </Label>
-            <TextField fx:id="comPassword" layoutX="557.0" layoutY="464.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
-            <Label layoutX="571.0" layoutY="457.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Comform Password">
+            <TextField fx:id="comPassword" layoutX="576.0" layoutY="464.0" prefHeight="27.0" prefWidth="217.0" styleClass="UserTextField" />
+            <Label layoutX="590.0" layoutY="457.0" styleClass="UserFieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Comform Password">
                <font>
                   <Font size="10.0" />
                </font>
@@ -325,7 +327,7 @@
                   <Insets top="-19.0" />
                </opaqueInsets>
             </Label>
-            <JFXButton fx:id="sendOTPBtn" layoutX="726.0" layoutY="406.0" onAction="#sendOTP" prefHeight="26.0" prefWidth="48.0" styleClass="UserSendOPTBtn" text="send">
+            <JFXButton fx:id="sendOTPBtn" layoutX="745.0" layoutY="406.0" onAction="#sendOTP" prefHeight="26.0" prefWidth="48.0" styleClass="UserSendOPTBtn" text="send">
                <font>
                   <Font name="System Bold" size="10.0" />
                </font>
@@ -340,6 +342,44 @@
                   <Font name="System Bold" size="10.0" />
                </font>
             </JFXButton>
+            <VBox fx:id="reportVBox" layoutX="569.0" layoutY="108.0" prefHeight="466.0" prefWidth="303.0" styleClass="reportVBox">
+               <children>
+                  <AnchorPane fx:id="reportMainAnchor" prefHeight="531.0" prefWidth="303.0" styleClass="uReportMainAnchor">
+                     <children>
+                        <AnchorPane layoutX="28.0" layoutY="-2.0" prefHeight="466.0" prefWidth="275.0" styleClass="miniAnchorSettingPage">
+                           <children>
+                              <JFXComboBox fx:id="mainSelectionCombo" focusColor="#4072a8" layoutX="20.0" layoutY="167.0" onAction="#mainSelection" prefHeight="24.0" prefWidth="236.0" unFocusColor="#1291dae5" />
+                              <JFXComboBox fx:id="secondSelectionCombo" layoutX="18.0" layoutY="267.0" onAction="#secondSelection" prefHeight="24.0" prefWidth="236.0" unFocusColor="#1291dae5" />
+                              <JFXButton layoutX="90.0" layoutY="404.0" onAction="#printReport" prefHeight="24.0" prefWidth="85.0" styleClass="UserSaveBtn" text="Print">
+                                 <font>
+                                    <Font name="System Bold" size="10.0" />
+                                 </font>
+                              </JFXButton>
+                              <AnchorPane layoutX="8.0" layoutY="9.0" prefHeight="85.0" prefWidth="261.0" styleClass="miniAnchorSettingPage">
+                                 <children>
+                                    <Text fx:id="topDate1" fill="#1291da" layoutX="71.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report" wrappingWidth="121.77899932861322">
+                                       <font>
+                                          <Font name="Garuda" size="36.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="15.0" layoutY="221.0" prefHeight="24.0" prefWidth="31.0" style="-fx-background-color: white;">
+                           <children>
+                              <ImageView fx:id="reportLeftRightImage" fitHeight="20.0" fitWidth="20.0" layoutX="-3.0" layoutY="1.0">
+                                 <image>
+                                    <Image url="@../images/icon/leftArrowIcon.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="2.0" mnemonicParsing="false" onAction="#reportPaneShowHideBtn" prefHeight="24.0" prefWidth="28.0" style="-fx-background-color: transpanent;" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
     </children>

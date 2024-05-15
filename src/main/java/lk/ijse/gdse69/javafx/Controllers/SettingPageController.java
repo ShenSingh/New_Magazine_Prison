@@ -1,6 +1,8 @@
 package lk.ijse.gdse69.javafx.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
-import lk.ijse.gdse69.javafx.Model.User;
-import lk.ijse.gdse69.javafx.Repository.UserRepo;
+import lk.ijse.gdse69.javafx.Model.*;
+import lk.ijse.gdse69.javafx.Repository.*;
 import lk.ijse.gdse69.javafx.Util.Util;
 import lk.ijse.gdse69.javafx.jbcrypt.PasswordHasher;
 import lk.ijse.gdse69.javafx.smtp.Mail;
@@ -30,6 +33,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -81,7 +85,15 @@ public class SettingPageController extends MainDashBoard implements Initializabl
     private static byte[] imageDataValue;
     public Text topDate;
 
+    public ImageView reportLeftRightImage;
+    public AnchorPane reportMainAnchor;
+    public JFXComboBox<String> mainSelectionCombo;
+    public JFXComboBox<String> secondSelectionCombo;
+
     private Integer otpMail;
+
+    private TranslateTransition sideTransition;
+    private boolean isShow = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,6 +112,21 @@ public class SettingPageController extends MainDashBoard implements Initializabl
         saveChangeBtn.setDisable(true);
 
         setDate();
+        setTransition();
+        setMainComboValues();
+    }
+
+    private void setMainComboValues() {
+        mainSelectionCombo.getItems().addAll("Inmate", "Officer", "Visitor", "Expenses");
+    }
+
+    private void setTransition() {
+        sideTransition = new TranslateTransition(Duration.seconds(0.9), reportMainAnchor);
+        sideTransition.setFromX(270);
+        File file = new File("src/main/resources/images/icon/rightIcon.png");
+        Image image = new Image(file.toURI().toString());
+        reportLeftRightImage.setImage(image);
+
     }
 
     private void setDate() {
@@ -349,5 +376,86 @@ public class SettingPageController extends MainDashBoard implements Initializabl
         sendOTPBtn.setDisable(false);
         saveChangeBtn.setDisable(false);
         OTP.setEditable(true);
+    }
+
+    public void reportPaneShowHideBtn(ActionEvent actionEvent) {
+        isShow = !isShow;
+
+        if(isShow){
+            File file = new File("src/main/resources/images/icon/leftArrowIcon.png");
+            Image image = new Image(file.toURI().toString());
+            reportLeftRightImage.setImage(image);
+            sideTransition.setToX(270);
+
+        }else{
+            File file = new File("src/main/resources/images/icon/rightIcon.png");
+            Image image = new Image(file.toURI().toString());
+            reportLeftRightImage.setImage(image);
+            sideTransition.setToX(0);
+
+        }
+        sideTransition.play();
+    }
+
+    public void mainSelection(ActionEvent actionEvent) throws SQLException {
+        String selectItem = mainSelectionCombo.getSelectionModel().getSelectedItem();
+
+        if (selectItem != null) {
+            switch (selectItem) {
+                case "Inmate":
+                    //
+                    setInmateValues(InmateRepo.getAllInmates());
+                    break;
+                case "Officer":
+                    //
+                    setOfficerValues(OfficerRepo.getAllOfficers());
+                    break;
+                case "Visitor":
+                    //
+                    setVisitorValues(VisitorRepo.getAllVisitors());
+                    break;
+                case "Expenses":
+                    //
+                    setExpensesValues(ExpencesRepo.getAllExpenses());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void setExpensesValues(List<Expences> allExpenses) {
+        secondSelectionCombo.getItems().add("All");
+        for (Expences expences: allExpenses){
+            secondSelectionCombo.getItems().add(expences.getExpenceId());
+        }
+    }
+
+    private void setVisitorValues(List<Visitor> allVisitors) {
+        secondSelectionCombo.getItems().add("All");
+        for (Visitor visitor : allVisitors){
+            secondSelectionCombo.getItems().add(visitor.getVisitorID());
+        }
+    }
+
+    private void setOfficerValues(List<Officer> allOfficers) {
+        secondSelectionCombo.getItems().add("All");
+        for (Officer officer : allOfficers){
+            secondSelectionCombo.getItems().add(officer.getOfficerId());
+        }
+    }
+
+    private void setInmateValues(List<Inmate> allInmates) {
+
+        secondSelectionCombo.getItems().add("All");
+        for (Inmate inmate : allInmates){
+            secondSelectionCombo.getItems().add(inmate.getInmateId());
+        }
+    }
+
+    public void secondSelection(ActionEvent actionEvent) {
+    }
+
+    public void printReport(ActionEvent actionEvent) {
     }
 }
