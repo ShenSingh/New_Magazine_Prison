@@ -244,4 +244,11 @@ public class AddIncidentController extends MainDashBoard implements Initializabl
     public static String getIncId(){
         return incId;
     }
+
+    public void incidentOnAction(ActionEvent actionEvent) {
+    }
+
+    public void descriptiononAction(ActionEvent actionEvent) {
+        submitBtn(actionEvent);
+    }
 }

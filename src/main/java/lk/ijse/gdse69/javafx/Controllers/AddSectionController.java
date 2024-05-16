@@ -174,4 +174,16 @@ public class AddSectionController extends MainDashBoard implements Initializable
         SearchId.setVisitorId(id);
         createStage("/View/SectionProfile.fxml");
     }
+
+    public void secNameOnAction(ActionEvent actionEvent) {
+        location.requestFocus();
+    }
+
+    public void locationOnAction(ActionEvent actionEvent) {
+        capacity.requestFocus();
+    }
+
+    public void capacityOnAction(ActionEvent actionEvent) {
+        securityLevelCombo.requestFocus();
+    }
 }

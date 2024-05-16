@@ -283,4 +283,22 @@ public class AddInmateController extends MainDashBoard implements Initializable 
         qrCodeAlert.getDialogPane().setContent(imageView);
         qrCodeAlert.showAndWait();
     }
+
+    public void inmateIdOnAction(ActionEvent actionEvent) {
+        inmateNIC.requestFocus();
+    }
+
+    public void fNameOnAntion(ActionEvent actionEvent) {
+        inmateLName.requestFocus();
+    }
+
+    public void lastNameOnAntion(ActionEvent actionEvent) {
+        inmateDOB.requestFocus();
+    }
+
+    public void nicOnAnction(ActionEvent actionEvent) {
+        inmateFName.requestFocus();
+    }
+
+    public void addressOnAnction(ActionEvent actionEvent) {}
 }

@@ -4,9 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
@@ -17,6 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.ResourceBundle;
 
 public class DashBoardController  extends MainDashBoard implements Initializable
@@ -41,6 +46,8 @@ public class DashBoardController  extends MainDashBoard implements Initializable
     public Text totalOfficerCount;
     public Text totalVisitorCount;
 
+    public GridPane showCalander;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,6 +58,35 @@ public class DashBoardController  extends MainDashBoard implements Initializable
         }
         setDateAndDay();
         setToolTip();
+        showCalander();
+    }
+
+    private void showCalander() {
+        showCalander = new GridPane();
+        showCalander.setHgap(5);
+        showCalander.setVgap(5);
+
+        YearMonth yearMonth = YearMonth.now();
+        LocalDate date = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+        for (int i = 1; i <= daysInMonth; i++) {
+            int dayOfWeek = date.getDayOfWeek().getValue(); // 1 = Monday, 7 = Sunday
+            int dayOfMonth = date.getDayOfMonth();
+
+            Circle circle = new Circle(10);
+            circle.setFill(Color.RED); // Change color as needed
+
+            Label dayLabel = new Label(Integer.toString(dayOfMonth));
+            showCalander.add(circle, dayOfWeek - 1, (dayOfMonth + 6) / 7);
+            showCalander.add(dayLabel, dayOfWeek - 1, (dayOfMonth + 6) / 7);
+
+            date = date.plusDays(1);
+
+
+
+        }
+
     }
 
     private void setToolTip() {

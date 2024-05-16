@@ -9,6 +9,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -29,20 +32,32 @@
       </children></AnchorPane>
    <AnchorPane layoutX="54.0" layoutY="24.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
       <children>
-         <Text fx:id="setDayType" layoutX="41.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Morning" wrappingWidth="139.3961639404297">
+         <Text fx:id="setDayType" layoutX="7.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Morning" wrappingWidth="185.0">
             <font>
                <Font name="Droid Sans Fallback" size="18.0" />
             </font>
          </Text>
       </children></AnchorPane>
-   <AnchorPane layoutX="1045.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
+   <AnchorPane layoutX="1044.0" layoutY="23.0" prefHeight="606.0" prefWidth="220.0" styleClass="miniAnchor">
       <children>
-         <Text fx:id="setDate" layoutX="65.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2024/05/10" wrappingWidth="104.54712295532227">
+         <Text fx:id="setDate" layoutX="126.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2024/05/10" wrappingWidth="92.00003051757807">
             <font>
                <Font name="Gayathri Thin" size="18.0" />
             </font>
          </Text>
-      </children></AnchorPane>
+         <GridPane fx:id="showCalander" layoutX="10.0" layoutY="173.0" prefHeight="168.0" prefWidth="200.0">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+         </GridPane>
+      </children>
+   </AnchorPane>
    <Button layoutX="-1.0" layoutY="101.0" mnemonicParsing="false" onAction="#onInmate" prefHeight="47.0" prefWidth="63.0" styleClass="manuBtn" stylesheets="@../css/dashBoardStyle.css">
       <cursor>
          <Cursor fx:constant="HAND" />

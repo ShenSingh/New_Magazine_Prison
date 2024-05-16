@@ -341,4 +341,32 @@ public class WelcomeController implements Initializable {
     public static String getFlogUId() {
         return FlogUId;
     }
+
+    public void uNameOnAction(ActionEvent actionEvent){
+        uPassField.requestFocus();
+    }
+
+    public void passwordOnAction(ActionEvent actionEvent) throws SQLException {
+        signInBtn(actionEvent);
+    }
+
+    public void SUuNameOnAction(ActionEvent actionEvent) {
+        suEmailText.requestFocus();
+    }
+
+    public void SUemailOnAction(ActionEvent actionEvent) {
+        suUOTPField.requestFocus();
+    }
+
+    public void SUotpOnAction(ActionEvent actionEvent) {
+        suUPassField.requestFocus();
+    }
+
+    public void SUpasswordOnAction(ActionEvent actionEvent) {
+        suComPassText.requestFocus();
+    }
+
+    public void SUcomPassOnAction(ActionEvent actionEvent) throws SQLException {
+        signUpBtn(actionEvent);
+    }
 }

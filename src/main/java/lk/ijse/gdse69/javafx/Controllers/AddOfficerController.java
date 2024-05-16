@@ -267,4 +267,32 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
         SearchId.setOfficerId(id);
         createStage("/View/OfficerProfile.fxml");
     }
+
+    public void officerIdOnAction(ActionEvent actionEvent) {
+        NIC.requestFocus();
+    }
+
+    public void fNameOnAction(ActionEvent actionEvent) {
+        lName.requestFocus();
+    }
+
+    public void lNameOnAction(ActionEvent actionEvent) {
+        DOB.requestFocus();
+    }
+
+    public void nicOnAction(ActionEvent actionEvent) {
+        fName.requestFocus();
+    }
+
+    public void addressOnAction(ActionEvent actionEvent) {
+        email.requestFocus();
+    }
+
+    public void emailOnAction(ActionEvent actionEvent) {
+        salery.requestFocus();
+    }
+
+    public void salaryOnAction(ActionEvent actionEvent) throws SQLException {
+        submitBtn(actionEvent);
+    }
 }

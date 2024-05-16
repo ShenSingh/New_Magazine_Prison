@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="All_Visitor_Report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e115bc59-fd0f-446b-a585-04725e27d7f0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<style name="Title" fontName="DejaVu Serif Condensed" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="DejaVu Serif Condensed" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="DejaVu Serif Condensed" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="DejaVu Serif Condensed" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECt visitorId, visitorFristName, visitorLastName, visitorDOB, visitorNIC, visitorAddress, visitorType, gender FROM Visitor]]>
+	</queryString>
+	<field name="visitorId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorId"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorFristName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorFristName"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorFristName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorLastName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorLastName"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorLastName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorDOB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="visitorDOB"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorDOB"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorNIC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorNIC"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorNIC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorAddress"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="visitorType" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visitorType"/>
+		<property name="com.jaspersoft.studio.field.label" value="visitorType"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Visitor"/>
+	</field>
+	<background>
+		<band height="575" splitType="Stretch">
+			<image vAlign="Bottom">
+				<reportElement positionType="Float" x="-20" y="65" width="105" height="409" uuid="64ca4020-b604-4de9-9ed1-921b74cfd593"/>
+				<imageExpression><![CDATA["src/main/resources/images/waves.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="475" width="105" height="100" backcolor="#666666" uuid="6eb7cb61-0dd7-47a8-8475-5fa6c3a348dc"/>
+				<textField>
+					<reportElement style="Column header" x="0" y="0" width="104" height="73" forecolor="#000000" uuid="db8457c8-99e9-434f-b439-2d400dff2bcd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif Condensed" size="58" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="0" y="77" width="104" height="20" forecolor="#000000" uuid="e20c8a65-aded-41dc-a107-108a9159af99"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Serif Condensed" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF" uuid="db6d7ead-4383-4f8c-81cf-1e3064eb6924"/>
+				</line>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="-12" width="802" height="67" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif Condensed" size="50" isBold="false"/>
+				</textElement>
+				<text><![CDATA[New Magazine Prison]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="489" y="52" width="312" height="23" uuid="862cb50c-5a5e-4906-a495-226e25115fb6"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department of Prisons Sri Lanka]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-6" y="-24" width="75" height="94" uuid="b4148e75-8e02-41a6-9db8-b2106ed4680f"/>
+				<imageExpression><![CDATA["src/main/resources/images/icon/sriLankaLogoMini.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="705" height="20" backcolor="#666666" uuid="35d90a9b-bb7e-4ec4-bfa2-68be1967d6b2"/>
+				<staticText>
+					<reportElement style="Column header" x="0" y="0" width="60" height="15" uuid="2834335c-0b2f-40fb-bfea-346a975d3184">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2557a726-57ac-4ac5-9aac-f3be0d1dd660"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[Id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="60" y="0" width="80" height="15" uuid="d8b16482-0ae5-43ae-9f84-ecb6bcac736e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b43a823-d0a1-46b2-82ea-db6adaafdf5c"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[F_Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="140" y="0" width="80" height="15" uuid="3da90119-cfb8-4d6c-a937-7d5207f0b083">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63dc2eb1-777b-4e4d-8a2e-c72191af5755"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[L_Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="220" y="0" width="100" height="15" uuid="99e53196-ae1d-4625-bc5e-d9703e09169b">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48491de2-7492-4b89-9e76-f8cb3bbf4cbd"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[DOB]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="320" y="0" width="100" height="15" uuid="4d714d6b-da0c-4c7c-8fd9-e84bb9d9295e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9acd3e84-8658-4899-bd99-fa926bcff0c6"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[NIC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="420" y="0" width="130" height="15" uuid="295f4f8e-1ee2-46a3-ac7f-984cd5d025ea">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f0bf2ae-22be-49fb-a763-323ffce4b60c"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[Address]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="550" y="0" width="90" height="15" uuid="176edde4-7afa-4f6d-a015-751ed60f12bd">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a74589a3-e7ad-4bd4-9c9e-03609c19d513"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="640" y="0" width="64" height="15" uuid="a5f39d82-9eaf-440f-9ac8-57515ab1c07a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f0aeba6-7790-4f06-8a98-a110ab4610ff"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif Condensed"/>
+					</textElement>
+					<text><![CDATA[Gender]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<frame>
+				<reportElement x="97" y="1" width="705" height="15" uuid="89a3da05-fdde-4ffe-965f-cc476f72e3ab"/>
+				<textField>
+					<reportElement style="Detail" x="0" y="0" width="60" height="15" uuid="7f4f7779-561c-4c93-b341-0cd8151221c1">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2557a726-57ac-4ac5-9aac-f3be0d1dd660"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorId}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="60" y="0" width="80" height="15" uuid="0b77333d-43db-4c63-a43f-099bba6521dd">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b43a823-d0a1-46b2-82ea-db6adaafdf5c"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorFristName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="140" y="0" width="80" height="15" uuid="0d89337a-8219-443f-bcbc-07abb1b1ee3e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63dc2eb1-777b-4e4d-8a2e-c72191af5755"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorLastName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="220" y="0" width="100" height="15" uuid="d62a5e29-c570-4031-a97a-7089625e19da">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48491de2-7492-4b89-9e76-f8cb3bbf4cbd"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorDOB}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="320" y="0" width="100" height="15" uuid="c21f85e5-ed9f-4fa3-9100-4978e15cae47">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9acd3e84-8658-4899-bd99-fa926bcff0c6"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorNIC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="420" y="0" width="130" height="15" uuid="731de7b7-6efa-408c-bf78-7f34211dc2ad">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f0bf2ae-22be-49fb-a763-323ffce4b60c"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="550" y="0" width="90" height="15" uuid="6b8e8482-d685-4de4-a5a0-034438eaa049">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a74589a3-e7ad-4bd4-9c9e-03609c19d513"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{visitorType}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="640" y="0" width="64" height="15" uuid="442b465e-a875-4044-8645-976f4478f89a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f0aeba6-7790-4f06-8a98-a110ab4610ff"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Serif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="21" width="705" height="1" uuid="e5f21b91-7f24-498e-97a1-0e93db9225a4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="671" y="0" width="131" height="20" forecolor="#000000" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="0" width="267" height="20" uuid="0ec52099-dcd7-42f4-8baa-f3874f05208a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[All Visitors of Prisons]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

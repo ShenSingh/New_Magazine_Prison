@@ -367,19 +367,19 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="sectionName" layoutX="708.0" layoutY="242.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="sectionName" layoutX="708.0" layoutY="242.0" onAction="#secNameOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="721.0" layoutY="235.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Section Name">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="location" layoutX="372.0" layoutY="341.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="location" layoutX="372.0" layoutY="341.0" onAction="#locationOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="385.0" layoutY="335.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Location">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="capacity" layoutX="708.0" layoutY="341.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="capacity" layoutX="708.0" layoutY="341.0" onAction="#capacityOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="721.0" layoutY="335.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Capacity">
          <font>
             <Font size="10.0" />

@@ -178,4 +178,7 @@ public class AddExpensesController extends MainDashBoard implements Initializabl
     }
 
 
+    public void costOnAction(ActionEvent actionEvent) {
+        submitBtn(actionEvent);
+    }
 }

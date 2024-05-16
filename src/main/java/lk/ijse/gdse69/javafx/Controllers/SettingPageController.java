@@ -17,6 +17,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
+import lk.ijse.gdse69.javafx.Controllers.ShowReports.InmateReports;
+import lk.ijse.gdse69.javafx.Controllers.ShowReports.OfficerReports;
+import lk.ijse.gdse69.javafx.Controllers.ShowReports.VisitorReports;
 import lk.ijse.gdse69.javafx.Model.*;
 import lk.ijse.gdse69.javafx.Repository.*;
 import lk.ijse.gdse69.javafx.Util.Util;
@@ -457,5 +460,31 @@ public class SettingPageController extends MainDashBoard implements Initializabl
     }
 
     public void printReport(ActionEvent actionEvent) {
+
+        String mainSelection = mainSelectionCombo.getSelectionModel().getSelectedItem();
+        String secondSelection = secondSelectionCombo.getSelectionModel().getSelectedItem();
+
+        if (mainSelection != null && secondSelection != null) {
+            switch (mainSelection) {
+                case "Inmate":
+                    //
+                    InmateReports.getSelection(secondSelection);
+                    break;
+                case "Officer":
+                    //
+                    OfficerReports.getSelection(secondSelection);
+                    break;
+                case "Visitor":
+                    //
+                    VisitorReports.getSelection(secondSelection);
+                    break;
+                case "Expenses":
+                    //
+
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

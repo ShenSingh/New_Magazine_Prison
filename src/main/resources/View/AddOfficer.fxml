@@ -289,10 +289,10 @@
             <Font name="Kinnari" size="21.0" />
         </font>
     </Text>
-    <TextField fx:id="officerId" layoutX="362.0" layoutY="147.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-    <TextField fx:id="fName" layoutX="362.0" layoutY="212.0" prefWidth="215.0" styleClass="TextField" />
-    <TextField fx:id="lName" layoutX="707.0" layoutY="212.0" prefWidth="215.0" styleClass="TextField" />
-    <TextField fx:id="NIC" layoutX="707.0" layoutY="147.0" prefWidth="215.0" styleClass="TextField" />
+    <TextField fx:id="officerId" layoutX="362.0" layoutY="147.0" onAction="#officerIdOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+    <TextField fx:id="fName" layoutX="362.0" layoutY="212.0" onAction="#fNameOnAction" prefWidth="215.0" styleClass="TextField" />
+    <TextField fx:id="lName" layoutX="707.0" layoutY="212.0" onAction="#lNameOnAction" prefWidth="215.0" styleClass="TextField" />
+    <TextField fx:id="NIC" layoutX="707.0" layoutY="147.0" onAction="#nicOnAction" prefWidth="215.0" styleClass="TextField" />
     <Label layoutX="375.0" layoutY="140.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Officer Id">
         <font>
             <Font size="10.0" />
@@ -314,8 +314,8 @@
             <Insets top="-19.0" />
         </opaqueInsets>
     </Label>
-    <TextField fx:id="address" layoutX="362.0" layoutY="343.0" prefWidth="215.0" styleClass="TextField" />
-    <TextField id="demo" fx:id="email" layoutX="707.0" layoutY="343.0" prefWidth="215.0" styleClass="TextField" />
+    <TextField fx:id="address" layoutX="362.0" layoutY="343.0" onAction="#addressOnAction" prefWidth="215.0" styleClass="TextField" />
+    <TextField id="demo" fx:id="email" layoutX="707.0" layoutY="343.0" onAction="#emailOnAction" prefWidth="215.0" styleClass="TextField" />
     <Label layoutX="376.0" layoutY="335.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Address">
         <font>
             <Font size="10.0" />
@@ -361,7 +361,7 @@
             <Insets top="-19.0" />
         </opaqueInsets>
     </Label>
-    <Button layoutX="646.0" layoutY="551.0" mnemonicParsing="false" onAction="#submitBtn" prefHeight="30.0" prefWidth="100.0" styleClass="submitBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit">
+    <Button layoutX="646.0" layoutY="570.0" mnemonicParsing="false" onAction="#submitBtn" prefHeight="30.0" prefWidth="100.0" styleClass="submitBtn" stylesheets="@../css/dashBoardStyle.css" text="Submit">
         <font>
             <Font name="Kinnari Bold" size="18.0" />
         </font>
@@ -375,7 +375,7 @@
             <Insets top="-19.0" />
         </opaqueInsets>
     </Label>
-    <TextField fx:id="salery" layoutX="703.0" layoutY="476.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+    <TextField fx:id="salery" layoutX="703.0" layoutY="476.0" onAction="#salaryOnAction" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
     <Label layoutX="715.0" layoutY="469.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Salery">
         <font>
           <Font size="10.0" />

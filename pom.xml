@@ -110,6 +110,13 @@
             <version>11.1.0</version> <!-- Replace with the desired version -->
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.21.0</version>
+        </dependency>
+
+
 
 
 

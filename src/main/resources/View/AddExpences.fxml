@@ -389,7 +389,7 @@
          </font>
       </Button>
       <ComboBox fx:id="expensesType" layoutX="373.0" layoutY="369.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-      <TextField fx:id="cost" layoutX="715.0" layoutY="366.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="cost" layoutX="715.0" layoutY="366.0" onAction="#costOnAction" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="386.0" layoutY="241.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Expenses Id">
          <font>
             <Font size="10.0" />

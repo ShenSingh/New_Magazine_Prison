@@ -275,10 +275,10 @@
          <Font name="Kinnari" size="21.0" />
       </font>
    </Text>
-   <TextField fx:id="inmateId" layoutX="362.0" layoutY="147.0" prefHeight="27.0" prefWidth="215.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
-   <TextField fx:id="inmateFName" layoutX="362.0" layoutY="212.0" prefWidth="215.0" styleClass="TextField" />
-   <TextField fx:id="inmateLName" layoutX="707.0" layoutY="212.0" prefWidth="215.0" styleClass="TextField" />
-   <TextField fx:id="inmateNIC" layoutX="707.0" layoutY="147.0" prefWidth="215.0" styleClass="TextField" />
+   <TextField fx:id="inmateId" layoutX="362.0" layoutY="147.0" onAction="#inmateIdOnAction" prefHeight="27.0" prefWidth="215.0" style="-fx-background-color: white;" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+   <TextField fx:id="inmateFName" layoutX="362.0" layoutY="212.0" onAction="#fNameOnAntion" prefWidth="215.0" styleClass="TextField" />
+   <TextField fx:id="inmateLName" layoutX="707.0" layoutY="212.0" onAction="#lastNameOnAntion" prefWidth="215.0" styleClass="TextField" />
+   <TextField fx:id="inmateNIC" layoutX="707.0" layoutY="147.0" onAction="#nicOnAnction" prefWidth="215.0" styleClass="TextField" />
    <AnchorPane layoutX="300.0" layoutY="403.0" prefHeight="1.0" prefWidth="715.0" styleClass="changeLine" stylesheets="@../css/dashBoardStyle.css" />
    <DatePicker fx:id="inRecoReleseDate" layoutX="365.0" layoutY="529.0" prefHeight="24.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
    <Label layoutX="375.0" layoutY="140.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Inmate Id">
@@ -294,7 +294,7 @@
          <Insets top="-19.0" />
       </opaqueInsets>
    </Label>
-   <TextField fx:id="inmateAddress" layoutX="362.0" layoutY="343.0" prefWidth="215.0" styleClass="TextField" />
+   <TextField fx:id="inmateAddress" layoutX="362.0" layoutY="343.0" onAction="#addressOnAnction" prefWidth="215.0" styleClass="TextField" />
    <Label layoutX="376.0" layoutY="335.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Address">
       <font>
          <Font size="10.0" />

@@ -194,4 +194,12 @@ public class AddProgramController extends MainDashBoard implements Initializable
         SearchId.setProgramId(searchId);
         createStage("/View/ProgramProfile.fxml");
     }
+
+    public void desOnAction(ActionEvent actionEvent) throws SQLException {
+        submitBtn(actionEvent);
+    }
+
+    public void timeOnAction(ActionEvent actionEvent) {
+        programDescription.requestFocus();
+    }
 }

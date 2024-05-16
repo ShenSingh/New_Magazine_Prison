@@ -356,7 +356,7 @@
             <Font name="Kinnari Bold" size="18.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="incidentId" layoutX="374.0" layoutY="222.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="incidentId" layoutX="374.0" layoutY="222.0" onAction="#incidentOnAction" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="388.0" layoutY="215.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Incident Id">
          <font>
             <Font size="10.0" />
@@ -379,7 +379,7 @@
             <Insets top="-19.0" />
          </opaqueInsets>
       </Label>
-      <TextField fx:id="description" layoutX="715.0" layoutY="445.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+      <TextField fx:id="description" layoutX="715.0" layoutY="445.0" onAction="#descriptiononAction" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
       <Label layoutX="732.0" layoutY="438.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Description">
          <font>
             <Font size="10.0" />
