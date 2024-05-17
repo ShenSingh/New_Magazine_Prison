@@ -358,4 +358,24 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         SearchId.setVisitorId(id);
         createStage("/View/VisitorProfile.fxml");
     }
+
+    public void visitoridonaction(ActionEvent actionEvent) {
+        fName.requestFocus();
+    }
+
+    public void fNameOnAction(ActionEvent actionEvent) {
+        lName.requestFocus();
+    }
+
+    public void lNameOnAction(ActionEvent actionEvent) {
+        NIC.requestFocus();
+    }
+
+    public void nicOnAction(ActionEvent actionEvent) {
+        number.requestFocus();
+    }
+
+    public void numberOnAction(ActionEvent actionEvent) {
+        address.requestFocus();
+    }
 }

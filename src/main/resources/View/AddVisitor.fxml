@@ -29,19 +29,19 @@
                   <Font name="DejaVu Serif Bold" size="21.0" />
                </font>
             </Text>
-            <TextField fx:id="visitorId" layoutX="323.0" layoutY="160.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <TextField fx:id="visitorId" layoutX="323.0" layoutY="160.0" onAction="#visitoridonaction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
             <Label layoutX="339.0" layoutY="153.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Visitor Id">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="fName" layoutX="323.0" layoutY="233.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <TextField fx:id="fName" layoutX="323.0" layoutY="233.0" onAction="#fNameOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
             <Label layoutX="339.0" layoutY="226.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Frist Name">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="lName" layoutX="679.0" layoutY="233.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <TextField fx:id="lName" layoutX="679.0" layoutY="233.0" onAction="#lNameOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
             <Label layoutX="695.0" layoutY="226.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Last Name">
                <font>
                   <Font size="10.0" />
@@ -52,13 +52,13 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="NIC" layoutX="679.0" layoutY="303.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <TextField fx:id="NIC" layoutX="679.0" layoutY="303.0" onAction="#nicOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
             <Label layoutX="695.0" layoutY="296.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="NIC">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="number" layoutX="324.0" layoutY="372.0" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
+            <TextField fx:id="number" layoutX="324.0" layoutY="372.0" onAction="#numberOnAction" prefHeight="27.0" prefWidth="215.0" styleClass="TextField" stylesheets="@../css/dashBoardStyle.css" />
             <Label layoutX="340.0" layoutY="365.0" styleClass="fieldLabel" stylesheets="@../css/dashBoardStyle.css" text="Number">
                <font>
                   <Font size="10.0" />
