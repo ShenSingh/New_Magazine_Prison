@@ -3,25 +3,30 @@ package lk.ijse.gdse69.javafx.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import lk.ijse.gdse69.javafx.Model.Officer;
+import lk.ijse.gdse69.javafx.Model.Visitor;
 import lk.ijse.gdse69.javafx.Repository.InmateRepo;
 import lk.ijse.gdse69.javafx.Repository.OfficerRepo;
 import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashBoardController  extends MainDashBoard implements Initializable
@@ -46,7 +51,13 @@ public class DashBoardController  extends MainDashBoard implements Initializable
     public Text totalOfficerCount;
     public Text totalVisitorCount;
 
-    public GridPane showCalander;
+    public BarChart<String, Integer> DashBarChart;
+    public BarChart<String, Integer> DashVisitorTypeBar;
+    public ProgressBar inmateProgressBar;
+    public ProgressBar officerProgressBar;
+    public ProgressBar visitorProgressBar;
+    public LineChart<String, Integer> lineCart;
+    public TextField searchId;
 
 
     @Override
@@ -58,35 +69,134 @@ public class DashBoardController  extends MainDashBoard implements Initializable
         }
         setDateAndDay();
         setToolTip();
-        showCalander();
+        try {
+            setBarValues();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            setVisitorBarValues();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        setSearchIds();
+        setProgessValues();
+        setLineChartValues();
     }
 
-    private void showCalander() {
-        showCalander = new GridPane();
-        showCalander.setHgap(5);
-        showCalander.setVgap(5);
+    private void setSearchIds() {
+        List<String> models = new ArrayList<>();
+        models.add("Inmate");
+        models.add("Officer");
+        models.add("Visitor");
+        models.add("Section");
+        models.add("Expenses");
 
-        YearMonth yearMonth = YearMonth.now();
-        LocalDate date = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
-        int daysInMonth = yearMonth.lengthOfMonth();
+        String[] possibleNames = models.toArray(new String[0]);
 
-        for (int i = 1; i <= daysInMonth; i++) {
-            int dayOfWeek = date.getDayOfWeek().getValue(); // 1 = Monday, 7 = Sunday
-            int dayOfMonth = date.getDayOfMonth();
+        TextFields.bindAutoCompletion(searchId, possibleNames);
+    }
 
-            Circle circle = new Circle(10);
-            circle.setFill(Color.RED); // Change color as needed
+    private void setLineChartValues() {
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>("Jan", 300));
+        series.getData().add(new XYChart.Data<>("Feb", 400));
+        series.getData().add(new XYChart.Data<>("Mar", 600));
+        series.getData().add(new XYChart.Data<>("Apr", 500));
+        series.getData().add(new XYChart.Data<>("May", 500));
+        series.getData().add(new XYChart.Data<>("Jun", 800));
+        series.getData().add(new XYChart.Data<>("Jul", 600));
+        series.getData().add(new XYChart.Data<>("Aug", 700));
+        series.getData().add(new XYChart.Data<>("Sep", 800));
+        series.getData().add(new XYChart.Data<>("Oct", 700));
+        series.getData().add(new XYChart.Data<>("Nov", 900));
+        series.getData().add(new XYChart.Data<>("Dec", 1100));
 
-            Label dayLabel = new Label(Integer.toString(dayOfMonth));
-            showCalander.add(circle, dayOfWeek - 1, (dayOfMonth + 6) / 7);
-            showCalander.add(dayLabel, dayOfWeek - 1, (dayOfMonth + 6) / 7);
+        XYChart.Series<String, Integer> series2 = new XYChart.Series<>();
 
-            date = date.plusDays(1);
+        series2.getData().add(new XYChart.Data<>("Jan", 200));
+        series2.getData().add(new XYChart.Data<>("Feb", 300));
+        series2.getData().add(new XYChart.Data<>("Mar", 400));
+        series2.getData().add(new XYChart.Data<>("Apr", 500));
+        series2.getData().add(new XYChart.Data<>("May", 600));
+        series2.getData().add(new XYChart.Data<>("Jun", 400));
+        series2.getData().add(new XYChart.Data<>("Jul", 500));
+        series2.getData().add(new XYChart.Data<>("Aug", 700));
+        series2.getData().add(new XYChart.Data<>("Sep", 900));
+        series2.getData().add(new XYChart.Data<>("Oct", 1100));
+        series2.getData().add(new XYChart.Data<>("Nov", 1200));
+        series2.getData().add(new XYChart.Data<>("Dec", 1100));
 
 
+        lineCart.getData().add(series);
+        lineCart.getData().add(series2);
+    }
 
+    private void setProgessValues() {
+        inmateProgressBar.setProgress(0.0);
+        inmateProgressBar.setProgress(0.8);
+
+        officerProgressBar.setProgress(0.0);
+        officerProgressBar.setProgress(0.5);
+
+        visitorProgressBar.setProgress(0.0);
+        visitorProgressBar.setProgress(0.2);
+    }
+
+    private void setVisitorBarValues() throws SQLException {
+        List<Visitor> allVisitors = VisitorRepo.getAllVisitors();
+
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+        long familyCounts = allVisitors.stream().filter(visitor -> visitor.getVisitorType().equals("Immediate Family")).count();
+        long friendCounts = allVisitors.stream().filter(visitor -> visitor.getVisitorType().equals("Legal Representative")).count();
+        long legalCounts = allVisitors.stream().filter(visitor -> visitor.getVisitorType().equals("Officials")).count();
+        long otherCounts = allVisitors.stream().filter(visitor -> visitor.getVisitorType().equals("Others")).count();
+
+        series.getData().add(new XYChart.Data<>("Fam", (int) familyCounts));
+        series.getData().add(new XYChart.Data<>("Leg",(int) friendCounts));
+        series.getData().add(new XYChart.Data<>("Off", (int) legalCounts));
+        series.getData().add(new XYChart.Data<>("Oth", (int) otherCounts));
+
+        DashVisitorTypeBar.setTitle("Visitor");
+        DashVisitorTypeBar.getData().add(series);
+
+        for (XYChart.Series<String, Integer> s : DashVisitorTypeBar.getData()) {
+            for (XYChart.Data<String, Integer> data : s.getData()) {
+                data.getNode().setStyle("-fx-bar-fill: #0775a4;"); // Change color to blue (#0000FF)
+            }
         }
+    }
 
+    private void setBarValues() throws SQLException {
+        List<Officer> allOfficers = OfficerRepo.getAllOfficers();
+
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+        long sergeantCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Sergeant")).count();
+        long lieCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Lieutenant")).count();
+        long capCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Captain")).count();
+        long majCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Major")).count();
+        long colCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Colonel")).count();
+        long genCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("General")).count();
+        long suCounts = allOfficers.stream().filter(officer -> officer.getPosition().equals("Special Unit")).count();
+
+        series.getData().add(new XYChart.Data<>("Ser", (int) sergeantCounts));
+        series.getData().add(new XYChart.Data<>("Lie",(int) lieCounts));
+        series.getData().add(new XYChart.Data<>("Cap", (int) capCounts));
+        series.getData().add(new XYChart.Data<>("Maj", (int) majCounts));
+        series.getData().add(new XYChart.Data<>("Col", (int) colCounts));
+        series.getData().add(new XYChart.Data<>("Gen", (int) genCounts));
+        series.getData().add(new XYChart.Data<>("SpU", (int) suCounts));
+
+        DashBarChart.setStyle("-fx-background-color: transpanent;");
+        DashBarChart.setTitle("Officer");
+        DashBarChart.getData().add(series);
+        for (XYChart.Series<String, Integer> s : DashBarChart.getData()) {
+            for (XYChart.Data<String, Integer> data : s.getData()) {
+                data.getNode().setStyle("-fx-bar-fill: #0775a4;"); // Change color to blue (#0000FF)
+            }
+        }
     }
 
     private void setToolTip() {
@@ -143,5 +253,47 @@ public class DashBoardController  extends MainDashBoard implements Initializable
 
     public void addEncidentBtn(ActionEvent actionEvent) throws IOException {
         createStage("/View/AddIcident.fxml");
+    }
+
+    public void searchIdField(ActionEvent actionEvent) {
+        String text = searchId.getText();
+
+        switch (text){
+            case "Inmate":
+                try {
+                    createStage("/View/InmatePage.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Officer":
+                try {
+                    createStage("/View/OfficerPage.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Visitor":
+                try {
+                    createStage("/View/VisitorPage.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Section":
+                try {
+                    createStage("/View/SectionPage.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Expenses":
+                try {
+                    createStage("/View/financialPage.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
 }

@@ -136,7 +136,7 @@ WHERE
 				<text><![CDATA[Persolal Details]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="320" y="104" width="160" height="30" uuid="08b6846a-e86d-46af-8e36-b4bb96efd407">
+				<reportElement x="320" y="104" width="191" height="30" uuid="08b6846a-e86d-46af-8e36-b4bb96efd407">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -155,7 +155,7 @@ WHERE
 				<reportElement x="291" y="134" width="220" height="1" uuid="86a30e70-9dc3-4248-9849-eb604ae9e359"/>
 			</line>
 			<textField>
-				<reportElement x="320" y="133" width="184" height="30" uuid="5e8e4b8d-7811-423d-921e-7a0e52bc2666">
+				<reportElement x="320" y="133" width="191" height="30" uuid="5e8e4b8d-7811-423d-921e-7a0e52bc2666">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -178,7 +178,7 @@ WHERE
 				<imageExpression><![CDATA["/home/shen/Documents/myProject/NewManazinePrison/src/main/resources/images/waves.jpg"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="320" y="166" width="153" height="30" uuid="1eedc89a-5038-4fb8-a85f-e5ff60ff83dc">
+				<reportElement x="320" y="166" width="191" height="30" uuid="1eedc89a-5038-4fb8-a85f-e5ff60ff83dc">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -199,7 +199,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="202" width="130" height="30" uuid="10f68133-01d1-41fc-9e03-86427dcbbdc6">
+				<reportElement x="320" y="202" width="191" height="30" uuid="10f68133-01d1-41fc-9e03-86427dcbbdc6">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -220,7 +220,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="234" width="156" height="30" uuid="fa5f6544-d22e-456e-aa11-f35ee4ef3265">
+				<reportElement x="320" y="234" width="191" height="30" uuid="fa5f6544-d22e-456e-aa11-f35ee4ef3265">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -241,7 +241,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="270" width="100" height="30" uuid="23b1d498-2cdd-4662-bfa6-6b1cd28ca9d2">
+				<reportElement x="320" y="270" width="185" height="30" uuid="23b1d498-2cdd-4662-bfa6-6b1cd28ca9d2">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -262,7 +262,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="303" width="100" height="30" uuid="0b0eb3f8-e9a3-4ed9-bb1c-4d9c155ea032"/>
+				<reportElement x="320" y="303" width="185" height="30" uuid="0b0eb3f8-e9a3-4ed9-bb1c-4d9c155ea032"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font size="14"/>
 				</textElement>
@@ -281,7 +281,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="338" width="100" height="30" uuid="0398a971-26b1-40bf-adb9-0c1eccc16d32"/>
+				<reportElement x="320" y="341" width="215" height="30" uuid="0398a971-26b1-40bf-adb9-0c1eccc16d32"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font size="14"/>
 				</textElement>
@@ -302,7 +302,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="372" width="100" height="30" uuid="43df9b92-9a22-4bfb-a09b-42e11aaf32ca"/>
+				<reportElement x="320" y="372" width="180" height="30" uuid="43df9b92-9a22-4bfb-a09b-42e11aaf32ca"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14"/>
 				</textElement>
@@ -323,7 +323,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="407" width="100" height="30" uuid="9f346ff3-799d-40a5-be45-557d1de55c48"/>
+				<reportElement x="320" y="407" width="180" height="30" uuid="9f346ff3-799d-40a5-be45-557d1de55c48"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font size="14"/>
 				</textElement>
@@ -344,7 +344,7 @@ WHERE
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="320" y="445" width="100" height="30" uuid="3195d235-ea7d-4299-89b4-5e04b77c5c9a"/>
+				<reportElement x="320" y="445" width="180" height="30" uuid="3195d235-ea7d-4299-89b4-5e04b77c5c9a"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="DejaVu Sans" size="14"/>
 				</textElement>
@@ -360,7 +360,7 @@ WHERE
 				<text><![CDATA[Section Id : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="320" y="480" width="100" height="30" uuid="88a775f6-482f-421f-92a2-0665511a2515"/>
+				<reportElement x="320" y="480" width="180" height="30" uuid="88a775f6-482f-421f-92a2-0665511a2515"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="DejaVu Sans" size="14"/>
 				</textElement>

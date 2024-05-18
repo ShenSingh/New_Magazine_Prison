@@ -120,7 +120,7 @@ public class SettingPageController extends MainDashBoard implements Initializabl
     }
 
     private void setMainComboValues() {
-        mainSelectionCombo.getItems().addAll("Inmate", "Officer", "Visitor", "Expenses");
+        mainSelectionCombo.getItems().addAll("Inmate", "Officer", "Visitor");
     }
 
     private void setTransition() {

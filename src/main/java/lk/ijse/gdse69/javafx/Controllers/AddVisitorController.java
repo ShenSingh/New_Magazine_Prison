@@ -9,9 +9,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Alert.ShowAlert;
 import lk.ijse.gdse69.javafx.FlogQRCode.QRCodeGenerator;
-import lk.ijse.gdse69.javafx.Model.*;
-import lk.ijse.gdse69.javafx.Repository.*;
+import lk.ijse.gdse69.javafx.Model.Inmate;
+import lk.ijse.gdse69.javafx.Model.SetFirstVisitorRecord;
+import lk.ijse.gdse69.javafx.Model.Visitor;
+import lk.ijse.gdse69.javafx.Model.VisitorRecord;
+import lk.ijse.gdse69.javafx.Repository.InmateRepo;
+import lk.ijse.gdse69.javafx.Repository.SetFirstVisitorRecordRepo;
+import lk.ijse.gdse69.javafx.Repository.VisitorRecordRepo;
+import lk.ijse.gdse69.javafx.Repository.VisitorRepo;
 import lk.ijse.gdse69.javafx.Util.Util;
+import lk.ijse.gdse69.javafx.db.DbConnection;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.BufferedReader;
@@ -19,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -26,6 +38,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -79,6 +92,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
 
 
     private byte[] imageDate;
+    private String path;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -181,8 +195,9 @@ public class AddVisitorController extends MainDashBoard implements Initializable
                 String filePath = "src/main/resources/QRCodeStore/"+newVisitorId+".png";
                 boolean isGenerated = QRCodeGenerator.generateQRCode(newVisitorId);
                 if (isGenerated){
+                    path = filePath;
                     createVisitorObject();
-                    showQRCodeDialog(filePath);
+                    //showQRCodeDialog(filePath);
                     String nextVisitorRecordId = null;
                     try {
                         nextVisitorRecordId = getNextVisitorRecordId(VisitorRecordRepo.getAllVisitorRecords());
@@ -251,18 +266,18 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             return false;
         }
     }
-    public static void showQRCodeDialog(String filePath) {
-        Alert qrCodeAlert = new Alert(Alert.AlertType.INFORMATION);
-        qrCodeAlert.setTitle("QR Code");
-        qrCodeAlert.setHeaderText("Visitor QR Code");
-        File file = new File(filePath);
-        Image qrCodeImage = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(qrCodeImage);
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(300);
-        qrCodeAlert.getDialogPane().setContent(imageView);
-        qrCodeAlert.showAndWait();
-    }
+//    public static void showQRCodeDialog(String filePath) {
+//        Alert qrCodeAlert = new Alert(Alert.AlertType.INFORMATION);
+//        qrCodeAlert.setTitle("QR Code");
+//        qrCodeAlert.setHeaderText("Visitor QR Code");
+//        File file = new File(filePath);
+//        Image qrCodeImage = new Image(file.toURI().toString());
+//        ImageView imageView = new ImageView(qrCodeImage);
+//        imageView.setFitWidth(300);
+//        imageView.setFitHeight(300);
+//        qrCodeAlert.getDialogPane().setContent(imageView);
+//        qrCodeAlert.showAndWait();
+//    }
     public void submitBtn(ActionEvent actionEvent) throws SQLException {
         if (createVisitorObject() != null && checkRecordEmptyFields()) {
 
@@ -272,6 +287,7 @@ public class AddVisitorController extends MainDashBoard implements Initializable
             boolean isSaved =SetFirstVisitorRecordRepo.save(setFirstVisitorRecord);
             if (isSaved){
                 ShowAlert.showSuccessNotify("Visitor Record Saved Successfully");
+                showPass(imageDate);
                 clearFields();
                 this.inmateId.clear();
                 this.visitorRecordId.clear();
@@ -283,6 +299,44 @@ public class AddVisitorController extends MainDashBoard implements Initializable
         } else {
         ShowAlert.showErrorNotify("Please Fill All Fields");
         }
+    }
+    public static byte[] createByteArrayFromImage(String imagePath) throws IOException {
+        File file = new File(imagePath);
+        return Files.readAllBytes(file.toPath());
+    }
+
+    private void showPass(byte[] imageDate) {
+
+        File file = new File(path);
+
+        String id = visitorId.getText();
+        byte[] qrCodeData = new byte[0];
+        try {
+            qrCodeData = createByteArrayFromImage(file.getPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        JasperDesign design = null;
+
+        try {
+            design = JRXmlLoader.load("src/main/resources/Reports/visitor_Visit_Pass_.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("visitorId", id); // Pass the visitor ID
+            parameters.put("QRcode", qrCodeData);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbConnection.getInstance().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        // Export the report to a PDF file
+        //JasperExportManager.exportReportToPdfFile(jasperPrint, "path/to/your/report.pdf");
+
     }
 
     private boolean checkRecordEmptyFields() {

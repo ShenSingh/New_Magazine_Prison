@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inmateProfile" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6772e1e0-4ba1-42c7-be1d-addb812234e7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<parameter name="inmateId" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM Inmate WHERE  `New_Magazine_Prison`.`Inmate`.`inmateId` 
+= $P{inmateId} ]]>
+	</queryString>
+	<field name="inmateId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inmateId"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="inmateFirstName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inmateFirstName"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateFirstName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="inmateLastName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inmateLastName"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateLastName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="inmateDOB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="inmateDOB"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateDOB"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="inmateNIC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inmateNIC"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateNIC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="inmateAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inmateAddress"/>
+		<property name="com.jaspersoft.studio.field.label" value="inmateAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<field name="imageData" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="imageData"/>
+		<property name="com.jaspersoft.studio.field.label" value="imageData"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Inmate"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="-7" width="532" height="64" uuid="48263225-c07f-4998-9075-aae1d62725af"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif Condensed" size="35" isBold="false"/>
+				</textElement>
+				<text><![CDATA[New Magazine Prison]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-13" y="-6" width="56" height="76" uuid="4c73e4cf-3f33-4590-934a-cdc3f48c24c2"/>
+				<imageExpression><![CDATA["/home/shen/Documents/myProject/NewManazinePrison/src/main/resources/images/icon/sriLankaLogoMini.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="310" y="45" width="257" height="23" uuid="4edac9f5-61a0-48d9-b800-cbe6278103b1"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department of Prisons Sri Lanka]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="8" width="190" height="35" uuid="e89b2228-b011-4003-bbc7-9eea7f1f5111"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inmate Profile]]></text>
+			</staticText>
+			<line>
+				<reportElement x="41" y="36" width="464" height="1" uuid="a27d4cd9-dc68-44de-8399-81ca8ad42476"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="590" splitType="Stretch">
+			<rectangle>
+				<reportElement x="126" y="18" width="414" height="570" uuid="5961a46a-c8d9-4461-8343-0839649d5f41"/>
+			</rectangle>
+			<image>
+				<reportElement x="-21" y="119" width="147" height="470" uuid="b7d620fe-a44c-4f4a-8b4e-84a2dc840b6f"/>
+				<imageExpression><![CDATA["/home/shen/Documents/myProject/NewManazinePrison/src/main/resources/images/waves.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="334" y="31" width="194" height="35" uuid="e64e37cc-74fc-472a-8b2f-06ad4f3c49d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Persolal Details]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="158" width="100" height="30" uuid="188647d3-453e-48af-babf-9bd898430226"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmateId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="172" width="100" height="30" uuid="42740a96-4eca-4d73-bc4f-f7a9d3509fa0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="190" width="220" height="1" uuid="981ac81a-b341-4ee5-ac81-daa9619a1c66"/>
+			</line>
+			<textField>
+				<reportElement x="320" y="216" width="100" height="30" uuid="fca1d093-cae1-40c1-9a69-2c897869d1bc"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmateFirstName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="231" width="100" height="30" uuid="c1cccfc0-0ebc-4df8-8783-e76fff0d0a05">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[First Name : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="248" width="220" height="1" uuid="731b63d0-bf86-476d-be4b-ea799e89f1a6"/>
+			</line>
+			<textField>
+				<reportElement x="320" y="272" width="100" height="30" uuid="bc7070ef-1c2f-47b6-9780-85945023e843"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmateLastName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="290" width="100" height="30" uuid="4ed49940-27f8-4f56-a316-e9a50346eae4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Last Name : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="306" width="220" height="1" uuid="22d5d44b-4008-4e29-9845-58551b5bfd68"/>
+			</line>
+			<textField>
+				<reportElement x="320" y="332" width="100" height="30" uuid="c2327cd1-3d1e-42b3-a5e5-dbcfda3d8c3b"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmateDOB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="350" width="100" height="30" uuid="7a4ce044-0c2c-4ded-b3e3-6ee3e61fca65">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOB : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="366" width="220" height="1" uuid="348092f0-61cb-4191-8ce8-17818203ba8f"/>
+			</line>
+			<textField>
+				<reportElement x="320" y="393" width="100" height="30" uuid="bb8f5c91-ef1c-49f8-bcbd-482f8ae06eb2"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="410" width="100" height="30" uuid="e7e94a4f-6a05-4fb8-9da2-be37132a5a95">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="426" width="220" height="1" uuid="efe16d96-c516-4edc-827c-456004428f12"/>
+			</line>
+			<staticText>
+				<reportElement x="150" y="468" width="100" height="30" uuid="df8ffcf6-572e-4d50-b3ff-82698daf503e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="483" width="220" height="1" uuid="841b854a-63bd-4a11-bf57-1ca03cd697cd"/>
+			</line>
+			<textField>
+				<reportElement x="320" y="450" width="100" height="30" uuid="0b3915c8-8253-46e9-92f0-c8951521898e"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inmateAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="505" width="100" height="30" uuid="b1c24273-05e0-45e2-812a-822f1c786e59">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="525" width="100" height="30" uuid="08979ad2-0e73-483b-83f4-9489860e2618">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Abyssinica SIL" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="540" width="220" height="1" uuid="d4ca7e68-160b-4cab-9099-0faa34531bbd"/>
+			</line>
+			<image>
+				<reportElement x="145" y="32" width="105" height="108" uuid="121887c8-dc24-417e-992c-2bfbe745f1d7"/>
+				<imageExpression><![CDATA[new javax.swing.ImageIcon($F{imageData}).getImage()]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="72" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-8" width="120" height="70" backcolor="#666666" uuid="fec9f193-603c-4472-8f9a-43c67c683d43">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement x="32" y="17" width="47" height="36" forecolor="#000000" uuid="1d766049-b74a-4d2b-9403-4c212521f19b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif Condensed" size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>
