@@ -67,6 +67,15 @@ public class DashBoardController  extends MainDashBoard implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        visitorProgressBar.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                try {
+                    setShortCutKey(newScene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         try {
             setTotalCount();
@@ -200,15 +209,6 @@ public class DashBoardController  extends MainDashBoard implements Initializable
         visitorProgressBar.setProgress(0.0);
         visitorProgressBar.setProgress(0.2);
 
-        visitorProgressBar.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                try {
-                    setShortCutKey(newScene);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
     }
 
     private void setVisitorBarValues() throws SQLException {

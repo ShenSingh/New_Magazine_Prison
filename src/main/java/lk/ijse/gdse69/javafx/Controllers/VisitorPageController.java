@@ -6,9 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -94,6 +98,16 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        visitorBtn.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                try {
+                    setShortCutKey(newScene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
         System.out.println("Visitor Page");
 
         tvAddress.getTableView().setStyle(
@@ -120,6 +134,56 @@ public class VisitorPageController extends MainDashBoard implements Initializabl
 
     }
 
+    private void setShortCutKey(Scene scene) throws IOException {
+
+        if (scene == null) {
+            System.out.println("scene is null");
+        }else {
+            scene.setOnKeyPressed(event -> {
+                if (new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + d");
+                    try {
+                        createStage("/View/InmatePage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + o");
+                    try {
+                        createStage("/View/OfficerPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + d");
+                    try {
+                        createStage("/View/DashBoard.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + s");
+                    try {
+                        createStage("/View/SectionPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + e");
+                    try {
+                        createStage("/View/financialPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+
+    }
     private void setSearchIds() {
         List<String> visitorIds = new ArrayList<>();
 

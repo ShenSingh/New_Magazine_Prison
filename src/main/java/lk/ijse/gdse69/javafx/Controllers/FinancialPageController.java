@@ -3,17 +3,22 @@ package lk.ijse.gdse69.javafx.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.gdse69.javafx.Model.Expences;
 import lk.ijse.gdse69.javafx.Repository.ExpencesRepo;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,16 @@ public class FinancialPageController extends MainDashBoard implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        visitorBtn.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                try {
+                    setShortCutKey(newScene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
         setLyValues();
         Map<String, Double> totalCost = ExpencesRepo.getTotalCostByType();
 
@@ -69,7 +84,55 @@ public class FinancialPageController extends MainDashBoard implements Initializa
         setValuesLineChart();
         searchExpenId();
     }
+    private void setShortCutKey(Scene scene) throws IOException {
 
+        if (scene == null) {
+            System.out.println("scene is null");
+        }else {
+            scene.setOnKeyPressed(event -> {
+                if (new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + d");
+                    try {
+                        createStage("/View/InmatePage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + o");
+                    try {
+                        createStage("/View/OfficerPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + v");
+                    try {
+                        createStage("/View/VisitorPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + s");
+                    try {
+                        createStage("/View/SectionPage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN).match(event)) {
+                    System.out.println("click ctrl + d");
+                    try {
+                        createStage("/View/DashBoard.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
     private void searchExpenId() {
         List<String> expenIds = new ArrayList<>();
 
