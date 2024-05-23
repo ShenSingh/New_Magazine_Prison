@@ -84,6 +84,8 @@ public class WelcomeController implements Initializable {
 
     private static String FlogUId;
 
+    private static Scene scene;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flogHide(false);
@@ -110,6 +112,8 @@ public class WelcomeController implements Initializable {
                 // Load FXML file
                 Parent rootNode = FXMLLoader.load(getClass().getResource("/View/DashBoard.fxml"));
                 Scene signInScene = new Scene(rootNode,1264,631);
+
+                this.scene = signInScene;
                 int displayDurationMillis = 3000;// 5s
                 PauseTransition delay = new PauseTransition(Duration.millis(displayDurationMillis));
                 delay.setOnFinished(event ->{
@@ -129,6 +133,9 @@ public class WelcomeController implements Initializable {
             uNameField.clear();
             uPassField.clear();
         }
+    }
+    public static Scene getScene() {
+        return scene;
     }
     public static Stage getDashBoardStage() {
         return dashBoardStage;

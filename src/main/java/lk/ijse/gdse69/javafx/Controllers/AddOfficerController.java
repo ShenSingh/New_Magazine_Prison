@@ -187,7 +187,9 @@ public class AddOfficerController extends MainDashBoard  implements Initializabl
 
 
         if (checkEmptyFields()){
-            if(Util.checkValidText(fName.getText(),"^[A-Za-z\\s'-]+$")){}else{
+            if(Util.checkValidText(fName.getText(),"^[A-Za-z\\s'-]+$")){
+                //
+            }else{
                 ShowAlert.showErrorNotify("Invalid First Name. Ex : John");
                 return;
             }
